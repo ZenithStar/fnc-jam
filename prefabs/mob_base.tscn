@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkooc6f0myqnn"]
+
+[sub_resource type="GDScript" id="GDScript_8gsgy"]
+script/source = "extends Area2D
+
+@export var max_health: float = 100.0
+@onready var current_health: float = max_health
+@export var drops: Dictionary[PackedScene, int]
+
+signal hit( damage: float )
+signal death
+
+
+func on_hit( damage: float ):
+	current_health -= damage
+	if current_health <= 0.0:
+		death.emit()
+
+
+func on_death( ):
+	var drop_scenes: Array[Node] = []
+	for drop in drops:
+		for count in drops[drop]:
+			drop_scenes.append( drop.instantiate() )
+	
+	# TODO: Maybe have pickup drops be handled by a global server at a centralized location. 
+	# That way it'll be easy for the player to vacuum. 
+	# It'll also handle spawn in a cluster spread if multiple need to be spawned at the same time
+		
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8gsgy"]
+
+[node name="MobBase" type="Area2D"]
+collision_layer = 2
+script = SubResource("GDScript_8gsgy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8gsgy")
+
+[connection signal="death" from="." to="." method="on_death"]
+[connection signal="hit" from="." to="." method="on_hit"]
