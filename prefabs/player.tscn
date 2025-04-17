@@ -3,8 +3,8 @@
 [sub_resource type="GDScript" id="GDScript_fp3wc"]
 script/source = "extends Area2D
 
-@export var normal_velocity: = 75.0 ## px/s
-@export var focused_velocity: = 30.0 ## px/s
+@export var normal_velocity: = 300.0 ## px/s
+@export var focused_velocity: = 100.0 ## px/s
 
 @export var gameplay_bounds: Rect2 = Rect2(-384, -448, 768, 896)
 
@@ -26,7 +26,9 @@ func _physics_process(delta) -> void:
 resource_local_to_scene = true
 radius = 3.0
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="Area2D" groups=["Player"]]
+collision_mask = 0
+monitoring = false
 script = SubResource("GDScript_fp3wc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2na3s8hp6lby"]
+
+[ext_resource type="PackedScene" uid="uid://dbyh3c2k76wku" path="res://prefabs/pickup_base.tscn" id="1_4lii1"]
+[ext_resource type="Texture2D" uid="uid://bovklqa00ptxi" path="res://assets/pickup_atlases/life_shard.tres" id="2_efryc"]
+[ext_resource type="Texture2D" uid="uid://uemf2uwrymgn" path="res://assets/pickup_atlases/life_shard_offscreen.tres" id="3_d3lap"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j3usc"]
+resource_local_to_scene = true
+radius = 20.0
+
+[node name="LifeShardPickup" instance=ExtResource("1_4lii1")]
+type = 5
+offscreen_position = -432.0
+offscreen_threshold = -464.0
+sprite = ExtResource("2_efryc")
+offscreen_sprite = ExtResource("3_d3lap")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_j3usc")
+
+[node name="OffscreenSprite" parent="." index="2"]
+visible = true

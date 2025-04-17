@@ -1,0 +1,105 @@
+[gd_scene load_steps=5 format=3 uid="uid://l6fmd7keqx2k"]
+
+[ext_resource type="Texture2D" uid="uid://cj10x61yilwcc" path="res://icon.svg" id="1_t8y47"]
+[ext_resource type="Script" uid="uid://bsd36bvihkaa3" path="res://classes/DiagonalizedVBoxContainer.gd" id="2_s4edq"]
+
+[sub_resource type="Theme" id="Theme_p25lt"]
+default_font_size = 24
+
+[sub_resource type="GDScript" id="GDScript_phw8v"]
+script/source = "extends Control
+
+func _ready() -> void:
+	$\"DiagonalizedVBoxContainer/Game Start\".grab_focus()
+
+
+func _on_game_start_pressed() -> void:
+	get_tree().get_first_node_in_group(\"Main\").start_game() # TODO: add difficulty + character selector
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()
+"
+
+[node name="Title" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_p25lt")
+script = SubResource("GDScript_phw8v")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_t8y47")
+stretch_mode = 6
+
+[node name="DiagonalizedVBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.9
+anchor_right = 0.05
+anchor_bottom = 0.9
+grow_vertical = 0
+script = ExtResource("2_s4edq")
+
+[node name="Game Start" type="Button" parent="DiagonalizedVBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Quit")
+text = "Game Start"
+
+[node name="Extra Start" type="Button" parent="DiagonalizedVBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Extra Start"
+
+[node name="Practice" type="Button" parent="DiagonalizedVBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Practice"
+
+[node name="Spell Practice" type="Button" parent="DiagonalizedVBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Spell Practice"
+
+[node name="Replay" type="Button" parent="DiagonalizedVBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Replay"
+
+[node name="Player Data" type="Button" parent="DiagonalizedVBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Player Data"
+
+[node name="Music Room" type="Button" parent="DiagonalizedVBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Music Room"
+
+[node name="Option" type="Button" parent="DiagonalizedVBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Option"
+
+[node name="Manual" type="Button" parent="DiagonalizedVBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Manual"
+
+[node name="Quit" type="Button" parent="DiagonalizedVBoxContainer"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Game Start")
+text = "Quit"
+
+[connection signal="pressed" from="DiagonalizedVBoxContainer/Game Start" to="." method="_on_game_start_pressed"]
+[connection signal="pressed" from="DiagonalizedVBoxContainer/Quit" to="." method="_on_quit_pressed"]

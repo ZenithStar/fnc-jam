@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://csf8dfafuvl8q"]
+[gd_scene load_steps=3 format=3 uid="uid://csf8dfafuvl8q"]
 
 [ext_resource type="Texture2D" uid="uid://cj10x61yilwcc" path="res://icon.svg" id="1_lj5lv"]
+[ext_resource type="PackedScene" uid="uid://dm3udx5tvgc4n" path="res://prefabs/game_server.tscn" id="2_sr2lt"]
 
 [node name="GameplayUI" type="Control"]
 layout_mode = 3
@@ -36,7 +37,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SubViewport" type="SubViewport" parent="GameplayArea/GameplayViewportContainer"]
+handle_input_locally = false
 size = Vector2i(768, 896)
+render_target_update_mode = 4
+
+[node name="GameServer" parent="GameplayArea/GameplayViewportContainer/SubViewport" instance=ExtResource("2_sr2lt")]
+position = Vector2(64, 32)
 
 [node name="NowPlayingMusicToast" type="Control" parent="GameplayArea"]
 layout_mode = 1

@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://djw0ru5od7hbm"]
+
+[ext_resource type="PackedScene" uid="uid://dbyh3c2k76wku" path="res://prefabs/pickup_base.tscn" id="1_b25pm"]
+[ext_resource type="Texture2D" uid="uid://h84c5eifhmbo" path="res://assets/pickup_atlases/small_power.tres" id="2_dk4nw"]
+[ext_resource type="Texture2D" uid="uid://cgreeg583aili" path="res://assets/pickup_atlases/small_power_offscreen.tres" id="3_wbkxi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kuvc8"]
+resource_local_to_scene = true
+radius = 20.0
+
+[node name="SmallPowerPickup" instance=ExtResource("1_b25pm")]
+sprite = ExtResource("2_dk4nw")
+offscreen_sprite = ExtResource("3_wbkxi")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_kuvc8")

@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4pj6ndi2g46v"]
+
+[ext_resource type="PackedScene" uid="uid://dbyh3c2k76wku" path="res://prefabs/pickup_base.tscn" id="1_653m8"]
+[ext_resource type="Texture2D" uid="uid://dur6iqmxwgx30" path="res://assets/pickup_atlases/large_point.tres" id="2_c1lvj"]
+[ext_resource type="Texture2D" uid="uid://cgs5mxci50u6i" path="res://assets/pickup_atlases/large_point_offscreen.tres" id="3_57vdd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ud11j"]
+resource_local_to_scene = true
+radius = 20.0
+
+[node name="LargePointPickup" instance=ExtResource("1_653m8")]
+type = 4
+sprite = ExtResource("2_c1lvj")
+offscreen_sprite = ExtResource("3_57vdd")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_ud11j")

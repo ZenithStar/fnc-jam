@@ -3,10 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://cyfthxwndcuvj" path="res://prefabs/player.tscn" id="1_g4ugd"]
 [ext_resource type="Texture2D" uid="uid://b4ftu3kim0uko" path="res://assets/seija_real/reimu.png" id="2_gbssq"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hwkca"]
-resource_local_to_scene = true
-radius = 3.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_0sp34"]
 atlas = ExtResource("2_gbssq")
 region = Rect2(0, 0, 32, 48)
@@ -165,13 +161,18 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_hwkca"]
+resource_local_to_scene = true
+radius = 6.0
+
 [node name="Reimu" instance=ExtResource("1_g4ugd")]
 
-[node name="CollisionShape2D" parent="." index="0"]
-shape = SubResource("CircleShape2D_hwkca")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_0gvig")
 animation = &"center"
 autoplay = "center"
 frame_progress = 0.98177
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_hwkca")

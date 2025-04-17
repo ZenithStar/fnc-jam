@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bfgaabamhj2t0"]
+
+[ext_resource type="Texture2D" uid="uid://cr1no4sia5k55" path="res://assets/seija_real/drops.png" id="1_drt6k"]
+
+[resource]
+atlas = ExtResource("1_drt6k")
+region = Rect2(0, 64, 16, 16)
