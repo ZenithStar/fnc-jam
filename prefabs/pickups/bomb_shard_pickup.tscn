@@ -10,8 +10,8 @@ radius = 20.0
 
 [node name="BombShardPickup" instance=ExtResource("1_gdw3x")]
 type = 6
-offscreen_position = -432.0
-offscreen_threshold = -464.0
+offscreen_position = -392.0
+offscreen_threshold = -440.0
 sprite = ExtResource("2_og2sb")
 offscreen_sprite = ExtResource("3_ex5cr")
 

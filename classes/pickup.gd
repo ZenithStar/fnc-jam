@@ -18,8 +18,8 @@ const VACUUM_VELOCITY: = 250.0
 const VACUUM_THRESHOLD: = 8.0
 
 @export var type: Type
-@export var offscreen_position: float = -440 ## -440 for 16x16 and -432 for 32x32
-@export var offscreen_threshold: float = -456 ## -456 for 16x16 and -464 for 32x32
+@export var offscreen_position: float = -404 ## -404 for 16x16 and -392 for 32x32
+@export var offscreen_threshold: float = -428 ## -428 for 16x16 and -440 for 32x32
 @export var sprite: Texture2D
 @export var offscreen_sprite: Texture2D
 

@@ -10,8 +10,8 @@ radius = 20.0
 
 [node name="LifeShardPickup" instance=ExtResource("1_4lii1")]
 type = 5
-offscreen_position = -432.0
-offscreen_threshold = -464.0
+offscreen_position = -392.0
+offscreen_threshold = -440.0
 sprite = ExtResource("2_efryc")
 offscreen_sprite = ExtResource("3_d3lap")
 
