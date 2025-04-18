@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbyh3c2k76wku"]
+
+[ext_resource type="Script" uid="uid://cdo8rjcttyn60" path="res://classes/pickup.gd" id="1_xc8wu"]
+[ext_resource type="Texture2D" uid="uid://h84c5eifhmbo" path="res://assets/pickup_atlases/small_power.tres" id="2_uftiu"]
+[ext_resource type="Texture2D" uid="uid://cgreeg583aili" path="res://assets/pickup_atlases/small_power_offscreen.tres" id="3_spnbk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dl36y"]
+resource_local_to_scene = true
+radius = 64.0
+
+[node name="PickupBase" type="Area2D"]
+collision_layer = 0
+monitorable = false
+script = ExtResource("1_xc8wu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dl36y")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_uftiu")
+
+[node name="OffscreenSprite" type="Sprite2D" parent="."]
+visible = false
+top_level = true
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_spnbk")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

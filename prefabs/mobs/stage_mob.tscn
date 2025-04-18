@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddqb0e1knrejo"]
+
+[ext_resource type="Script" uid="uid://cd5hm8p6xk7e6" path="res://classes/stage_mob.gd" id="1_q847s"]
+
+[sub_resource type="Curve2D" id="Curve2D_imvck"]
+
+[sub_resource type="Animation" id="Animation_dt4ti"]
+resource_name = "follow_path"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7t60c"]
+resource_local_to_scene = true
+_data = {
+&"follow_path": SubResource("Animation_dt4ti")
+}
+
+[node name="StageMob" type="Path2D"]
+curve = SubResource("Curve2D_imvck")
+script = ExtResource("1_q847s")
+metadata/_custom_type_script = "uid://cd5hm8p6xk7e6"
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7t60c")
+}

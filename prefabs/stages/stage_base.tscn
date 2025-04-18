@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsuled2355muo"]
+
+[ext_resource type="Script" uid="uid://duxla8n514qtv" path="res://classes/stage_base.gd" id="1_hhppd"]
+[ext_resource type="Script" uid="uid://c7k8jikqsdt6p" path="res://classes/stage_editor_hint.gd" id="2_yr1me"]
+
+[sub_resource type="Animation" id="Animation_yr1me"]
+resource_name = "stage"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aoblf"]
+resource_local_to_scene = true
+_data = {
+&"stage": SubResource("Animation_yr1me")
+}
+
+[node name="StageBase" type="AnimationPlayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_aoblf")
+}
+script = ExtResource("1_hhppd")
+
+[node name="StageEditorHint" type="Node2D" parent="."]
+script = ExtResource("2_yr1me")
+metadata/_custom_type_script = "uid://c7k8jikqsdt6p"

@@ -41,6 +41,7 @@ Main=""
 GameServer=""
 PickupServer=""
 Player=""
+BGMServer=""
 
 [input]
 

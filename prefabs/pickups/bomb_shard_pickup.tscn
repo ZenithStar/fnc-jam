@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bhstkjthfyhwc"]
 
-[ext_resource type="PackedScene" uid="uid://dbyh3c2k76wku" path="res://prefabs/pickup_base.tscn" id="1_gdw3x"]
+[ext_resource type="PackedScene" uid="uid://dbyh3c2k76wku" path="res://prefabs/pickups/pickup_base.tscn" id="1_gdw3x"]
 [ext_resource type="Texture2D" uid="uid://c5cd4gpi0h2fa" path="res://assets/pickup_atlases/bomb_shard.tres" id="2_og2sb"]
 [ext_resource type="Texture2D" uid="uid://dti2kmlpirnyi" path="res://assets/pickup_atlases/bomb_shard_offscreen.tres" id="3_ex5cr"]
 

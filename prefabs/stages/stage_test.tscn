@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://ji0yg461mfxp"]
+
+[ext_resource type="PackedScene" uid="uid://dsuled2355muo" path="res://prefabs/stages/stage_base.tscn" id="1_ctf3g"]
+
+[node name="StageTest" instance=ExtResource("1_ctf3g")]
