@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=3 uid="uid://cmbywlty6l8lg"]
+
+[ext_resource type="PackedScene" uid="uid://q677bu5cg2qo" path="res://prefabs/bosses/boss_base.tscn" id="1_ny0e0"]
+[ext_resource type="Texture2D" uid="uid://chge6disyny5y" path="res://assets/combat_sprites/sprite_jane-baker_combat-Sheet.png" id="2_xiqwy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fp255"]
+resource_local_to_scene = true
+radius = 48.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wr5q"]
+atlas = ExtResource("2_xiqwy")
+region = Rect2(0, 0, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jawuc"]
+atlas = ExtResource("2_xiqwy")
+region = Rect2(90, 0, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7uda"]
+atlas = ExtResource("2_xiqwy")
+region = Rect2(180, 0, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ud6b5"]
+atlas = ExtResource("2_xiqwy")
+region = Rect2(0, 230, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exn4c"]
+atlas = ExtResource("2_xiqwy")
+region = Rect2(90, 230, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4d6f"]
+atlas = ExtResource("2_xiqwy")
+region = Rect2(180, 230, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4lqdl"]
+atlas = ExtResource("2_xiqwy")
+region = Rect2(90, 115, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xa0ij"]
+atlas = ExtResource("2_xiqwy")
+region = Rect2(180, 115, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ayong"]
+atlas = ExtResource("2_xiqwy")
+region = Rect2(0, 115, 90, 115)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oucbn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wr5q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jawuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7uda")
+}],
+"loop": true,
+"name": &"center",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ud6b5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exn4c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4d6f")
+}],
+"loop": true,
+"name": &"left",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4lqdl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xa0ij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ayong")
+}],
+"loop": true,
+"name": &"right",
+"speed": 4.0
+}]
+
+[node name="Jane" instance=ExtResource("1_ny0e0")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_fp255")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_oucbn")
+animation = &"center"
+autoplay = "center"
+frame_progress = 0.864373

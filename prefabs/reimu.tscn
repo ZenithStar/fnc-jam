@@ -172,7 +172,7 @@ scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_0gvig")
 animation = &"center"
 autoplay = "center"
-frame_progress = 0.98177
+frame_progress = 0.0906922
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_hwkca")

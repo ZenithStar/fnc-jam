@@ -75,6 +75,7 @@ animations = [{
 [node name="TinyRedFairy" instance=ExtResource("1_nmx1u")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_o3ubt")
 animation = &"center"
 autoplay = "center"

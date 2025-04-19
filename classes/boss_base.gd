@@ -1,13 +1,25 @@
-extends Area2D
+class_name BossBase extends Area2D
+## Typically spawned by a Stage animation player
+signal release ## notifies the animation player to continue
+signal phase
 
-const LATERAL_ANIMATION_THRESHOLD = 20.0 ## at what px/s velocity to 
-const VELOCITY_X_FILTER_LENGTH: int = 10
-var _velocity_x_buffer: Array[float]
-var _last_position_x: float = 0.0
+@export var phases_remaining: int ## this is purely for display purposes. phasing is handled in the coroutine
+@export var max_hp: float = 10000.0
+@export var damage_till_phase: float = 0.0:
+	set(value):
+		var last_damage: = damage_till_phase
+		damage_till_phase = value
+		if last_damage > 0.0 and damage_till_phase <= 0.0:
+			phase.emit()
+@export var damage_reduction: = 1.0
 
-@export var max_health: float = 100.0
-@onready var current_health: float = max_health
-@export var drops: Dictionary[PackedScene, int]
+@export var active: bool = false:
+	set( value ):
+		if active != value:
+			active = value
+			monitorable = active
+			if not active:
+				position = Vector2(10000.0, 10000.0) #teleport far away
 
 enum Directions{
 	CENTER,
@@ -24,25 +36,22 @@ enum Directions{
 					Directions.CENTER:
 						sprite.animation = "center"
 					Directions.LEFT:
-						sprite.animation = "right"
-						sprite.flip_h = true
+						sprite.animation = "left"
 					Directions.RIGHT:
 						sprite.animation = "right"
-						sprite.flip_h = false
 
+func _init() -> void:
+	position = Vector2(10000.0, 10000.0) # always spawn it way off screen
 
 signal hit( damage: float )
-signal death
 
 func _on_hit( damage: float ):
-	current_health -= damage
-	if current_health <= 0.0:
-		death.emit()
+	damage_till_phase -= damage * damage_reduction
 
-func _on_death( ):
-	get_tree().get_first_node_in_group("PickupServer").spawn(global_position, drops)
-	queue_free()
-
+const LATERAL_ANIMATION_THRESHOLD = 20.0 ## at what px/s velocity to 
+const VELOCITY_X_FILTER_LENGTH: int = 10
+var _velocity_x_buffer: Array[float]
+var _last_position_x: float = 0.0
 func _physics_process(delta: float) -> void:
 	var velocity_x: = (global_position.x - _last_position_x) / delta
 	_last_position_x = global_position.x

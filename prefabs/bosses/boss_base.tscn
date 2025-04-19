@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://q677bu5cg2qo"]
+
+[ext_resource type="Script" uid="uid://2m6rsdnshpud" path="res://classes/boss_base.gd" id="1_77flw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ugre"]
+resource_local_to_scene = true
+radius = 48.0
+
+[node name="BossBase" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("1_77flw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3ugre")

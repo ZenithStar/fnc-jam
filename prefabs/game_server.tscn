@@ -1,10 +1,73 @@
-[gd_scene load_steps=11 format=3 uid="uid://dm3udx5tvgc4n"]
+[gd_scene load_steps=12 format=3 uid="uid://dm3udx5tvgc4n"]
 
 [ext_resource type="Script" uid="uid://b2wm5jbybwxqr" path="res://classes/game_server.gd" id="1_507v1"]
 [ext_resource type="Script" uid="uid://bjjrhdih67ywi" path="res://classes/pickup_server.gd" id="2_flofk"]
+[ext_resource type="PackedScene" uid="uid://ji0yg461mfxp" path="res://prefabs/stages/stage_test.tscn" id="3_5v0ui"]
 [ext_resource type="Texture2D" uid="uid://nxivm6cwkio4" path="res://assets/texture_07.png" id="3_flofk"]
-[ext_resource type="PackedScene" uid="uid://d2na3s8hp6lby" path="res://prefabs/pickups/life_shard_pickup.tscn" id="3_qofpv"]
-[ext_resource type="PackedScene" uid="uid://bacvoy2ngo7o0" path="res://prefabs/pickups/large_power_pickup.tscn" id="4_7ya2j"]
+
+[sub_resource type="Animation" id="Animation_yr1me"]
+resource_name = "stage"
+length = 120.0
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("follow_path"),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "animation"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../StageMob2/AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": PackedStringArray("follow_path"),
+"times": PackedFloat32Array(0.833333)
+}
+tracks/2/type = "animation"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../StageMob3/AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": PackedStringArray("follow_path"),
+"times": PackedFloat32Array(1.66667)
+}
+tracks/3/type = "animation"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../StageMob4/AnimationPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": PackedStringArray("follow_path"),
+"times": PackedFloat32Array(2.6)
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("..")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(10.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["test_sequence"],
+"method": &"play_coroutine"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5v0ui"]
+resource_local_to_scene = true
+_data = {
+&"stage": SubResource("Animation_yr1me")
+}
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_flofk"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -31,17 +94,15 @@ script = ExtResource("1_507v1")
 [node name="PickupServer" type="Node2D" parent="." groups=["PickupServer"]]
 script = ExtResource("2_flofk")
 
-[node name="LifeShardPickup" parent="PickupServer" instance=ExtResource("3_qofpv")]
-position = Vector2(-54, -295)
-
-[node name="LargePowerPickup" parent="PickupServer" instance=ExtResource("4_7ya2j")]
-position = Vector2(115, -451)
-monitorable = true
-
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
 position = Vector2(0, 360)
+
+[node name="StageTest" parent="." instance=ExtResource("3_5v0ui")]
+libraries = {
+&"": SubResource("AnimationLibrary_5v0ui")
+}
 
 [node name="Background" type="Node3D" parent="."]
 
@@ -59,5 +120,3 @@ mesh = SubResource("TorusMesh_qofpv")
 transform = Transform3D(0.995393, 0.0516224, -0.0807973, 0, 0.842687, 0.538403, 0.0958805, -0.535923, 0.838805, -0.236933, 1.20848, 2.18246)
 
 [connection signal="pickup" from="." to="." method="_on_pickup"]
-[connection signal="body_entered" from="PickupServer/LifeShardPickup" to="PickupServer/LifeShardPickup" method="_on_body_entered"]
-[connection signal="body_entered" from="PickupServer/LargePowerPickup" to="PickupServer/LargePowerPickup" method="_on_body_entered"]

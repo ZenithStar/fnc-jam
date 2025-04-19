@@ -6,7 +6,7 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dl36y"]
 resource_local_to_scene = true
-radius = 64.0
+radius = 96.0
 
 [node name="PickupBase" type="Area2D"]
 collision_layer = 0

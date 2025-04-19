@@ -10,8 +10,7 @@ default_font_size = 24
 script/source = "extends Control
 
 func _ready() -> void:
-	get_tree().get_first_node_in_group(\"BGMServer\").set(\"switch_to_clip\", \"Title Screen\")
-	get_tree().get_first_node_in_group(\"BGMServer\").play()
+	get_tree().get_first_node_in_group(\"Main\").change_bgm(\"uid://boab0nsa4uero\")
 	$\"DiagonalizedVBoxContainer/Game Start\".grab_focus()
 
 

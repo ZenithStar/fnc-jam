@@ -1,5 +1,196 @@
-[gd_scene load_steps=2 format=3 uid="uid://ji0yg461mfxp"]
+[gd_scene load_steps=14 format=3 uid="uid://ji0yg461mfxp"]
 
 [ext_resource type="PackedScene" uid="uid://dsuled2355muo" path="res://prefabs/stages/stage_base.tscn" id="1_ctf3g"]
+[ext_resource type="Script" uid="uid://bgob1tfuc5pcw" path="res://prefabs/stages/stage_test.gd" id="2_lq56u"]
+[ext_resource type="PackedScene" uid="uid://ddqb0e1knrejo" path="res://prefabs/mobs/stage_mob.tscn" id="3_5vv3v"]
+[ext_resource type="PackedScene" uid="uid://cmbywlty6l8lg" path="res://prefabs/bosses/jane.tscn" id="3_ol3aj"]
+[ext_resource type="PackedScene" uid="uid://drkr6aa4clf2q" path="res://prefabs/mobs/tiny_red_fairy.tscn" id="4_ol3aj"]
+
+[sub_resource type="Animation" id="Animation_yr1me"]
+resource_name = "stage"
+length = 120.0
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("follow_path"),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "animation"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../StageMob2/AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": PackedStringArray("follow_path"),
+"times": PackedFloat32Array(0.833333)
+}
+tracks/2/type = "animation"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../StageMob3/AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": PackedStringArray("follow_path"),
+"times": PackedFloat32Array(1.66667)
+}
+tracks/3/type = "animation"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../StageMob4/AnimationPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": PackedStringArray("follow_path"),
+"times": PackedFloat32Array(2.6)
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("..")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(10.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["test_sequence"],
+"method": &"play_coroutine"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aoblf"]
+resource_local_to_scene = true
+_data = {
+&"stage": SubResource("Animation_yr1me")
+}
+
+[sub_resource type="Animation" id="Animation_v4sor"]
+resource_name = "follow_path"
+length = 8.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"spawn"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PathFollow2D:progress_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 4.3, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.284026, 0.423359, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_5mylj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s0a7r"]
+_data = {
+&"RESET": SubResource("Animation_5mylj"),
+&"follow_path": SubResource("Animation_v4sor")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_ol3aj"]
+_data = {
+"points": PackedVector2Array(-283.503, 86.515, 283.503, -86.515, -378, -556, 0, 0, 0, 0, -269, -355, -298.144, 126.445, 298.144, -126.445, -147, -264, 227.601, 190.333, -227.601, -190.333, -771, 90)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_v4sor"]
+_data = {
+"points": PackedVector2Array(-283.503, 86.515, 283.503, -86.515, -378, -556, 0, 0, 0, 0, -269, -355, -298.144, 126.445, 298.144, -126.445, -147, -264, 227.601, 190.333, -227.601, -190.333, -622, 26)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_5mylj"]
+_data = {
+"points": PackedVector2Array(-283.503, 86.515, 283.503, -86.515, -378, -556, 0, 0, 0, 0, -269, -355, -298.144, 126.445, 298.144, -126.445, -147, -264, 227.601, 190.333, -227.601, -190.333, -478, -71)
+}
+point_count = 4
 
 [node name="StageTest" instance=ExtResource("1_ctf3g")]
+root_node = NodePath("StageMob")
+libraries = {
+&"": SubResource("AnimationLibrary_aoblf")
+}
+script = ExtResource("2_lq56u")
+prespawn_bosses = Dictionary[String, PackedScene]({
+"jane": ExtResource("3_ol3aj")
+})
+
+[node name="StageMob" parent="." index="1" instance=ExtResource("3_5vv3v")]
+position = Vector2(439, -80)
+mob = ExtResource("4_ol3aj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StageMob" index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_s0a7r")
+}
+
+[node name="StageMob2" parent="." index="2" instance=ExtResource("3_5vv3v")]
+position = Vector2(300, -69)
+curve = SubResource("Curve2D_ol3aj")
+mob = ExtResource("4_ol3aj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StageMob2" index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_s0a7r")
+}
+
+[node name="StageMob3" parent="." index="3" instance=ExtResource("3_5vv3v")]
+position = Vector2(152, -35)
+curve = SubResource("Curve2D_v4sor")
+mob = ExtResource("4_ol3aj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StageMob3" index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_s0a7r")
+}
+
+[node name="StageMob4" parent="." index="4" instance=ExtResource("3_5vv3v")]
+curve = SubResource("Curve2D_5mylj")
+mob = ExtResource("4_ol3aj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StageMob4" index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_s0a7r")
+}
+
+[editable path="StageMob"]
+[editable path="StageMob2"]
+[editable path="StageMob3"]
+[editable path="StageMob4"]

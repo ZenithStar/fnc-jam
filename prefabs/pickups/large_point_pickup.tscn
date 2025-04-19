@@ -6,7 +6,7 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ud11j"]
 resource_local_to_scene = true
-radius = 20.0
+radius = 96.0
 
 [node name="LargePointPickup" instance=ExtResource("1_653m8")]
 type = 4

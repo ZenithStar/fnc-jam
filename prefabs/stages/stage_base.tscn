@@ -5,6 +5,7 @@
 
 [sub_resource type="Animation" id="Animation_yr1me"]
 resource_name = "stage"
+length = 120.0
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aoblf"]
 resource_local_to_scene = true

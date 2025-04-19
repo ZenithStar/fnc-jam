@@ -2,7 +2,7 @@ extends Node
 
 const TITLE_SCENE: = preload("uid://l6fmd7keqx2k")
 const GAMEPLAY_SCENE: = preload("uid://csf8dfafuvl8q")
-
+const STAGE_TEXT: = preload("uid://ji0yg461mfxp")
 enum State{
 	PRETITLE,
 	TITLE,
@@ -33,3 +33,11 @@ func start_game(difficulty: Global.Difficulty = Global.Difficulty.NORMAL,
 			character: Global.Character = Global.Character.REIMU_A):
 	var new_scene: = transition_to_scene(GAMEPLAY_SCENE)
 	# TODO: configure the gameplay scene
+
+func change_bgm( path : StringName ):
+	Dialogic.get_subsystem("Audio").update_music(path, 0.0, "BGM", 1.0)
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action("focus"):
+		Dialogic.Inputs.auto_skip.enabled = event.is_pressed()
+		
