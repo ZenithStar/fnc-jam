@@ -1,7 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://drkr6aa4clf2q"]
+[gd_scene load_steps=15 format=3 uid="uid://drkr6aa4clf2q"]
 
 [ext_resource type="PackedScene" uid="uid://dkooc6f0myqnn" path="res://prefabs/mobs/mob_base.tscn" id="1_nmx1u"]
 [ext_resource type="Texture2D" uid="uid://ckpupgc0nj061" path="res://assets/seija_real/Fairy_S1_New.png" id="2_omxxo"]
+[ext_resource type="PackedScene" uid="uid://djw0ru5od7hbm" path="res://prefabs/pickups/small_power_pickup.tscn" id="2_qlyn5"]
+[ext_resource type="PackedScene" uid="uid://ct21j5j554co8" path="res://prefabs/pickups/small_point_pickup.tscn" id="3_v7n8h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qqs0i"]
+resource_local_to_scene = true
+radius = 32.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gaxr0"]
 atlas = ExtResource("2_omxxo")
@@ -73,6 +79,13 @@ animations = [{
 }]
 
 [node name="TinyRedFairy" instance=ExtResource("1_nmx1u")]
+drops = Dictionary[PackedScene, int]({
+ExtResource("2_qlyn5"): 3,
+ExtResource("3_v7n8h"): 3
+})
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_qqs0i")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
 scale = Vector2(1.5, 1.5)

@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://ji0yg461mfxp"]
+[gd_scene load_steps=20 format=3 uid="uid://ji0yg461mfxp"]
 
 [ext_resource type="PackedScene" uid="uid://dsuled2355muo" path="res://prefabs/stages/stage_base.tscn" id="1_ctf3g"]
 [ext_resource type="Script" uid="uid://bgob1tfuc5pcw" path="res://prefabs/stages/stage_test.gd" id="2_lq56u"]
 [ext_resource type="PackedScene" uid="uid://ddqb0e1knrejo" path="res://prefabs/mobs/stage_mob.tscn" id="3_5vv3v"]
 [ext_resource type="PackedScene" uid="uid://cmbywlty6l8lg" path="res://prefabs/bosses/jane.tscn" id="3_ol3aj"]
 [ext_resource type="PackedScene" uid="uid://drkr6aa4clf2q" path="res://prefabs/mobs/tiny_red_fairy.tscn" id="4_ol3aj"]
+[ext_resource type="Texture2D" uid="uid://nxivm6cwkio4" path="res://assets/texture_07.png" id="6_v4sor"]
 
 [sub_resource type="Animation" id="Animation_yr1me"]
 resource_name = "stage"
@@ -142,6 +143,25 @@ _data = {
 }
 point_count = 4
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5mylj"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_5v0ui"]
+sky_material = SubResource("ProceduralSkyMaterial_5mylj")
+
+[sub_resource type="Environment" id="Environment_s0a7r"]
+background_mode = 2
+sky = SubResource("Sky_5v0ui")
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5v0ui"]
+albedo_texture = ExtResource("6_v4sor")
+uv1_triplanar = true
+
+[sub_resource type="TorusMesh" id="TorusMesh_btutw"]
+material = SubResource("StandardMaterial3D_5v0ui")
+
 [node name="StageTest" instance=ExtResource("1_ctf3g")]
 root_node = NodePath("StageMob")
 libraries = {
@@ -155,6 +175,10 @@ prespawn_bosses = Dictionary[String, PackedScene]({
 [node name="StageMob" parent="." index="1" instance=ExtResource("3_5vv3v")]
 position = Vector2(439, -80)
 mob = ExtResource("4_ol3aj")
+
+[node name="PathFollow2D" parent="StageMob" index="0"]
+position = Vector2(-909, 137)
+progress = 1726.49
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StageMob" index="1"]
 libraries = {
@@ -189,6 +213,21 @@ mob = ExtResource("4_ol3aj")
 libraries = {
 &"": SubResource("AnimationLibrary_s0a7r")
 }
+
+[node name="Background" type="Node3D" parent="." index="5"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Background" index="0"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Background" index="1"]
+environment = SubResource("Environment_s0a7r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Background" index="2"]
+mesh = SubResource("TorusMesh_btutw")
+
+[node name="Camera3D" type="Camera3D" parent="Background" index="3"]
+transform = Transform3D(0.995393, 0.0516224, -0.0807973, 0, 0.842687, 0.538403, 0.0958805, -0.535923, 0.838805, -0.236933, 1.20848, 2.18246)
 
 [editable path="StageMob"]
 [editable path="StageMob2"]

@@ -1,0 +1,86 @@
+[gd_scene load_steps=10 format=3 uid="uid://barygd4m2txpa"]
+
+[ext_resource type="Texture2D" uid="uid://bj8pmuse8eet0" path="res://assets/seija_real/ShotSheet2.png" id="1_ky1oq"]
+
+[sub_resource type="GDScript" id="GDScript_ky1oq"]
+script/source = "extends Area2D
+
+const VELOCITY: = 1500.0
+const DAMAGE: = 10.0
+
+var _escape_tween: Tween
+
+func _physics_process(delta: float) -> void:
+	position += Vector2.UP.rotated(rotation) * VELOCITY * delta
+	if not Global.GAMEPLAY_AREA.has_point(position):
+		pre_queue_free()
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.has_signal(\"hit\"):
+		area.hit.emit(DAMAGE)
+		pre_queue_free()
+	
+func pre_queue_free():
+	set_physics_process(false) # stop moving
+	set_deferred(\"monitoring\", false)
+	$GPUParticles2D.emitting = false
+	$Sprite2D.visible = false
+	_escape_tween = create_tween()
+	_escape_tween.tween_interval(1.0)
+	_escape_tween.tween_callback(queue_free)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xjuwh"]
+
+[sub_resource type="Gradient" id="Gradient_xwlew"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tglh1"]
+gradient = SubResource("Gradient_xwlew")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Curve" id="Curve_46oxt"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ere45"]
+curve = SubResource("Curve_46oxt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0kxxb"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 12.0
+inherit_velocity_ratio = -0.2
+gravity = Vector3(0, 0, 0)
+damping_min = 25.0
+damping_max = 50.0
+scale_curve = SubResource("CurveTexture_ere45")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdecg"]
+atlas = ExtResource("1_ky1oq")
+region = Rect2(192, 96, 16, 32)
+
+[node name="FlanPrimaryShot" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = SubResource("GDScript_ky1oq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xjuwh")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 32
+texture = SubResource("GradientTexture2D_tglh1")
+process_material = SubResource("ParticleProcessMaterial_0kxxb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_qdecg")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -5,4 +5,6 @@ class_name StageMob extends Path2D
 @export var mob: PackedScene
 
 func spawn() -> void:
-	$PathFollow2D.add_child(mob.instantiate())
+	var new_mob: = mob.instantiate()
+	$PathFollow2D.add_child(new_mob)
+	new_mob.death.connect(queue_free)

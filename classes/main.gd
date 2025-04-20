@@ -14,6 +14,8 @@ var state: State = State.PRETITLE
 var current_scene: Node
 
 func _ready() -> void:
+	$FlanPrimaryShot.queue_free()
+	$LoadingLayer.queue_free()
 	transition_to_scene(TITLE_SCENE)
 
 func transition_to_scene(scene: PackedScene) -> Node:

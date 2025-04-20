@@ -1,6 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://kxaobnaiadhe"]
+[gd_scene load_steps=4 format=3 uid="uid://kxaobnaiadhe"]
 
 [ext_resource type="Script" uid="uid://dk241w2f3vx6k" path="res://classes/main.gd" id="1_1jyap"]
+[ext_resource type="PackedScene" uid="uid://barygd4m2txpa" path="res://prefabs/bullets/flan_primary_shot.tscn" id="2_jflnv"]
+[ext_resource type="Texture2D" uid="uid://cj10x61yilwcc" path="res://icon.svg" id="3_4sl7s"]
 
 [node name="Main" type="Node" groups=["Main"]]
 script = ExtResource("1_1jyap")
+
+[node name="FlanPrimaryShot" parent="." instance=ExtResource("2_jflnv")]
+
+[node name="LoadingLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="LoadingScreen" type="TextureRect" parent="LoadingLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_4sl7s")
+stretch_mode = 6

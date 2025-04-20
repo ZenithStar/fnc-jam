@@ -54,6 +54,7 @@ save/autosave_delay=60.0
 save/encryption_on_exports_only=true
 audio/type_sound_bus="SFX"
 text/autoskip_time_per_event=0.2
+text/autopauses={}
 
 [display]
 
@@ -72,6 +73,8 @@ GameServer=""
 PickupServer=""
 Player=""
 BGMServer=""
+BulletServer=""
+PlayerBulletServer=""
 
 [input]
 

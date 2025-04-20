@@ -13,6 +13,7 @@ func test_sequence() -> void:
 	await tween.finished
 	Dialogic.start( "test_ipsum" )
 	await Dialogic.timeline_ended
+	_bosses["jane"].monitorable = true
 	while true:
 		tween = create_tween()
 		tween.set_ease(Tween.EASE_IN_OUT)

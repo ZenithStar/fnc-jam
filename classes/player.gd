@@ -5,10 +5,10 @@ const DEATHBOMB_WINDOW: float = .16667
 
 signal death
 
-@export var normal_velocity: = 300.0 ## px/s
-@export var focused_velocity: = 100.0 ## px/s
+@export var normal_velocity: = 400.0 ## px/s
+@export var focused_velocity: = 150.0 ## px/s
 
-@export var gameplay_bounds: Rect2 = Rect2(-384, -448, 768, 896)
+@export var gameplay_bounds: Rect2 = Global.GAMEPLAY_AREA
 
 @export var hitbox_radius: float = 3.0:
 	set( value ):

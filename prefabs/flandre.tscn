@@ -1,86 +1,86 @@
-[gd_scene load_steps=25 format=3 uid="uid://bj2crsljts8at"]
+[gd_scene load_steps=26 format=3 uid="uid://bj2crsljts8at"]
 
-[ext_resource type="PackedScene" uid="uid://cyfthxwndcuvj" path="res://prefabs/player.tscn" id="1_g4ugd"]
-[ext_resource type="Texture2D" uid="uid://b4ftu3kim0uko" path="res://assets/seija_real/reimu.png" id="2_gbssq"]
+[ext_resource type="PackedScene" uid="uid://cyfthxwndcuvj" path="res://prefabs/player.tscn" id="1_ytfe8"]
+[ext_resource type="Texture2D" uid="uid://b4ftu3kim0uko" path="res://assets/seija_real/reimu.png" id="2_edg0j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0sp34"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(0, 0, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b4loa"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(32, 0, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0hmxy"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(64, 0, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_584kd"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(96, 0, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i48j7"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(128, 0, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6jsnq"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(160, 0, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2m8m"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(192, 0, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ph7qp"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(224, 0, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ihlu"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(64, 48, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pm6ie"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(96, 48, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nbp34"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(128, 48, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nofyy"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(160, 48, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4t33e"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(192, 48, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p6qwk"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(224, 48, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k7vv4"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(64, 96, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a5lgn"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(96, 96, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8bgvj"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(128, 96, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sa2lk"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(160, 96, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yepj3"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(192, 96, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hsigo"]
-atlas = ExtResource("2_gbssq")
+atlas = ExtResource("2_edg0j")
 region = Rect2(224, 96, 32, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0gvig"]
@@ -165,7 +165,32 @@ animations = [{
 resource_local_to_scene = true
 radius = 6.0
 
-[node name="Reimu" instance=ExtResource("1_g4ugd")]
+[sub_resource type="GDScript" id="GDScript_paxfa"]
+script/source = "extends Node2D
+
+const SHOT_SCENE:= preload(\"uid://barygd4m2txpa\")
+const SHOT_PERIOD: = 0.0625
+const SHOT_SPREAD: = 0.0490874
+var _timeout: float
+
+func _ready() -> void:
+	set_physics_process(Input.is_action_pressed(\"fire\"))
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action(\"fire\"):
+		set_physics_process(Input.is_action_pressed(\"fire\"))
+
+func _physics_process(delta: float) -> void:
+	_timeout -= delta
+	while _timeout <= 0.0:
+		var new_shot:= SHOT_SCENE.instantiate()
+		new_shot.position = get_parent().position
+		new_shot.rotation = randfn(0.0, SHOT_SPREAD)
+		get_tree().get_first_node_in_group(\"PlayerBulletServer\").add_child(new_shot)
+		_timeout += SHOT_PERIOD
+"
+
+[node name="Flandre" instance=ExtResource("1_ytfe8")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
 scale = Vector2(1.5, 1.5)
@@ -176,3 +201,6 @@ frame_progress = 0.0906922
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_hwkca")
+
+[node name="PrimaryShot" type="Node2D" parent="." index="2"]
+script = SubResource("GDScript_paxfa")
