@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dm3udx5tvgc4n"]
+[gd_scene load_steps=7 format=3 uid="uid://dm3udx5tvgc4n"]
 
 [ext_resource type="Script" uid="uid://b2wm5jbybwxqr" path="res://classes/game_server.gd" id="1_507v1"]
 [ext_resource type="Script" uid="uid://bjjrhdih67ywi" path="res://classes/pickup_server.gd" id="2_flofk"]
 [ext_resource type="PackedScene" uid="uid://ji0yg461mfxp" path="res://prefabs/stages/stage_test.tscn" id="3_5v0ui"]
+[ext_resource type="Script" uid="uid://b8dqrec4taeqg" path="res://classes/target_server.gd" id="3_qofpv"]
 
 [sub_resource type="Animation" id="Animation_yr1me"]
 resource_name = "stage"
@@ -62,7 +63,7 @@ tracks/4/keys = {
 }]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_flofk"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7ya2j"]
 resource_local_to_scene = true
 _data = {
 &"stage": SubResource("Animation_yr1me")
@@ -78,6 +79,9 @@ script = ExtResource("2_flofk")
 
 [node name="PlayerBulletServer" type="Node2D" parent="." groups=["PlayerBulletServer"]]
 
+[node name="TargetServer" type="Node" parent="." groups=["TargetServer"]]
+script = ExtResource("3_qofpv")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
@@ -85,7 +89,7 @@ position = Vector2(0, 360)
 
 [node name="StageTest" parent="." instance=ExtResource("3_5v0ui")]
 libraries = {
-&"": SubResource("AnimationLibrary_flofk")
+&"": SubResource("AnimationLibrary_7ya2j")
 }
 
 [connection signal="pickup" from="." to="." method="_on_pickup"]

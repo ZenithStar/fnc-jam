@@ -1,6 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://barygd4m2txpa"]
+[gd_scene load_steps=12 format=3 uid="uid://barygd4m2txpa"]
 
-[ext_resource type="Texture2D" uid="uid://bj8pmuse8eet0" path="res://assets/seija_real/ShotSheet2.png" id="1_ky1oq"]
+[ext_resource type="Texture2D" uid="uid://b41e373pqc35o" path="res://assets/trace_01.png" id="1_ky1oq"]
 
 [sub_resource type="GDScript" id="GDScript_ky1oq"]
 script/source = "extends Area2D
@@ -54,7 +54,7 @@ curve = SubResource("Curve_46oxt")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0kxxb"]
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 12.0
+emission_sphere_radius = 6.0
 inherit_velocity_ratio = -0.2
 gravity = Vector3(0, 0, 0)
 damping_min = 25.0
@@ -62,10 +62,6 @@ damping_max = 50.0
 scale_curve = SubResource("CurveTexture_ere45")
 hue_variation_min = -1.0
 hue_variation_max = 1.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qdecg"]
-atlas = ExtResource("1_ky1oq")
-region = Rect2(192, 96, 16, 32)
 
 [sub_resource type="Curve" id="Curve_ky1oq"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -103,7 +99,9 @@ texture = SubResource("GradientTexture2D_tglh1")
 process_material = SubResource("ParticleProcessMaterial_0kxxb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_qdecg")
+position = Vector2(0, 32)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_ky1oq")
 
 [node name="HitParticles2D" type="GPUParticles2D" parent="."]
 z_index = 10

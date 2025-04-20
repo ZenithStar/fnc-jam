@@ -2,7 +2,7 @@ extends StageBase
 
 func _ready() -> void:
 	super()
-	get_tree().get_first_node_in_group("Main").change_bgm("")
+	get_tree().get_first_node_in_group("Main").change_bgm("uid://b2jfobimj67x4")
 
 func test_sequence() -> void:
 	_bosses["jane"].position = Vector2(500.0, 0.0)
@@ -13,7 +13,7 @@ func test_sequence() -> void:
 	await tween.finished
 	Dialogic.start( "test_ipsum" )
 	await Dialogic.timeline_ended
-	_bosses["jane"].monitorable = true
+	_bosses["jane"].active = true
 	while true:
 		tween = create_tween()
 		tween.set_ease(Tween.EASE_IN_OUT)

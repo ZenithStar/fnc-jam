@@ -14,9 +14,14 @@ var state: State = State.PRETITLE
 var current_scene: Node
 
 func _ready() -> void:
-	$FlanPrimaryShot.queue_free()
-	$LoadingLayer.queue_free()
-	transition_to_scene(TITLE_SCENE)
+	$PreloadShaders/SmallSplatter.emitting = true
+	$PreloadShaders/FlanPrimaryShot/HitParticles2D.emitting = true
+	$PreloadShaders/FlanCrush/CenterBlood.emitting = true
+	var tween: = create_tween()
+	tween.tween_interval(1.0)
+	tween.tween_callback($PreloadShaders.queue_free)
+	tween.tween_callback($LoadingLayer.queue_free)
+	tween.tween_callback(transition_to_scene.bind(TITLE_SCENE))
 
 func transition_to_scene(scene: PackedScene) -> Node:
 	# TODO: add transitions

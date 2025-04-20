@@ -1,0 +1,118 @@
+[gd_scene load_steps=9 format=3 uid="uid://bjnn4cmoxm3d0"]
+
+[ext_resource type="Texture2D" uid="uid://c3x3kta5q20ie" path="res://assets/star_08.png" id="1_t0r38"]
+
+[sub_resource type="GDScript" id="GDScript_dh0hg"]
+script/source = "extends Area2D
+
+const BASE_DAMAGE: = 250.0
+const DROPOFF_DISTANCE: = 200.0
+const SMALL_SPLATTER: = preload(\"uid://d2fuokgdafrxx\")
+
+var _tween: Tween
+func _ready() -> void:
+	$BigSpike.rotation = randf_range(-PI, PI)
+	$zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz.rotation = $BigSpike.rotation + randf_range(0.392699, 1.1781)
+	_tween = create_tween()
+	_tween.set_ease(Tween.EASE_OUT)
+	_tween.set_trans(Tween.TRANS_QUAD)
+	_tween.tween_property($BigSpike, \"scale\", Vector2(1.0, 1.0), 0.1)
+	var small_spike_scale: = randf_range(0.7, 0.8)
+	_tween.parallel().tween_property($SmallSpike, \"scale\", Vector2(small_spike_scale, small_spike_scale), 0.1)
+	_tween.tween_callback(set.bind(\"monitoring\", false))
+	_tween.set_ease(Tween.EASE_IN_OUT)
+	_tween.set_trans(Tween.TRANS_SINE)
+	_tween.tween_property($BigSpike/Sprite2D, \"modulate:a\", 0.0, 1.5)
+	_tween.parallel().tween_property($SmallSpike/Sprite2D, \"modulate:a\", 0.0, 1.5)
+	_tween.tween_interval(0.5)
+	_tween.tween_callback(queue_free)
+
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.has_signal(\"hit\"):
+		var distance: = global_position.distance_to(area.global_position)
+		var damage_scale: = clampf( (DROPOFF_DISTANCE - distance)/ DROPOFF_DISTANCE, 0.05, 1.0 )
+		area.hit.emit(BASE_DAMAGE * damage_scale)
+		if damage_scale >= 0.95 and not $CenterBlood.emitting:
+			$CenterBlood.emitting = true
+		else:
+			var splatter: = SMALL_SPLATTER.instantiate()
+			splatter.position = to_local(area.global_position)
+			splatter.amount_ratio = damage_scale
+			splatter.emitting = true
+			add_child.call_deferred(splatter)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m3j0k"]
+radius = 64.0
+
+[sub_resource type="Gradient" id="Gradient_30u6q"]
+offsets = PackedFloat32Array(0, 0.756962)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qkd85"]
+gradient = SubResource("Gradient_30u6q")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Curve" id="Curve_eeq1e"]
+_data = [Vector2(0.331565, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_h18mk"]
+curve = SubResource("Curve_eeq1e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6wswv"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 25.0
+spread = 180.0
+initial_velocity_min = 500.0
+initial_velocity_max = 600.0
+gravity = Vector3(0, 0, 0)
+damping_min = 1000.0
+damping_max = 4000.0
+alpha_curve = SubResource("CurveTexture_h18mk")
+hue_variation_min = -0.1
+hue_variation_max = -2.23517e-08
+
+[node name="FlanCrush" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = SubResource("GDScript_dh0hg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_m3j0k")
+
+[node name="CenterBlood" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 1024
+texture = SubResource("GradientTexture2D_qkd85")
+lifetime = 1.6
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_6wswv")
+
+[node name="BigSpike" type="CollisionPolygon2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
+polygon = PackedVector2Array(0, -24, -172, -172, -24, 0, -172, 172, 0, 24, 172, 172, 24, 0, 172, -172)
+
+[node name="Sprite2D" type="Sprite2D" parent="BigSpike"]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("1_t0r38")
+
+[node name="SmallSpike" type="CollisionPolygon2D" parent="."]
+rotation = 0.785398
+scale = Vector2(1e-05, 1e-05)
+polygon = PackedVector2Array(0, -24, -172, -172, -24, 0, -172, 172, 0, 24, 172, 172, 24, 0, 172, -172)
+
+[node name="Sprite2D" type="Sprite2D" parent="SmallSpike"]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("1_t0r38")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

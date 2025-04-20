@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bj2crsljts8at"]
+[gd_scene load_steps=27 format=3 uid="uid://bj2crsljts8at"]
 
 [ext_resource type="PackedScene" uid="uid://cyfthxwndcuvj" path="res://prefabs/player.tscn" id="1_ytfe8"]
 [ext_resource type="Texture2D" uid="uid://b4ftu3kim0uko" path="res://assets/seija_real/reimu.png" id="2_edg0j"]
@@ -190,6 +190,25 @@ func _physics_process(delta: float) -> void:
 		_timeout += SHOT_PERIOD
 "
 
+[sub_resource type="GDScript" id="GDScript_ytfe8"]
+script/source = "extends Node2D
+
+const SHOT_SCENE:= preload(\"uid://bjnn4cmoxm3d0\")
+const SHOT_PERIOD: = 2.4
+var _timeout: float = SHOT_PERIOD
+
+
+func _physics_process(delta: float) -> void:
+	_timeout -= delta
+	while _timeout <= 0.0:
+		var target: Area2D = get_tree().get_first_node_in_group(\"TargetServer\").pick_random()
+		if Input.is_action_pressed(\"fire\") and is_instance_valid(target):
+			var new_shot:= SHOT_SCENE.instantiate()
+			new_shot.position = target.global_position
+			get_tree().get_first_node_in_group(\"PlayerBulletServer\").add_child(new_shot)
+		_timeout += SHOT_PERIOD
+"
+
 [node name="Flandre" instance=ExtResource("1_ytfe8")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
@@ -204,3 +223,6 @@ shape = SubResource("CircleShape2D_hwkca")
 
 [node name="PrimaryShot" type="Node2D" parent="." index="2"]
 script = SubResource("GDScript_paxfa")
+
+[node name="SecondaryShot" type="Node2D" parent="." index="3"]
+script = SubResource("GDScript_ytfe8")

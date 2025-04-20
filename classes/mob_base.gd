@@ -34,6 +34,9 @@ enum Directions{
 signal hit( damage: float )
 signal death
 
+func _ready() -> void:
+	get_tree().get_first_node_in_group("TargetServer").register(self)
+
 func _on_hit( damage: float ):
 	current_health -= damage
 	if current_health <= 0.0:
@@ -41,6 +44,7 @@ func _on_hit( damage: float ):
 
 func _on_death( ):
 	get_tree().get_first_node_in_group("PickupServer").spawn(global_position, drops)
+	get_tree().get_first_node_in_group("TargetServer").unregister(self)
 	queue_free()
 
 func _physics_process(delta: float) -> void:
