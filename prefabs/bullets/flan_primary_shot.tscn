@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://barygd4m2txpa"]
+[gd_scene load_steps=13 format=3 uid="uid://barygd4m2txpa"]
 
 [ext_resource type="Texture2D" uid="uid://bj8pmuse8eet0" path="res://assets/seija_real/ShotSheet2.png" id="1_ky1oq"]
 
@@ -18,6 +18,7 @@ func _physics_process(delta: float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area.has_signal(\"hit\"):
 		area.hit.emit(DAMAGE)
+		$HitParticles2D.emitting = true
 		pre_queue_free()
 	
 func pre_queue_free():
@@ -66,6 +67,27 @@ hue_variation_max = 1.0
 atlas = ExtResource("1_ky1oq")
 region = Rect2(192, 96, 16, 32)
 
+[sub_resource type="Curve" id="Curve_ky1oq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xjuwh"]
+curve = SubResource("Curve_ky1oq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ky1oq"]
+particle_flag_disable_z = true
+inherit_velocity_ratio = 0.5
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+damping_min = 50.0
+damping_max = 100.0
+scale_min = 0.6
+scale_curve = SubResource("CurveTexture_xjuwh")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
 [node name="FlanPrimaryShot" type="Area2D"]
 collision_layer = 0
 collision_mask = 2
@@ -82,5 +104,15 @@ process_material = SubResource("ParticleProcessMaterial_0kxxb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_qdecg")
+
+[node name="HitParticles2D" type="GPUParticles2D" parent="."]
+z_index = 10
+emitting = false
+amount = 32
+texture = SubResource("GradientTexture2D_tglh1")
+lifetime = 0.75
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_ky1oq")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

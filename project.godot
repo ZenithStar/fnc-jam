@@ -53,7 +53,7 @@ choices/reveal_by_input=false
 save/autosave_delay=60.0
 save/encryption_on_exports_only=true
 audio/type_sound_bus="SFX"
-text/autoskip_time_per_event=0.2
+text/autoskip_time_per_event=0.1
 text/autopauses={}
 
 [display]

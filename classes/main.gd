@@ -42,4 +42,5 @@ func change_bgm( path : StringName ):
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action("focus"):
 		Dialogic.Inputs.auto_skip.enabled = event.is_pressed()
-		
+	#elif event.is_action("fire") and event.is_echo() and event.is_pressed():
+		#Dialogic.Inputs.auto_skip.enabled = event.is_pressed()
