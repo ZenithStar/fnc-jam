@@ -2,7 +2,7 @@ extends Node
 
 const TITLE_SCENE: = preload("uid://l6fmd7keqx2k")
 const GAMEPLAY_SCENE: = preload("uid://csf8dfafuvl8q")
-const STAGE_TEXT: = preload("uid://ji0yg461mfxp")
+const STAGE_TEST: = preload("uid://ji0yg461mfxp")
 enum State{
 	PRETITLE,
 	TITLE,
@@ -45,7 +45,6 @@ func transition_to_scene(scene: PackedScene) -> Node:
 	match scene:
 		TITLE_SCENE, GAMEPLAY_SCENE:
 			var new_scene: = scene.instantiate()
-			new_scene.process_mode = Node.PROCESS_MODE_DISABLED
 			add_child(new_scene)
 			if is_instance_valid(current_scene):
 				current_scene.queue_free()
@@ -59,7 +58,8 @@ func transition_to_scene(scene: PackedScene) -> Node:
 	if first_time:
 		first_time.queue_free()
 		$SubViewport/MainLoadingScreen.texture = preload("uid://cq4xych56bjo4")
-	current_scene.process_mode = Node.PROCESS_MODE_INHERIT
+	if current_scene.has_method(&"post_transition"):
+		current_scene.post_transition()
 	return current_scene
 
 func start_game(difficulty: Global.Difficulty = Global.Difficulty.NORMAL, 
@@ -68,7 +68,7 @@ func start_game(difficulty: Global.Difficulty = Global.Difficulty.NORMAL,
 	# TODO: configure the gameplay scene
 
 func change_bgm( path : StringName ):
-	BGMServer.fade_to_new(load(path))
+	BGMServer.fade_to_new(path)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action("focus") or event.is_action("fire"):

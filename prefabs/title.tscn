@@ -13,10 +13,9 @@ default_font_size = 36
 [sub_resource type="GDScript" id="GDScript_phw8v"]
 script/source = "extends Control
 
-func _ready() -> void:
+func post_transition() -> void:
 	get_tree().get_first_node_in_group(\"Main\").change_bgm(\"uid://boab0nsa4uero\")
 	$\"DiagonalizedVBoxContainer/Game Start\".grab_focus()
-
 
 func _on_game_start_pressed() -> void:
 	get_tree().get_first_node_in_group(\"Main\").start_game() # TODO: add difficulty + character selector

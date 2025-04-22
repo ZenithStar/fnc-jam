@@ -14,7 +14,7 @@ length = 120.0
 tracks/0/type = "animation"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimationPlayer")
+tracks/0/path = NodePath("StageMob/AnimationPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -24,7 +24,7 @@ tracks/0/keys = {
 tracks/1/type = "animation"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../StageMob2/AnimationPlayer")
+tracks/1/path = NodePath("StageMob2/AnimationPlayer")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -34,7 +34,7 @@ tracks/1/keys = {
 tracks/2/type = "animation"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../StageMob3/AnimationPlayer")
+tracks/2/path = NodePath("StageMob3/AnimationPlayer")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -44,7 +44,7 @@ tracks/2/keys = {
 tracks/3/type = "animation"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../StageMob4/AnimationPlayer")
+tracks/3/path = NodePath("StageMob4/AnimationPlayer")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -54,16 +54,13 @@ tracks/3/keys = {
 tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("..")
+tracks/4/path = NodePath(".")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.733333, 10.6333),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(10.6333),
+"transitions": PackedFloat32Array(1),
 "values": [{
-"args": [&"uid://b2jfobimj67x4"],
-"method": &"change_music"
-}, {
 "args": [&"test_sequence"],
 "method": &"play_coroutine"
 }]
@@ -167,7 +164,7 @@ uv1_triplanar = true
 material = SubResource("StandardMaterial3D_5v0ui")
 
 [node name="StageTest" instance=ExtResource("1_ctf3g")]
-root_node = NodePath("StageMob")
+root_node = NodePath(".")
 libraries = {
 &"": SubResource("AnimationLibrary_aoblf")
 }
@@ -179,6 +176,10 @@ prespawn_bosses = Dictionary[String, PackedScene]({
 [node name="StageMob" parent="." index="1" instance=ExtResource("3_5vv3v")]
 position = Vector2(439, -80)
 mob = ExtResource("4_ol3aj")
+
+[node name="PathFollow2D" parent="StageMob" index="0"]
+position = Vector2(-909, 137)
+progress = 1726.49
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StageMob" index="1"]
 libraries = {
