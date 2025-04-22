@@ -66,7 +66,7 @@ tracks/4/keys = {
 }]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_aoblf"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5v0ui"]
 resource_local_to_scene = true
 _data = {
 &"stage": SubResource("Animation_yr1me")
@@ -97,9 +97,6 @@ script = ExtResource("3_qofpv")
 position = Vector2(0, 360)
 
 [node name="StageTest" parent="." instance=ExtResource("3_5v0ui")]
-libraries = {
-&"": SubResource("AnimationLibrary_aoblf")
-}
 libraries = {
 &"": SubResource("AnimationLibrary_5v0ui")
 }
