@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c410pku77ffnw"
+path="res://.godot/imported/stage 1 boss.ogg-32d1e0e86cf68e1ea8911bbc05506921.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/music/stage 1 boss.ogg"
+dest_files=["res://.godot/imported/stage 1 boss.ogg-32d1e0e86cf68e1ea8911bbc05506921.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=19.2
+bpm=0.0
+beat_count=0
+bar_beats=4

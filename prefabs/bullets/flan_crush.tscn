@@ -12,7 +12,7 @@ const SMALL_SPLATTER: = preload(\"uid://d2fuokgdafrxx\")
 var _tween: Tween
 func _ready() -> void:
 	$BigSpike.rotation = randf_range(-PI, PI)
-	$zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz.rotation = $BigSpike.rotation + randf_range(0.392699, 1.1781)
+	$SmallSpike.rotation = $BigSpike.rotation + randf_range(0.392699, 1.1781)
 	_tween = create_tween()
 	_tween.set_ease(Tween.EASE_OUT)
 	_tween.set_trans(Tween.TRANS_QUAD)

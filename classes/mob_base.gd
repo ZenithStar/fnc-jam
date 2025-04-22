@@ -44,7 +44,6 @@ func _on_hit( damage: float ):
 
 func _on_death( ):
 	get_tree().get_first_node_in_group("PickupServer").spawn(global_position, drops)
-	get_tree().get_first_node_in_group("TargetServer").unregister(self)
 	queue_free()
 
 func _physics_process(delta: float) -> void:

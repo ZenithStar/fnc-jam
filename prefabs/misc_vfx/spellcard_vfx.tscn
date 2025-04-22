@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://bcikm3dsg4ehg"]
+
+[ext_resource type="Script" uid="uid://hjlkbvu3soaa" path="res://classes/spellcard_vfx.gd" id="1_3c4ng"]
+[ext_resource type="Texture2D" uid="uid://b44e82scgv7e6" path="res://assets/magic_circles/circle6_inverse_transparent.png" id="1_sjhdg"]
+[ext_resource type="Shader" uid="uid://mvw40stq2o3v" path="res://assets/shaders/chromatic_aberration_sphere.gdshader" id="3_bmyut"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sjhdg"]
+frequency = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkp8q"]
+transparency = 1
+albedo_color = Color(0.244994, 1.71466e-07, 0.104054, 1)
+albedo_texture = ExtResource("1_sjhdg")
+emission_enabled = true
+emission = Color(0.43205, 0.516884, 1, 1)
+emission_energy_multiplier = 0.1
+emission_texture = ExtResource("1_sjhdg")
+
+[sub_resource type="QuadMesh" id="QuadMesh_uih2t"]
+material = SubResource("StandardMaterial3D_lkp8q")
+size = Vector2(0.75, 0.75)
+orientation = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aqn5g"]
+render_priority = 0
+shader = ExtResource("3_bmyut")
+shader_parameter/sphere_color = Color(0.822947, 0.502789, 0.821734, 0.0431373)
+shader_parameter/wave_amplitude = 0.006
+shader_parameter/wave_frequency = 19.397
+shader_parameter/wave_speed = 3.618
+shader_parameter/chroma_amount = 1.0
+shader_parameter/stars_enabled = true
+shader_parameter/star_field_scale = 4.377
+shader_parameter/star_size = 0.01
+shader_parameter/star_intensity = 0.5
+shader_parameter/star_axis_speed = 0.3
+shader_parameter/star_move_mode = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_8ilrm"]
+material = SubResource("ShaderMaterial_aqn5g")
+height = 0.1
+
+[node name="SpellcardVFX" type="Node3D"]
+script = ExtResource("1_3c4ng")
+noise = SubResource("FastNoiseLite_sjhdg")
+
+[node name="Visuals" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="MagicCircle" type="MeshInstance3D" parent="Visuals"]
+mesh = SubResource("QuadMesh_uih2t")
+skeleton = NodePath("../..")
+
+[node name="AberrationSphere" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+mesh = SubResource("SphereMesh_8ilrm")
+skeleton = NodePath("../..")

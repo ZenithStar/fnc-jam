@@ -2,8 +2,11 @@ extends Area2D
 
 
 const DEATHBOMB_WINDOW: float = .16667
+const ANIMATION_FPS: float = 10.0
+const NUM_ANIMATION_FRAMES: int = 3
 
 signal death
+signal hit
 
 @export var normal_velocity: = 400.0 ## px/s
 @export var focused_velocity: = 150.0 ## px/s
@@ -25,17 +28,55 @@ enum Directions{
 	set(value):
 		if direction_facing != value:
 			direction_facing = value
-			var sprite: AnimatedSprite2D = find_child("AnimatedSprite2D")
+			var sprite: Sprite2D = find_child("Body")
 			if is_instance_valid(sprite):
 				match direction_facing:
 					Directions.CENTER:
-						sprite.animation = "center"
+						sprite.frame_coords.y = 0
 					Directions.LEFT:
-						sprite.animation = "left"
+						sprite.frame_coords.y = 1
 					Directions.RIGHT:
-						sprite.animation = "right"
+						sprite.frame_coords.y = 2
 
 var _deathbomb_timer: float = INF
+
+var _animation_loop_tween: Tween
+var _focus_spin_tween: Tween
+
+var focused: bool:
+	set(value):
+		focused = value
+		$FocusIndicator.visible = focused
+
+func _step_animation():
+	$Body.frame_coords.x = ($Body.frame_coords.x + 1) % NUM_ANIMATION_FRAMES
+	if focused and $Wings.frame_coords.y == 0:
+		$Wings.frame_coords = Vector2i(0,1)
+	elif not focused and $Wings.frame_coords.y == 2:
+		$Wings.frame_coords = Vector2i(2,1)
+	elif $Wings.frame_coords.y == 1:
+		$Wings.frame = $Wings.frame + 1 if focused else $Wings.frame - 1
+	if $Wings.frame_coords.y != 1:
+		$Wings.frame_coords.x = $Body.frame_coords.x
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action("focus"):
+		focused = Input.is_action_pressed("focus")
+
+func _ready() -> void:
+	_animation_loop_tween = create_tween()
+	_animation_loop_tween.tween_interval( 1.0 / ANIMATION_FPS )
+	_animation_loop_tween.tween_callback(_step_animation)
+	_animation_loop_tween.set_loops()
+	
+	_focus_spin_tween = create_tween()
+	_focus_spin_tween.tween_property($FocusIndicator, "rotation", TAU, 1.0)
+	_focus_spin_tween.tween_callback($FocusIndicator.set.bind("rotation", 0.0))
+	_focus_spin_tween.set_loops()
+	
+	focused = Input.is_action_pressed("focus")
+	
+	hit.connect(_on_hit)
 
 func _physics_process(delta) -> void:
 	var velocity: = Input.get_vector("move_left", "move_right", "move_up", "move_down").limit_length() * \
@@ -56,6 +97,6 @@ func _physics_process(delta) -> void:
 			death.emit()
 			
 
-func hit(): # I don't think this needs to be a signal, but maybe it does
+func _on_hit():
 	if not is_finite(_deathbomb_timer):
 		_deathbomb_timer = DEATHBOMB_WINDOW

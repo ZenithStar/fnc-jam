@@ -1,169 +1,17 @@
-[gd_scene load_steps=27 format=3 uid="uid://bj2crsljts8at"]
+[gd_scene load_steps=9 format=3 uid="uid://bj2crsljts8at"]
 
 [ext_resource type="PackedScene" uid="uid://cyfthxwndcuvj" path="res://prefabs/player.tscn" id="1_ytfe8"]
-[ext_resource type="Texture2D" uid="uid://b4ftu3kim0uko" path="res://assets/seija_real/reimu.png" id="2_edg0j"]
+[ext_resource type="Texture2D" uid="uid://cqpcil38kr1gf" path="res://assets/combat_sprites/sprite_flandre-scarlet_combat-body-Sheet.png" id="2_paxfa"]
+[ext_resource type="Texture2D" uid="uid://b3xkich8qcp4k" path="res://assets/seija_real/ShotSheet.png" id="3_rxmrp"]
+[ext_resource type="Texture2D" uid="uid://rsxxw0l17kpr" path="res://assets/combat_sprites/sprite_flandre-scarlet_combat-wings-Sheet.png" id="4_hryse"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0sp34"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(0, 0, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b4loa"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(32, 0, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0hmxy"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(64, 0, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_584kd"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(96, 0, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i48j7"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(128, 0, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6jsnq"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(160, 0, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p2m8m"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(192, 0, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ph7qp"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(224, 0, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ihlu"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(64, 48, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pm6ie"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(96, 48, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nbp34"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(128, 48, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nofyy"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(160, 48, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4t33e"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(192, 48, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p6qwk"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(224, 48, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k7vv4"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(64, 96, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a5lgn"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(96, 96, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8bgvj"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(128, 96, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sa2lk"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(160, 96, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yepj3"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(192, 96, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hsigo"]
-atlas = ExtResource("2_edg0j")
-region = Rect2(224, 96, 32, 48)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_0gvig"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0sp34")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b4loa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0hmxy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_584kd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i48j7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6jsnq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p2m8m")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ph7qp")
-}],
-"loop": true,
-"name": &"center",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4ihlu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pm6ie")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nbp34")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nofyy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4t33e")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p6qwk")
-}],
-"loop": true,
-"name": &"left",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k7vv4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a5lgn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8bgvj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sa2lk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yepj3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hsigo")
-}],
-"loop": true,
-"name": &"right",
-"speed": 10.0
-}]
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0qn8"]
+atlas = ExtResource("3_rxmrp")
+region = Rect2(224, 32, 16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hwkca"]
 resource_local_to_scene = true
-radius = 6.0
+radius = 3.0
 
 [sub_resource type="GDScript" id="GDScript_paxfa"]
 script/source = "extends Node2D
@@ -183,10 +31,11 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	_timeout -= delta
 	while _timeout <= 0.0:
-		var new_shot:= SHOT_SCENE.instantiate()
-		new_shot.position = get_parent().position
-		new_shot.rotation = randfn(0.0, SHOT_SPREAD)
-		get_tree().get_first_node_in_group(\"PlayerBulletServer\").add_child(new_shot)
+		if not is_instance_valid(Dialogic.current_timeline):
+			var new_shot:= SHOT_SCENE.instantiate()
+			new_shot.position = get_parent().position
+			new_shot.rotation = randfn(0.0, SHOT_SPREAD)
+			get_tree().get_first_node_in_group(\"PlayerBulletServer\").add_child(new_shot)
 		_timeout += SHOT_PERIOD
 "
 
@@ -202,7 +51,7 @@ func _physics_process(delta: float) -> void:
 	_timeout -= delta
 	while _timeout <= 0.0:
 		var target: Area2D = get_tree().get_first_node_in_group(\"TargetServer\").pick_random()
-		if Input.is_action_pressed(\"fire\") and is_instance_valid(target):
+		if Input.is_action_pressed(\"fire\") and is_instance_valid(target) and not is_instance_valid(Dialogic.current_timeline):
 			var new_shot:= SHOT_SCENE.instantiate()
 			new_shot.position = target.global_position
 			get_tree().get_first_node_in_group(\"PlayerBulletServer\").add_child(new_shot)
@@ -210,19 +59,28 @@ func _physics_process(delta: float) -> void:
 "
 
 [node name="Flandre" instance=ExtResource("1_ytfe8")]
+scale = Vector2(2, 2)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
-scale = Vector2(1.5, 1.5)
-sprite_frames = SubResource("SpriteFrames_0gvig")
-animation = &"center"
-autoplay = "center"
-frame_progress = 0.0906922
+[node name="Body" type="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_paxfa")
+hframes = 3
+vframes = 3
 
-[node name="CollisionShape2D" parent="." index="1"]
+[node name="FocusIndicator" type="Sprite2D" parent="." index="1"]
+self_modulate = Color(1.5, 1.5, 1.5, 1)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_q0qn8")
+
+[node name="Wings" type="Sprite2D" parent="." index="2"]
+texture = ExtResource("4_hryse")
+hframes = 3
+vframes = 3
+
+[node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("CircleShape2D_hwkca")
 
-[node name="PrimaryShot" type="Node2D" parent="." index="2"]
+[node name="PrimaryShot" type="Node2D" parent="." index="4"]
 script = SubResource("GDScript_paxfa")
 
-[node name="SecondaryShot" type="Node2D" parent="." index="3"]
+[node name="SecondaryShot" type="Node2D" parent="." index="5"]
 script = SubResource("GDScript_ytfe8")

@@ -1,10 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://l6fmd7keqx2k"]
+[gd_scene load_steps=8 format=3 uid="uid://l6fmd7keqx2k"]
 
-[ext_resource type="Texture2D" uid="uid://cj10x61yilwcc" path="res://icon.svg" id="1_t8y47"]
+[ext_resource type="FontFile" uid="uid://bcjgkxqjkxkq1" path="res://assets/fonts/Otsutome_font_ver3_16/OtsutomeFont_Ver3_16.ttf" id="1_p25lt"]
+[ext_resource type="Texture2D" uid="uid://bxixdlc423b6i" path="res://assets/background_textures/background-2044500_1280.webp" id="2_p25lt"]
 [ext_resource type="Script" uid="uid://bsd36bvihkaa3" path="res://classes/DiagonalizedVBoxContainer.gd" id="2_s4edq"]
+[ext_resource type="Texture2D" uid="uid://c8f3ni4ikqtu8" path="res://assets/character_portraits/flandre/sprite_flandre-scarlet_neutral.png" id="3_phw8v"]
+[ext_resource type="FontFile" uid="uid://uioy4i21lqpl" path="res://assets/fonts/glitch_goblin/GlitchGoblin.ttf" id="5_hjf0n"]
 
 [sub_resource type="Theme" id="Theme_p25lt"]
-default_font_size = 24
+default_font = ExtResource("1_p25lt")
+default_font_size = 36
 
 [sub_resource type="GDScript" id="GDScript_phw8v"]
 script/source = "extends Control
@@ -39,8 +43,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_t8y47")
+texture = ExtResource("2_p25lt")
 stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -750.0
+offset_top = -960.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("3_phw8v")
 
 [node name="DiagonalizedVBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -101,6 +118,25 @@ text = "Manual"
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../Game Start")
 text = "Quit"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -562.0
+offset_top = 90.0
+offset_right = 280.0
+offset_bottom = 395.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_hjf0n")
+theme_override_font_sizes/font_size = 64
+text = "Transplantation of 
+    Scarlet 
+       Dream
+"
 
 [connection signal="pressed" from="DiagonalizedVBoxContainer/Game Start" to="." method="_on_game_start_pressed"]
 [connection signal="pressed" from="DiagonalizedVBoxContainer/Quit" to="." method="_on_quit_pressed"]

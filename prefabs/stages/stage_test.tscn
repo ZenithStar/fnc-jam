@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ji0yg461mfxp"]
+[gd_scene load_steps=21 format=3 uid="uid://ji0yg461mfxp"]
 
 [ext_resource type="PackedScene" uid="uid://dsuled2355muo" path="res://prefabs/stages/stage_base.tscn" id="1_ctf3g"]
 [ext_resource type="Script" uid="uid://bgob1tfuc5pcw" path="res://prefabs/stages/stage_test.gd" id="2_lq56u"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cmbywlty6l8lg" path="res://prefabs/bosses/jane.tscn" id="3_ol3aj"]
 [ext_resource type="PackedScene" uid="uid://drkr6aa4clf2q" path="res://prefabs/mobs/tiny_red_fairy.tscn" id="4_ol3aj"]
 [ext_resource type="Texture2D" uid="uid://nxivm6cwkio4" path="res://assets/texture_07.png" id="6_v4sor"]
+[ext_resource type="PackedScene" uid="uid://cw6a2wkhukork" path="res://prefabs/misc_vfx/camera_with_spellcard.tscn" id="7_5mylj"]
 
 [sub_resource type="Animation" id="Animation_yr1me"]
 resource_name = "stage"
@@ -57,10 +58,13 @@ tracks/4/path = NodePath("..")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(10.9),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.733333, 10.6333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
-"args": ["test_sequence"],
+"args": [&"uid://b2jfobimj67x4"],
+"method": &"change_music"
+}, {
+"args": [&"test_sequence"],
 "method": &"play_coroutine"
 }]
 }
@@ -176,10 +180,6 @@ prespawn_bosses = Dictionary[String, PackedScene]({
 position = Vector2(439, -80)
 mob = ExtResource("4_ol3aj")
 
-[node name="PathFollow2D" parent="StageMob" index="0"]
-position = Vector2(-908.998, 137.001)
-progress = 1726.49
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StageMob" index="1"]
 libraries = {
 &"": SubResource("AnimationLibrary_s0a7r")
@@ -226,8 +226,8 @@ environment = SubResource("Environment_s0a7r")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Background" index="2"]
 mesh = SubResource("TorusMesh_btutw")
 
-[node name="Camera3D" type="Camera3D" parent="Background" index="3"]
-transform = Transform3D(0.995393, 0.0516224, -0.0807973, 0, 0.842687, 0.538403, 0.0958805, -0.535923, 0.838805, -0.236933, 1.20848, 2.18246)
+[node name="CameraWithSpellcard" parent="Background" index="3" instance=ExtResource("7_5mylj")]
+transform = Transform3D(0.80874, -0.292526, 0.510263, 0, 0.867549, 0.497353, -0.588166, -0.402229, 0.701621, 1.89607, 1.4814, 2.8612)
 
 [editable path="StageMob"]
 [editable path="StageMob2"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw6a2wkhukork"]
+
+[ext_resource type="PackedScene" uid="uid://bcikm3dsg4ehg" path="res://prefabs/misc_vfx/spellcard_vfx.tscn" id="1_w6m4q"]
+
+[node name="CameraWithSpellcard" type="Camera3D" groups=["CameraWithSpellcard"]]
+
+[node name="SpellcardVFX" parent="." instance=ExtResource("1_w6m4q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]

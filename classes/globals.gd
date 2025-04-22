@@ -9,12 +9,12 @@ enum Difficulty{
 }
 
 enum Character{
-	REIMU_A,
+	FLANDRE_A,
 	
 }
 
 const CHARACTER_SCENES: Dictionary[Character, PackedScene] = {
-	Character.REIMU_A: preload("uid://bj2crsljts8at"),
+	Character.FLANDRE_A: preload("uid://bj2crsljts8at"),
 	
 }
 

@@ -1,10 +1,33 @@
-[gd_scene load_steps=6 format=3 uid="uid://kxaobnaiadhe"]
+[gd_scene load_steps=13 format=3 uid="uid://kxaobnaiadhe"]
 
 [ext_resource type="Script" uid="uid://dk241w2f3vx6k" path="res://classes/main.gd" id="1_1jyap"]
 [ext_resource type="PackedScene" uid="uid://d2fuokgdafrxx" path="res://prefabs/bullets/small_splatter.tscn" id="2_b26oi"]
 [ext_resource type="PackedScene" uid="uid://barygd4m2txpa" path="res://prefabs/bullets/flan_primary_shot.tscn" id="2_jflnv"]
-[ext_resource type="Texture2D" uid="uid://cj10x61yilwcc" path="res://icon.svg" id="3_4sl7s"]
 [ext_resource type="PackedScene" uid="uid://bjnn4cmoxm3d0" path="res://prefabs/bullets/flan_crush.tscn" id="4_c70ge"]
+[ext_resource type="Shader" uid="uid://bxmhiedjt40d4" path="res://assets/shaders/glitch_transition.gdshader" id="5_c70ge"]
+[ext_resource type="Texture2D" uid="uid://l1bu0ef8t557" path="res://assets/background_textures/background-2109750_1280.webp" id="6_1dwcq"]
+[ext_resource type="FontFile" uid="uid://c3yoo47xttnd3" path="res://assets/fonts/sagewold/Sagewold-Regular.ttf" id="7_f2ya0"]
+[ext_resource type="PackedScene" uid="uid://dnh3a2mdqer6t" path="res://prefabs/misc_vfx/loading.tscn" id="7_kfaqx"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1dwcq"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kfaqx"]
+resource_local_to_scene = true
+shader = ExtResource("5_c70ge")
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_block_size = 30.5
+shader_parameter/fade = 1.0
+shader_parameter/direction_r = Vector2(1, 0)
+shader_parameter/direction_g = Vector2(0.4, 1)
+shader_parameter/direction_b = Vector2(-0.7, -0.3)
+shader_parameter/fade_to = SubResource("ViewportTexture_1dwcq")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_f2ya0"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xugix"]
+bg_color = Color(0, 0, 0, 0.752941)
 
 [node name="Main" type="Node" groups=["Main"]]
 script = ExtResource("1_1jyap")
@@ -17,33 +40,76 @@ script = ExtResource("1_1jyap")
 
 [node name="FlanCrush" parent="PreloadShaders" instance=ExtResource("4_c70ge")]
 
-[node name="LoadingLayer" type="CanvasLayer" parent="."]
-layer = 100
+[node name="TransitionServer" type="CanvasLayer" parent="."]
+layer = 110
 
-[node name="LoadingScreen" type="TextureRect" parent="LoadingLayer"]
+[node name="GlitchFade" type="ColorRect" parent="TransitionServer"]
+material = SubResource("ShaderMaterial_kfaqx")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_4sl7s")
+color = Color(0, 0, 0, 1)
+
+[node name="LoadingScreenFade" type="TextureRect" parent="TransitionServer"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+texture = SubResource("ViewportTexture_f2ya0")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(1280, 960)
+
+[node name="MainLoadingScreen" type="TextureRect" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_1dwcq")
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="LoadingLayer/LoadingScreen"]
+[node name="Panel" type="Panel" parent="SubViewport/MainLoadingScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xugix")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport/MainLoadingScreen/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -226.0
-offset_top = -233.0
-offset_right = 251.0
-offset_bottom = -210.0
+offset_left = -543.0
+offset_top = -46.5
+offset_right = 543.0
+offset_bottom = 46.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Fiction" type="Label" parent="SubViewport/MainLoadingScreen/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_f2ya0")
 theme_override_font_sizes/font_size = 32
-text = "And this is where I would put my loading screen... if I had one"
+text = "This game is a work of fiction.
+All characters and organizations that appear have passed into fantasy."
+horizontal_alignment = 1
+
+[node name="Fangame" type="Label" parent="SubViewport/MainLoadingScreen/Panel/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "This is a fangame project with no association to ZUN or Team Shanghai Alice."
+horizontal_alignment = 1
+
+[node name="Loading" parent="SubViewport/MainLoadingScreen" instance=ExtResource("7_kfaqx")]
 
 [editable path="PreloadShaders/FlanPrimaryShot"]
 [editable path="PreloadShaders/FlanCrush"]

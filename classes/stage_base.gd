@@ -18,7 +18,11 @@ func play_dialogic_timeline( timeline : String ):
 	await Dialogic.timeline_ended
 	play()
 
-func play_coroutine(coroutine: String):
+func play_coroutine(coroutine: StringName):
 	pause()
 	await call(coroutine)
 	play()
+
+func change_music(path: StringName):
+	print("SANITY!?!?!")
+	BGMServer.fade_to_new(path)

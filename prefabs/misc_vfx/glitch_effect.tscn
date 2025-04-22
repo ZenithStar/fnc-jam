@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhxvsuyi7tw35"]
+
+[ext_resource type="Shader" uid="uid://t00dst7o5ine" path="res://assets/shaders/glitch_effect.gdshader" id="1_oj8g1"]
+[ext_resource type="Texture2D" uid="uid://cj10x61yilwcc" path="res://icon.svg" id="2_qa5t8"]
+
+[sub_resource type="GDScript" id="GDScript_oj8g1"]
+script/source = "extends CanvasLayer
+
+var _tween: Tween
+
+func start(duration : float = 1.0 ):
+	visible = true
+	if is_instance_valid(_tween) and _tween.is_valid():
+		_tween.kill()
+	_tween = create_tween()
+	_tween.tween_interval(duration)
+	_tween.tween_callback(set.bind(\"visible\", false))
+
+func end():
+	if is_instance_valid(_tween) and _tween.is_valid():
+		_tween.kill()
+	visible = false
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1dwcq"]
+shader = ExtResource("1_oj8g1")
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_rate = 0.5
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.01
+
+[node name="GlitchEffect" type="CanvasLayer"]
+visible = false
+script = SubResource("GDScript_oj8g1")
+
+[node name="Control" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_1dwcq")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_qa5t8")

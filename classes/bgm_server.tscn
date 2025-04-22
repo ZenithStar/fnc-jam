@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3s4gtmxtq0jk"]
+
+[sub_resource type="GDScript" id="GDScript_34jvs"]
+script/source = "extends AudioStreamPlayer
+
+@export var fade_duration: float = 1.0
+
+var _fade_tween: Tween
+
+func fade_out():
+	if playing:
+		_fade_tween = create_tween()
+		_fade_tween.tween_method( func(x): volume_db = linear_to_db(x), 1.0, 0.0, fade_duration )
+		_fade_tween.tween_callback(stop)
+
+func fade_to_new( song: Variant ):
+	var new_stream: AudioStream
+	if song is String or song is StringName:
+		new_stream = load(song)
+	elif song is AudioStream:
+		new_stream = song
+	if not is_instance_valid(new_stream):
+		push_error(\"[BGMServer fade_to_new] invalid param \", song)
+	if playing:
+		_fade_tween = create_tween()
+		_fade_tween.tween_method( func(x): volume_db = linear_to_db(x), 1.0, 0.0, fade_duration )
+		_fade_tween.tween_callback(set.bind(\"volume_db\", 0.0))
+		_fade_tween.tween_callback(set.bind(\"stream\", new_stream))
+		_fade_tween.tween_callback(play)
+	else:
+		stream = new_stream
+		volume_db = 0.0
+		playing = true
+"
+
+[node name="BGMServer" type="AudioStreamPlayer"]
+bus = &"BGM"
+script = SubResource("GDScript_34jvs")

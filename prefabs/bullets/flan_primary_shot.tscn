@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://barygd4m2txpa"]
+[gd_scene load_steps=14 format=3 uid="uid://barygd4m2txpa"]
 
 [ext_resource type="Texture2D" uid="uid://b41e373pqc35o" path="res://assets/trace_01.png" id="1_ky1oq"]
 
@@ -44,6 +44,13 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
+[sub_resource type="Curve" id="Curve_xjuwh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xwlew"]
+curve = SubResource("Curve_xjuwh")
+
 [sub_resource type="Curve" id="Curve_46oxt"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -55,11 +62,15 @@ curve = SubResource("Curve_46oxt")
 particle_flag_disable_z = true
 emission_shape = 1
 emission_sphere_radius = 6.0
-inherit_velocity_ratio = -0.2
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
-damping_min = 25.0
-damping_max = 50.0
+damping_min = 100.0
+damping_max = 200.0
 scale_curve = SubResource("CurveTexture_ere45")
+alpha_curve = SubResource("CurveTexture_xwlew")
 hue_variation_min = -1.0
 hue_variation_max = 1.0
 
@@ -96,6 +107,8 @@ shape = SubResource("CircleShape2D_xjuwh")
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 amount = 32
 texture = SubResource("GradientTexture2D_tglh1")
+randomness = 0.5
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_0kxxb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

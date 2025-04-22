@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://csf8dfafuvl8q"]
+[gd_scene load_steps=5 format=3 uid="uid://csf8dfafuvl8q"]
 
-[ext_resource type="Texture2D" uid="uid://cj10x61yilwcc" path="res://icon.svg" id="1_lj5lv"]
+[ext_resource type="FontFile" uid="uid://du4nncm53kwmh" path="res://assets/fonts/zero_cool/ZeroCool.ttf" id="1_doy8b"]
+[ext_resource type="Texture2D" uid="uid://c2m8wb586b67p" path="res://assets/background_textures/texture-2110023_1280.webp" id="1_sr2lt"]
 [ext_resource type="PackedScene" uid="uid://dm3udx5tvgc4n" path="res://prefabs/game_server.tscn" id="2_sr2lt"]
+
+[sub_resource type="Theme" id="Theme_petu2"]
+default_font = ExtResource("1_doy8b")
+default_font_size = 32
 
 [node name="GameplayUI" type="Control"]
 layout_mode = 3
@@ -10,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_petu2")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -18,7 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_lj5lv")
+texture = ExtResource("1_sr2lt")
 stretch_mode = 6
 
 [node name="GameplayArea" type="Control" parent="."]

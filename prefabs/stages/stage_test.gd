@@ -1,11 +1,9 @@
 extends StageBase
 
-func _ready() -> void:
-	super()
-	get_tree().get_first_node_in_group("Main").change_bgm("uid://b2jfobimj67x4")
 
 func test_sequence() -> void:
 	_bosses["jane"].position = Vector2(500.0, 0.0)
+	GlitchEffect.start()
 	var tween: Tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_CIRC)

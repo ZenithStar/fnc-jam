@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var difficulty: Global.Difficulty = Global.Difficulty.NORMAL
-@export var player_scene: PackedScene = Global.CHARACTER_SCENES[Global.Character.REIMU_A]
+@export var player_scene: PackedScene = Global.CHARACTER_SCENES[Global.Character.FLANDRE_A]
 @export var score: int = 0
 @export var lives: int = 2
 @export var life_shards: int = 0:

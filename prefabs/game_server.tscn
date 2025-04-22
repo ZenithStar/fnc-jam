@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://dm3udx5tvgc4n"]
+[gd_scene load_steps=8 format=3 uid="uid://dm3udx5tvgc4n"]
 
 [ext_resource type="Script" uid="uid://b2wm5jbybwxqr" path="res://classes/game_server.gd" id="1_507v1"]
 [ext_resource type="Script" uid="uid://bjjrhdih67ywi" path="res://classes/pickup_server.gd" id="2_flofk"]
 [ext_resource type="PackedScene" uid="uid://ji0yg461mfxp" path="res://prefabs/stages/stage_test.tscn" id="3_5v0ui"]
 [ext_resource type="Script" uid="uid://b8dqrec4taeqg" path="res://classes/target_server.gd" id="3_qofpv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5v0ui"]
+size = Vector2(768, 256)
 
 [sub_resource type="Animation" id="Animation_yr1me"]
 resource_name = "stage"
@@ -63,7 +66,7 @@ tracks/4/keys = {
 }]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_7ya2j"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5v0ui"]
 resource_local_to_scene = true
 _data = {
 &"stage": SubResource("Animation_yr1me")
@@ -72,8 +75,14 @@ _data = {
 [node name="GameServer" type="Node2D" groups=["GameServer"]]
 script = ExtResource("1_507v1")
 
-[node name="PickupServer" type="Node2D" parent="." groups=["PickupServer"]]
+[node name="PickupServer" type="Area2D" parent="." groups=["PickupServer"]]
+collision_layer = 0
+monitorable = false
 script = ExtResource("2_flofk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupServer"]
+position = Vector2(0, -320)
+shape = SubResource("RectangleShape2D_5v0ui")
 
 [node name="BulletServer" type="Node2D" parent="." groups=["BulletServer"]]
 
@@ -89,7 +98,9 @@ position = Vector2(0, 360)
 
 [node name="StageTest" parent="." instance=ExtResource("3_5v0ui")]
 libraries = {
-&"": SubResource("AnimationLibrary_7ya2j")
+&"": SubResource("AnimationLibrary_5v0ui")
 }
 
 [connection signal="pickup" from="." to="." method="_on_pickup"]
+[connection signal="area_entered" from="PickupServer" to="PickupServer" method="_on_area_entered"]
+[connection signal="area_exited" from="PickupServer" to="PickupServer" method="_on_area_exited"]

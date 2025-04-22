@@ -1,0 +1,122 @@
+[gd_scene load_steps=11 format=3 uid="uid://dnh3a2mdqer6t"]
+
+[ext_resource type="Texture2D" uid="uid://2cl42e114o5v" path="res://assets/symbol_02.png" id="1_4qxk4"]
+[ext_resource type="FontFile" uid="uid://i52b6vj3hshj" path="res://assets/fonts/sangyo/Sangyo-Italic.ttf" id="1_jj2k7"]
+[ext_resource type="FontFile" uid="uid://dn3ji4oy2qekw" path="res://assets/fonts/audex/Audex-Regular.ttf" id="2_hiq8e"]
+
+[sub_resource type="Curve" id="Curve_mi10n"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.254321, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_jj2k7"]
+curve = SubResource("Curve_mi10n")
+
+[sub_resource type="Curve" id="Curve_hiq8e"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.244444, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_1qfpp"]
+texture_mode = 1
+curve = SubResource("Curve_hiq8e")
+
+[sub_resource type="Curve" id="Curve_4qxk4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mi10n"]
+curve = SubResource("Curve_4qxk4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7mppp"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(200, 100, 1)
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 86.4
+gravity = Vector3(0, 0, 0)
+scale_min = 0.05
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_mi10n")
+alpha_curve = SubResource("CurveTexture_jj2k7")
+emission_curve = SubResource("CurveTexture_1qfpp")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[node name="CanvasLayer" type="CanvasLayer"]
+layer = 5
+
+[node name="Loading" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="Loading"]
+layout_mode = 1
+anchor_left = 0.8
+anchor_top = 0.8
+anchor_right = 0.8
+anchor_bottom = 0.8
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="Loading/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -114.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.527133, 0.781268, 0.557069, 1)
+theme_override_colors/font_shadow_color = Color(0.176419, 0.176419, 0.176419, 1)
+theme_override_colors/font_outline_color = Color(0.0985007, 0.117832, 0.0332071, 1)
+theme_override_constants/shadow_offset_x = 8
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("1_jj2k7")
+theme_override_font_sizes/font_size = 32
+text = "Now Loading..."
+
+[node name="Label" type="Label" parent="Loading/Control/Label"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.379751, 0.747204, 0.685994, 1)
+theme_override_colors/font_shadow_color = Color(0.144063, 0.144063, 0.144063, 1)
+theme_override_colors/font_outline_color = Color(0.0607452, 0.200928, 0.169854, 1)
+theme_override_constants/shadow_offset_x = 8
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 4
+theme_override_fonts/font = ExtResource("2_hiq8e")
+theme_override_font_sizes/font_size = 32
+text = "GIRLS ARE NOW PRAYING"
+
+[node name="Control2" type="Control" parent="Loading"]
+layout_mode = 1
+anchor_left = 0.75
+anchor_top = 1.0
+anchor_right = 0.75
+anchor_bottom = 1.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Loading/Control2"]
+amount = 64
+texture = ExtResource("1_4qxk4")
+lifetime = 5.0
+preprocess = 5.0
+process_material = SubResource("ParticleProcessMaterial_7mppp")

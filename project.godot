@@ -19,14 +19,18 @@ config/icon="res://icon.svg"
 
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+GlitchEffect="*res://prefabs/misc_vfx/glitch_effect.tscn"
+BGMServer="*res://classes/bgm_server.tscn"
 
 [dialogic]
 
 directories/dch_directory={
 "flandre": "res://prefabs/dialogic/characters/flandre.dch",
-"jane": "res://prefabs/dialogic/characters/jane.dch"
+"jane": "res://prefabs/dialogic/characters/jane.dch",
+"kadri": "res://prefabs/dialogic/characters/kadri.dch"
 }
 directories/dtl_directory={
+"empty": "res://prefabs/dialogic/timelines/empty.dtl",
 "test_ipsum": "res://prefabs/dialogic/timelines/test_ipsum.dtl"
 }
 layout/style_list=["res://prefabs/dialogic/style.tres"]
@@ -76,6 +80,7 @@ BGMServer=""
 BulletServer=""
 PlayerBulletServer=""
 TargetServer=""
+CameraWithSpellcard=""
 
 [input]
 
