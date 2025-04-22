@@ -29,22 +29,6 @@ var current_option: int:
 
 var selected: bool = false
 
-@onready var fader = $FadeAnimator
-
-var options: Array[Label] = []
-var current_tween: Tween
-var current_option: int:
-	set(value):
-		if current_tween:
-			current_tween.kill()
-		options[current_option].label_settings.font_color = Color.DIM_GRAY
-		current_option = wrap(value, 0, len(options))
-		current_tween = get_tree().create_tween().set_loops().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-		current_tween.tween_property(options[current_option], \"label_settings:font_color\", Color.WHITE, 0.4).from(Color.DIM_GRAY)
-		current_tween.tween_property(options[current_option], \"label_settings:font_color\", Color.DIM_GRAY, 0.4)
-
-var selected: bool = false
-
 func post_transition() -> void:
 	get_tree().get_first_node_in_group(\"Main\").change_bgm(\"uid://boab0nsa4uero\")
 	fader.play(\"fade\")
