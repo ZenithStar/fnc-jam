@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0d3o57md6wj"]
+
+[ext_resource type="Texture2D" uid="uid://cj10x61yilwcc" path="res://icon.svg" id="1_m1um0"]
+[ext_resource type="Texture2D" uid="uid://3j2ulryswlw8" path="res://assets/fog.png" id="2_g4cip"]
+
+[sub_resource type="GDScript" id="GDScript_oye1s"]
+script/source = "@tool
+extends Sprite2D
+
+const SPEED := 1.8
+
+func _process(delta: float) -> void:
+	region_rect.position.x = fmod(region_rect.position.x + SPEED * 60 * delta, 1024.0)
+"
+
+[node name="DifficultySelect" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 960.0
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(0.666667, 0.666667, 0.666667, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_m1um0")
+stretch_mode = 6
+
+[node name="Fog" type="Sprite2D" parent="Background"]
+modulate = Color(1, 1, 1, 0.188235)
+texture_repeat = 2
+position = Vector2(640, 640)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("2_g4cip")
+region_enabled = true
+region_rect = Rect2(151.621, 0, 1024, 512)
+script = SubResource("GDScript_oye1s")

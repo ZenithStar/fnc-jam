@@ -66,6 +66,10 @@ window/size/viewport_width=1280
 window/size/viewport_height=960
 window/stretch/mode="canvas_items"
 
+[dotnet]
+
+project/assembly_name="FnC Jam"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/dialogic/plugin.cfg")

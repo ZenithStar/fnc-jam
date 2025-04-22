@@ -100,6 +100,9 @@ position = Vector2(0, 360)
 libraries = {
 &"": SubResource("AnimationLibrary_5v0ui")
 }
+libraries = {
+&"": SubResource("AnimationLibrary_5v0ui")
+}
 
 [connection signal="pickup" from="." to="." method="_on_pickup"]
 [connection signal="area_entered" from="PickupServer" to="PickupServer" method="_on_area_entered"]

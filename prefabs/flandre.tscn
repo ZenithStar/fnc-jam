@@ -9,53 +9,72 @@
 atlas = ExtResource("3_rxmrp")
 region = Rect2(224, 32, 16, 16)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hwkca"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_paxfa"]
 resource_local_to_scene = true
 radius = 3.0
 
 [sub_resource type="GDScript" id="GDScript_paxfa"]
 script/source = "extends Node2D
 
-const SHOT_SCENE:= preload(\"uid://barygd4m2txpa\")
-const SHOT_PERIOD: = 0.0625
-const SHOT_SPREAD: = 0.0490874
+const SHOT_SCENE := preload(\"uid://barygd4m2txpa\")
+const SHOT_PERIOD := 0.0625
+const SHOT_SPREAD := 0.0490874
+const SHOT_TIMEOUT := 0.2
 var _timeout: float
+var shoot_tween: Tween
 
 func _ready() -> void:
-	set_physics_process(Input.is_action_pressed(\"fire\"))
+	shoot_tween = create_tween().set_loops()
+	shoot_tween.tween_callback(shoot).set_delay(SHOT_PERIOD)
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action(\"fire\"):
-		set_physics_process(Input.is_action_pressed(\"fire\"))
+func shoot():
+	if not is_instance_valid(Dialogic.current_timeline):
+		var new_shot:= SHOT_SCENE.instantiate()
+		new_shot.position = get_parent().position
+		new_shot.rotation = randfn(0.0, SHOT_SPREAD)
+		get_tree().get_first_node_in_group(\"PlayerBulletServer\").add_child(new_shot)
 
 func _physics_process(delta: float) -> void:
-	_timeout -= delta
-	while _timeout <= 0.0:
-		if not is_instance_valid(Dialogic.current_timeline):
-			var new_shot:= SHOT_SCENE.instantiate()
-			new_shot.position = get_parent().position
-			new_shot.rotation = randfn(0.0, SHOT_SPREAD)
-			get_tree().get_first_node_in_group(\"PlayerBulletServer\").add_child(new_shot)
-		_timeout += SHOT_PERIOD
+	if Input.is_action_pressed(\"fire\"):
+		_timeout = SHOT_TIMEOUT
+		if !shoot_tween.is_running():
+			shoot_tween.play()
+	
+	_timeout = max(0.0, _timeout - delta)
+	if _timeout == 0.0 and shoot_tween.is_running():
+		shoot_tween.pause()
 "
 
 [sub_resource type="GDScript" id="GDScript_ytfe8"]
 script/source = "extends Node2D
 
-const SHOT_SCENE:= preload(\"uid://bjnn4cmoxm3d0\")
-const SHOT_PERIOD: = 2.4
-var _timeout: float = SHOT_PERIOD
+const SHOT_SCENE := preload(\"uid://bjnn4cmoxm3d0\")
+const SHOT_PERIOD : = 2.4
+const SHOT_TIMEOUT := 0.2
+var _timeout: float
+var shoot_tween: Tween
+
+func _ready() -> void:
+	shoot_tween = create_tween().set_loops()
+	shoot_tween.tween_callback(shoot).set_delay(SHOT_PERIOD)
+
+func shoot():
+	var target: Area2D = get_tree().get_first_node_in_group(\"TargetServer\").pick_random()
+	if is_instance_valid(target) and not is_instance_valid(Dialogic.current_timeline):
+		var new_shot:= SHOT_SCENE.instantiate()
+		new_shot.position = target.global_position
+		get_tree().get_first_node_in_group(\"PlayerBulletServer\").add_child(new_shot)
 
 
 func _physics_process(delta: float) -> void:
-	_timeout -= delta
-	while _timeout <= 0.0:
-		var target: Area2D = get_tree().get_first_node_in_group(\"TargetServer\").pick_random()
-		if Input.is_action_pressed(\"fire\") and is_instance_valid(target) and not is_instance_valid(Dialogic.current_timeline):
-			var new_shot:= SHOT_SCENE.instantiate()
-			new_shot.position = target.global_position
-			get_tree().get_first_node_in_group(\"PlayerBulletServer\").add_child(new_shot)
-		_timeout += SHOT_PERIOD
+	if Input.is_action_pressed(\"fire\"):
+		_timeout = SHOT_TIMEOUT
+		if !shoot_tween.is_running():
+			shoot_tween.play()
+	
+	_timeout = max(0.0, _timeout - delta)
+	if _timeout == 0.0 and shoot_tween.is_running():
+		shoot_tween.pause()
 "
 
 [node name="Flandre" instance=ExtResource("1_ytfe8")]
@@ -76,8 +95,8 @@ texture = ExtResource("4_hryse")
 hframes = 3
 vframes = 3
 
-[node name="CollisionShape2D" parent="." index="3"]
-shape = SubResource("CircleShape2D_hwkca")
+[node name="Hitbox" parent="." index="3"]
+shape = SubResource("CircleShape2D_paxfa")
 
 [node name="PrimaryShot" type="Node2D" parent="." index="4"]
 script = SubResource("GDScript_paxfa")

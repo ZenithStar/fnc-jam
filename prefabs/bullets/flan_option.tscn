@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3x637rdsdnxe"]
+
+[ext_resource type="Texture2D" uid="uid://bj8pmuse8eet0" path="res://assets/seija_real/ShotSheet2.png" id="1_xnsbc"]
+
+[sub_resource type="Shader" id="Shader_ocla4"]
+code = "shader_type canvas_item;
+
+// Helper function to convert HSV to RGB
+vec3 hsv2rgb(vec3 hsv) {
+    float C = hsv.y * hsv.z;
+    float X = C * (1.0 - abs(mod(hsv.x * 6.0, 2.0) - 1.0));
+    float m = hsv.z - C;
+
+    vec3 rgb;
+    if (hsv.x < 1.0 / 6.0) {
+        rgb = vec3(C, X, 0.0);
+    } else if (hsv.x < 2.0 / 6.0) {
+        rgb = vec3(X, C, 0.0);
+    } else if (hsv.x < 3.0 / 6.0) {
+        rgb = vec3(0.0, C, X);
+    } else if (hsv.x < 4.0 / 6.0) {
+        rgb = vec3(0.0, X, C);
+    } else if (hsv.x < 5.0 / 6.0) {
+        rgb = vec3(X, 0.0, C);
+    } else {
+        rgb = vec3(C, 0.0, X);
+    }
+    return rgb + vec3(m);
+}
+void fragment() {
+    // Create a rainbow effect by cycling through the HSV color spectrum
+    float hue = mod(TIME * 0.2 + UV.x + UV.y, 1.0); // Cycle the hue over time and UV coordinates
+    vec3 rainbow_color = hsv2rgb(vec3(hue, 1.0, 1.0)); // Convert HSV to RGB
+    COLOR *= vec4(rainbow_color, 1.0); // Set the output color with full opacity
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6owoo"]
+shader = SubResource("Shader_ocla4")
+
+[sub_resource type="GDScript" id="GDScript_xnsbc"]
+script/source = "extends Sprite2D
+
+var direction = Vector2.UP
+
+func shoot():
+	var bullet = preload(\"res://prefabs/bullets/flan_secondary.tscn\").instantiate()
+	bullet.scale = Vector2.ZERO
+	bullet.set('direction', direction)
+	bullet.modulate.a8 = 100
+	
+	get_tree().create_tween().tween_property(bullet, \"scale\", Vector2.ONE, 0.8).set_trans(Tween.TRANS_SINE)
+	add_child(bullet)
+
+func _ready():
+	get_tree().create_tween().set_loops().tween_callback(shoot).set_delay(1)
+"
+
+[node name="Node2D" type="Sprite2D"]
+material = SubResource("ShaderMaterial_6owoo")
+position = Vector2(320, 240)
+texture = ExtResource("1_xnsbc")
+region_enabled = true
+region_rect = Rect2(0, 176, 16, 16)
+script = SubResource("GDScript_xnsbc")

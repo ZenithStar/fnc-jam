@@ -1,6 +1,5 @@
 extends Area2D
 
-
 const DEATHBOMB_WINDOW: float = .16667
 const ANIMATION_FPS: float = 10.0
 const NUM_ANIMATION_FRAMES: int = 3
@@ -15,9 +14,9 @@ signal hit
 
 @export var hitbox_radius: float = 3.0:
 	set( value ):
-		$CollisionShape2D.shape.radius = value
+		$Hitbox.shape.radius = value
 	get:
-		return $CollisionShape2D.shape.radius
+		return $Hitbox.shape.radius
 
 enum Directions{
 	CENTER,

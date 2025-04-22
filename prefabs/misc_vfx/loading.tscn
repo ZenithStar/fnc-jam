@@ -64,6 +64,10 @@ anchor_left = 0.8
 anchor_top = 0.8
 anchor_right = 0.8
 anchor_bottom = 0.8
+offset_left = 126.0
+offset_top = 92.0
+offset_right = 126.0
+offset_bottom = 92.0
 grow_horizontal = 0
 grow_vertical = 0
 
@@ -117,6 +121,6 @@ anchor_bottom = 1.0
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Loading/Control2"]
 amount = 64
 texture = ExtResource("1_4qxk4")
-lifetime = 5.0
+lifetime = 2.0
 preprocess = 5.0
 process_material = SubResource("ParticleProcessMaterial_7mppp")

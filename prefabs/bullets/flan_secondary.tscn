@@ -1,0 +1,106 @@
+[gd_scene load_steps=7 format=3 uid="uid://di7w1fft0h70i"]
+
+[ext_resource type="Texture2D" uid="uid://b3xkich8qcp4k" path="res://assets/seija_real/ShotSheet.png" id="1_ppfaq"]
+[ext_resource type="Texture2D" uid="uid://bj8pmuse8eet0" path="res://assets/seija_real/ShotSheet2.png" id="2_26elk"]
+
+[sub_resource type="GDScript" id="GDScript_ppfaq"]
+script/source = "extends Node2D
+class_name SecondaryShot
+
+const SPEED := 2
+const DAMAGE: = 50.0
+
+var direction: Vector2
+
+func _process(delta: float) -> void:
+	rotation_degrees += 1.8 * 60 * delta
+	position += direction.normalized() * SPEED * 60 * delta
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h0wp7"]
+radius = 36.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_klr0r"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ppfaq"]
+height = 40.0
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_ppfaq")
+
+[node name="BigBall" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BigBall"]
+shape = SubResource("CircleShape2D_h0wp7")
+
+[node name="Sprite" type="Sprite2D" parent="BigBall"]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_klr0r")
+texture = ExtResource("1_ppfaq")
+region_enabled = true
+region_rect = Rect2(768, 128, 64, 64)
+
+[node name="UpLaser" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpLaser"]
+position = Vector2(0, -40)
+shape = SubResource("CapsuleShape2D_ppfaq")
+
+[node name="Sprite" type="Sprite2D" parent="UpLaser"]
+texture_filter = 1
+scale = Vector2(1, 0.2)
+texture = ExtResource("2_26elk")
+offset = Vector2(0, -136)
+region_enabled = true
+region_rect = Rect2(34, 226, 12, 252)
+
+[node name="RightLaser" type="Area2D" parent="."]
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightLaser"]
+position = Vector2(0, -40)
+shape = SubResource("CapsuleShape2D_ppfaq")
+
+[node name="Sprite" type="Sprite2D" parent="RightLaser"]
+texture_filter = 1
+scale = Vector2(1, 0.2)
+texture = ExtResource("2_26elk")
+offset = Vector2(0, -136)
+region_enabled = true
+region_rect = Rect2(34, 226, 12, 252)
+
+[node name="DownLaser" type="Area2D" parent="."]
+rotation = 3.14159
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DownLaser"]
+position = Vector2(0, -40)
+shape = SubResource("CapsuleShape2D_ppfaq")
+
+[node name="Sprite" type="Sprite2D" parent="DownLaser"]
+texture_filter = 1
+scale = Vector2(1, 0.2)
+texture = ExtResource("2_26elk")
+offset = Vector2(0, -136)
+region_enabled = true
+region_rect = Rect2(34, 226, 12, 252)
+
+[node name="LeftLaser" type="Area2D" parent="."]
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftLaser"]
+position = Vector2(0, -40)
+shape = SubResource("CapsuleShape2D_ppfaq")
+
+[node name="Sprite" type="Sprite2D" parent="LeftLaser"]
+texture_filter = 1
+scale = Vector2(1, 0.2)
+texture = ExtResource("2_26elk")
+offset = Vector2(0, -136)
+region_enabled = true
+region_rect = Rect2(34, 226, 12, 252)
+
+[node name="LaserHead" type="Sprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_ppfaq")
+region_enabled = true
+region_rect = Rect2(32, 16, 16, 16)

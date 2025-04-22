@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://l6fmd7keqx2k"]
+[gd_scene load_steps=21 format=3 uid="uid://l6fmd7keqx2k"]
 
 [ext_resource type="FontFile" uid="uid://bcjgkxqjkxkq1" path="res://assets/fonts/Otsutome_font_ver3_16/OtsutomeFont_Ver3_16.ttf" id="1_p25lt"]
 [ext_resource type="Texture2D" uid="uid://bxixdlc423b6i" path="res://assets/background_textures/background-2044500_1280.webp" id="2_p25lt"]
-[ext_resource type="Script" uid="uid://bsd36bvihkaa3" path="res://classes/DiagonalizedVBoxContainer.gd" id="2_s4edq"]
 [ext_resource type="Texture2D" uid="uid://c8f3ni4ikqtu8" path="res://assets/character_portraits/flandre/sprite_flandre-scarlet_neutral.png" id="3_phw8v"]
+[ext_resource type="Script" uid="uid://bsd36bvihkaa3" path="res://classes/DiagonalizedVBoxContainer.gd" id="4_hjf0n"]
 [ext_resource type="FontFile" uid="uid://uioy4i21lqpl" path="res://assets/fonts/glitch_goblin/GlitchGoblin.ttf" id="5_hjf0n"]
 
 [sub_resource type="Theme" id="Theme_p25lt"]
@@ -13,18 +13,171 @@ default_font_size = 36
 [sub_resource type="GDScript" id="GDScript_phw8v"]
 script/source = "extends Control
 
+@onready var fader = $FadeAnimator
+
+var options: Array[Label] = []
+var current_tween: Tween
+var current_option: int:
+	set(value):
+		if current_tween:
+			current_tween.kill()
+		options[current_option].label_settings.font_color = Color.DIM_GRAY
+		current_option = wrap(value, 0, len(options))
+		current_tween = get_tree().create_tween().set_loops().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		current_tween.tween_property(options[current_option], \"label_settings:font_color\", Color.WHITE, 0.4).from(Color.DIM_GRAY)
+		current_tween.tween_property(options[current_option], \"label_settings:font_color\", Color.DIM_GRAY, 0.4)
+
+var selected: bool = false
+
 func _ready() -> void:
 	get_tree().get_first_node_in_group(\"Main\").change_bgm(\"uid://boab0nsa4uero\")
-	$\"DiagonalizedVBoxContainer/Game Start\".grab_focus()
+	fader.play(\"fade\")
+	for c in ($Menu).get_children():
+		if c is Label:
+			options.push_back(c)
+			
+	for option in options:
+		option.label_settings.font_color = Color.DIM_GRAY
+	
+	current_option = 0
 
-
-func _on_game_start_pressed() -> void:
-	get_tree().get_first_node_in_group(\"Main\").start_game() # TODO: add difficulty + character selector
-
-
-func _on_quit_pressed() -> void:
-	get_tree().quit()
+func _input(event: InputEvent) -> void:
+	if !selected:
+		if event.is_action_pressed(\"ui_down\"):
+			current_option += 1
+		elif event.is_action_pressed(\"ui_up\"):
+			current_option -= 1
+		elif event.is_action_pressed(\"ui_accept\"):
+			selected = true
+			if current_tween:
+				current_tween.kill()
+			
+			for _i in range(3):
+				options[current_option].label_settings.font_color = Color.DIM_GRAY
+				await get_tree().create_timer(0.1).timeout
+				options[current_option].label_settings.font_color = Color.WHITE
+				await get_tree().create_timer(0.1).timeout
+			
+			current_option = current_option
+			
+			fader.pause()
+			fader.play_backwards('fade')
+			
+			await fader.animation_finished
+			match current_option:
+				0: # Game Start
+					get_tree().get_first_node_in_group(\"Main\").start_game() # TODO: add difficulty + character selector
+				9: # Quit
+					get_tree().quit()
 "
+
+[sub_resource type="Animation" id="Animation_phw8v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_p25lt"]
+resource_name = "fade"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hjf0n"]
+_data = {
+&"RESET": SubResource("Animation_phw8v"),
+&"fade": SubResource("Animation_p25lt")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_t8y47"]
+font_size = 30
+font_color = Color(0.998036, 0.998036, 0.998036, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_s4edq"]
+font_size = 30
+font_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_p25lt"]
+font_size = 30
+font_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_phw8v"]
+font_size = 30
+font_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hjf0n"]
+font_size = 30
+font_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_t2mxr"]
+font_size = 30
+font_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ec8bq"]
+font_size = 30
+font_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0buh5"]
+font_size = 30
+font_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5g7ko"]
+font_size = 30
+font_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pwmmx"]
+font_size = 30
+font_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [node name="Title" type="Control"]
 layout_mode = 3
@@ -36,7 +189,12 @@ grow_vertical = 2
 theme = SubResource("Theme_p25lt")
 script = SubResource("GDScript_phw8v")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="FadeAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_hjf0n")
+}
+
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,65 +217,69 @@ grow_horizontal = 0
 grow_vertical = 0
 texture = ExtResource("3_phw8v")
 
-[node name="DiagonalizedVBoxContainer" type="VBoxContainer" parent="."]
+[node name="Menu" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.05
 anchor_top = 0.9
 anchor_right = 0.05
 anchor_bottom = 0.9
+offset_top = -430.0
+offset_right = 154.0
 grow_vertical = 0
-script = ExtResource("2_s4edq")
+theme_override_constants/separation = 10
+script = ExtResource("4_hjf0n")
 
-[node name="Game Start" type="Button" parent="DiagonalizedVBoxContainer"]
+[node name="Game Start" type="Label" parent="Menu"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../Quit")
+theme_override_constants/shadow_outline_size = 2
 text = "Game Start"
+label_settings = SubResource("LabelSettings_t8y47")
 
-[node name="Extra Start" type="Button" parent="DiagonalizedVBoxContainer"]
+[node name="Extra Start" type="Label" parent="Menu"]
 layout_mode = 2
-disabled = true
 text = "Extra Start"
+label_settings = SubResource("LabelSettings_s4edq")
 
-[node name="Practice" type="Button" parent="DiagonalizedVBoxContainer"]
+[node name="Practice" type="Label" parent="Menu"]
 layout_mode = 2
-disabled = true
 text = "Practice"
+label_settings = SubResource("LabelSettings_p25lt")
 
-[node name="Spell Practice" type="Button" parent="DiagonalizedVBoxContainer"]
+[node name="Spell Practice" type="Label" parent="Menu"]
 layout_mode = 2
-disabled = true
 text = "Spell Practice"
+label_settings = SubResource("LabelSettings_phw8v")
 
-[node name="Replay" type="Button" parent="DiagonalizedVBoxContainer"]
+[node name="Replay" type="Label" parent="Menu"]
 layout_mode = 2
-disabled = true
 text = "Replay"
+label_settings = SubResource("LabelSettings_hjf0n")
 
-[node name="Player Data" type="Button" parent="DiagonalizedVBoxContainer"]
+[node name="Player Data" type="Label" parent="Menu"]
 layout_mode = 2
-disabled = true
 text = "Player Data"
+label_settings = SubResource("LabelSettings_t2mxr")
 
-[node name="Music Room" type="Button" parent="DiagonalizedVBoxContainer"]
+[node name="Music Room" type="Label" parent="Menu"]
 layout_mode = 2
-disabled = true
 text = "Music Room"
+label_settings = SubResource("LabelSettings_ec8bq")
 
-[node name="Option" type="Button" parent="DiagonalizedVBoxContainer"]
+[node name="Option" type="Label" parent="Menu"]
 layout_mode = 2
-disabled = true
 text = "Option"
+label_settings = SubResource("LabelSettings_0buh5")
 
-[node name="Manual" type="Button" parent="DiagonalizedVBoxContainer"]
+[node name="Manual" type="Label" parent="Menu"]
 layout_mode = 2
-disabled = true
 text = "Manual"
+label_settings = SubResource("LabelSettings_5g7ko")
 
-[node name="Quit" type="Button" parent="DiagonalizedVBoxContainer"]
+[node name="Quit" type="Label" parent="Menu"]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../Game Start")
 text = "Quit"
+label_settings = SubResource("LabelSettings_pwmmx")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -137,6 +299,3 @@ text = "Transplantation of
     Scarlet 
        Dream
 "
-
-[connection signal="pressed" from="DiagonalizedVBoxContainer/Game Start" to="." method="_on_game_start_pressed"]
-[connection signal="pressed" from="DiagonalizedVBoxContainer/Quit" to="." method="_on_quit_pressed"]
