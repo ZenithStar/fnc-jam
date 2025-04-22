@@ -1,5 +1,8 @@
 extends StageBase
 
+func post_transition():
+	BGMServer.fade_to_new(preload("uid://b2jfobimj67x4"))
+	play("stage")
 
 func test_sequence() -> void:
 	_bosses["jane"].position = Vector2(500.0, 0.0)

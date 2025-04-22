@@ -10,7 +10,7 @@ func _ready() -> void:
 		var boss_node: BossBase = prespawn_bosses[boss].instantiate()
 		_bosses[boss] = boss_node
 		add_child(boss_node)
-	play("stage")
+
 
 func play_dialogic_timeline( timeline : String ):
 	pause()
@@ -22,7 +22,3 @@ func play_coroutine(coroutine: StringName):
 	pause()
 	await call(coroutine)
 	play()
-
-func change_music(path: StringName):
-	print("SANITY!?!?!")
-	BGMServer.fade_to_new(path)
