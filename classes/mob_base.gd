@@ -59,3 +59,8 @@ func _physics_process(delta: float) -> void:
 		direction_facing = Directions.RIGHT
 	else: # center
 		direction_facing = Directions.CENTER
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.has_signal("hit"):
+		area.hit.emit()

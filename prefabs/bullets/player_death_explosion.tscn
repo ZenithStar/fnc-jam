@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://dasqetbsbueb7"]
+
+[ext_resource type="Shader" uid="uid://upsykftvxfyc" path="res://assets/shaders/color_invert.gdshader" id="1_ljuy4"]
+
+[sub_resource type="GDScript" id="GDScript_03bfm"]
+script/source = "extends Area2D
+
+const DAMAGE: = 1000.0
+const DURATION: = 1.0
+const TRAVEL_DISTANCE: = 360.0
+var _tween: Tween
+
+func _ready() -> void:
+	rotation = randf_range(-PI, PI)
+	_tween = create_tween()
+	_tween.set_parallel()
+	_tween.set_ease(Tween.EASE_OUT)
+	_tween.set_trans(Tween.TRANS_CIRC)
+	_tween.tween_property(self, \"modulate:a\", 0.0, DURATION)
+	_tween.tween_property($Sprite2D, \"position\", Vector2.from_angle(0.0) * TRAVEL_DISTANCE , 1.0)
+	_tween.tween_property($Sprite2D2, \"position\", Vector2.from_angle(-TAU / 3.0) * TRAVEL_DISTANCE , 1.0)
+	_tween.tween_property($Sprite2D3, \"position\", Vector2.from_angle( TAU / 3.0) * TRAVEL_DISTANCE , 1.0)
+	_tween.set_parallel(false)
+	_tween.tween_callback(queue_free)
+	set.call_deferred(\"mointoring\", false)
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.has_signal(\"hit\"):
+		area.hit.emit(DAMAGE)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1f16c"]
+radius = 180.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3aqgf"]
+shader = ExtResource("1_ljuy4")
+
+[sub_resource type="Gradient" id="Gradient_6qcbh"]
+offsets = PackedFloat32Array(0.394799, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8fkyj"]
+gradient = SubResource("Gradient_6qcbh")
+width = 360
+height = 360
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="PlayerDeathExplosion" type="Area2D"]
+collision_layer = 0
+collision_mask = 10
+monitorable = false
+script = SubResource("GDScript_03bfm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1f16c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_3aqgf")
+texture = SubResource("GradientTexture2D_8fkyj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_3aqgf")
+texture = SubResource("GradientTexture2D_8fkyj")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_3aqgf")
+texture = SubResource("GradientTexture2D_8fkyj")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

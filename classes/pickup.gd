@@ -14,7 +14,7 @@ const SELF_REMOVAL_HEIGHT: = 480.0
 const THROW_DISTANCE: = 64.0
 const THROW_DURATION: = 0.6
 const FALL_VELOCITY: = 150.0
-const VACUUM_VELOCITY: = 400.0
+const VACUUM_VELOCITY: = 600.0
 const VACUUM_THRESHOLD: = 8.0
 
 @export var type: Type

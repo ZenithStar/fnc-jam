@@ -2,6 +2,9 @@ extends Node2D
 
 @export var difficulty: Global.Difficulty = Global.Difficulty.NORMAL
 @export var player_scene: PackedScene = Global.CHARACTER_SCENES[Global.Character.FLANDRE_A]
+@export var stage_scene: PackedScene = preload("uid://ji0yg461mfxp")
+
+
 @export var score: int = 0
 @export var lives: int = 2
 @export var life_shards: int = 0:
@@ -28,10 +31,15 @@ extends Node2D
 			if power == 5.0:
 				full_power.emit()
 
+var player: Player
+var stage: StageBase
+
 func _ready() -> void:
-	var player : =player_scene.instantiate()
-	player.position = $PlayerSpawn.position
-	add_child(player)
+	spawn_player()
+	
+	stage = stage_scene.instantiate()
+	add_child(stage)
+	
 
 signal pickup( type: Pickup.Type )
 
@@ -63,3 +71,23 @@ func _on_pickup( type: Pickup.Type ):
 			life_shards += 1
 		Pickup.Type.BOMB_SHARD:
 			bomb_shards += 1
+
+var _player_spawn_tween: Tween
+func spawn_player():
+	player = player_scene.instantiate()
+	player.position = $PlayerSpawnBegin.position
+	add_child(player)
+	player.tree_exited.connect(_on_player_tree_exited)
+	_player_spawn_tween = create_tween()
+	_player_spawn_tween.set_ease(Tween.EASE_OUT)
+	_player_spawn_tween.set_trans(Tween.TRANS_SINE)
+	_player_spawn_tween.tween_property(player, "position", $PlayerSpawnEnd.position, 1.0)
+	_player_spawn_tween.tween_callback(player.set.bind(&"controlable", true))
+
+
+func _on_player_tree_exited():
+	if lives > 0:
+		lives -= 1
+		spawn_player()
+	else:
+		pass # TODO: game over screen

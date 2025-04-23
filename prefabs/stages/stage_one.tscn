@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://01bkdsupqkvr"]
+
+[ext_resource type="PackedScene" uid="uid://dsuled2355muo" path="res://prefabs/stages/stage_base.tscn" id="1_vpsf2"]
+
+[sub_resource type="Animation" id="Animation_yr1me"]
+resource_name = "stage"
+length = 120.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p5j6p"]
+resource_local_to_scene = true
+_data = {
+&"stage": SubResource("Animation_yr1me")
+}
+
+[node name="StageOne" instance=ExtResource("1_vpsf2")]
+libraries = {
+&"": SubResource("AnimationLibrary_p5j6p")
+}

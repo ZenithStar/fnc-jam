@@ -177,6 +177,10 @@ prespawn_bosses = Dictionary[String, PackedScene]({
 position = Vector2(439, -80)
 mob = ExtResource("4_ol3aj")
 
+[node name="PathFollow2D" parent="StageMob" index="0"]
+position = Vector2(-908.998, 137.001)
+progress = 1726.49
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StageMob" index="1"]
 libraries = {
 &"": SubResource("AnimationLibrary_s0a7r")

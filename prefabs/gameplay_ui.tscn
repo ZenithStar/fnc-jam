@@ -50,6 +50,7 @@ size = Vector2i(768, 896)
 render_target_update_mode = 4
 
 [node name="GameServer" parent="GameplayArea/GameplayViewportContainer/SubViewport" instance=ExtResource("2_sr2lt")]
+unique_name_in_owner = true
 
 [node name="NowPlayingMusicToast" type="Control" parent="GameplayArea"]
 layout_mode = 1

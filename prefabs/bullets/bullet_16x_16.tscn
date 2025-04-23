@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bb2a3hsmytlvg"]
+
+[ext_resource type="Texture2D" uid="uid://b3xkich8qcp4k" path="res://assets/seija_real/ShotSheet.png" id="1_fn1mt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1hj85"]
+radius = 8.0
+
+[node name="Bullet16x16" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_fn1mt")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1hj85")

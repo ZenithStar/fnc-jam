@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://kxaobnaiadhe"]
+[gd_scene load_steps=14 format=3 uid="uid://kxaobnaiadhe"]
 
 [ext_resource type="Script" uid="uid://dk241w2f3vx6k" path="res://classes/main.gd" id="1_1jyap"]
 [ext_resource type="PackedScene" uid="uid://d2fuokgdafrxx" path="res://prefabs/bullets/small_splatter.tscn" id="2_b26oi"]
 [ext_resource type="PackedScene" uid="uid://barygd4m2txpa" path="res://prefabs/bullets/flan_primary_shot.tscn" id="2_jflnv"]
 [ext_resource type="PackedScene" uid="uid://bjnn4cmoxm3d0" path="res://prefabs/bullets/flan_crush.tscn" id="4_c70ge"]
+[ext_resource type="PackedScene" uid="uid://bcikm3dsg4ehg" path="res://prefabs/misc_vfx/spellcard_vfx.tscn" id="4_f2ya0"]
 [ext_resource type="Shader" uid="uid://bxmhiedjt40d4" path="res://assets/shaders/glitch_transition.gdshader" id="5_c70ge"]
 [ext_resource type="Texture2D" uid="uid://l1bu0ef8t557" path="res://assets/background_textures/background-2109750_1280.webp" id="6_1dwcq"]
 [ext_resource type="FontFile" uid="uid://c3yoo47xttnd3" path="res://assets/fonts/sagewold/Sagewold-Regular.ttf" id="7_f2ya0"]
@@ -37,6 +38,8 @@ script = ExtResource("1_1jyap")
 [node name="SmallSplatter" parent="PreloadShaders" instance=ExtResource("2_b26oi")]
 
 [node name="FlanPrimaryShot" parent="PreloadShaders" instance=ExtResource("2_jflnv")]
+
+[node name="SpellcardVFX" parent="PreloadShaders" instance=ExtResource("4_f2ya0")]
 
 [node name="FlanCrush" parent="PreloadShaders" instance=ExtResource("4_c70ge")]
 

@@ -1,8 +1,10 @@
-extends Area2D
+class_name Player extends Area2D
 
 const DEATHBOMB_WINDOW: float = .16667
 const ANIMATION_FPS: float = 10.0
 const NUM_ANIMATION_FRAMES: int = 3
+const DEATH_EXPLOSION_SCENE: PackedScene = preload("uid://dasqetbsbueb7")
+
 
 signal death
 signal hit
@@ -42,6 +44,8 @@ var _deathbomb_timer: float = INF
 var _animation_loop_tween: Tween
 var _focus_spin_tween: Tween
 
+var controlable: bool = false # off while spawning in and off during death animation
+
 var focused: bool:
 	set(value):
 		focused = value
@@ -76,12 +80,14 @@ func _ready() -> void:
 	focused = Input.is_action_pressed("focus")
 	
 	hit.connect(_on_hit)
+	death.connect(_on_death)
 
 func _physics_process(delta) -> void:
 	var velocity: = Input.get_vector("move_left", "move_right", "move_up", "move_down").limit_length() * \
 		( focused_velocity if Input.is_action_pressed("focus") else normal_velocity)
 	
-	position = (position + (velocity * delta)).clamp(gameplay_bounds.position, gameplay_bounds.end)
+	if controlable:
+		position = (position + (velocity * delta)).clamp(gameplay_bounds.position, gameplay_bounds.end)
 	
 	if velocity.x < 0.0: # left
 		direction_facing = Directions.LEFT
@@ -93,9 +99,24 @@ func _physics_process(delta) -> void:
 	if is_finite(_deathbomb_timer):
 		_deathbomb_timer -= delta
 		if _deathbomb_timer <= 0.0:
+			_deathbomb_timer = INF
 			death.emit()
 			
 
 func _on_hit():
 	if not is_finite(_deathbomb_timer):
 		_deathbomb_timer = DEATHBOMB_WINDOW
+
+func _on_death():
+	var explosion : = DEATH_EXPLOSION_SCENE.instantiate()
+	explosion.position = position
+	get_tree().get_first_node_in_group("PlayerBulletServer").add_child(explosion)
+	#$PrimaryShot.queue_free()
+	#$SecondaryShot.queue_free()
+	set.call_deferred("monitorable", false)
+	controlable = false
+	var tween: = create_tween()
+	modulate.a = 0.2
+	tween.tween_property(self, "modulate:a", 0.0, 0.5)
+	tween.parallel().tween_property(self, "scale", Vector2(10,10), 0.5)
+	tween.tween_callback(queue_free)

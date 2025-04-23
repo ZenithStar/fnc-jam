@@ -1,76 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dm3udx5tvgc4n"]
+[gd_scene load_steps=5 format=3 uid="uid://dm3udx5tvgc4n"]
 
 [ext_resource type="Script" uid="uid://b2wm5jbybwxqr" path="res://classes/game_server.gd" id="1_507v1"]
 [ext_resource type="Script" uid="uid://bjjrhdih67ywi" path="res://classes/pickup_server.gd" id="2_flofk"]
-[ext_resource type="PackedScene" uid="uid://ji0yg461mfxp" path="res://prefabs/stages/stage_test.tscn" id="3_5v0ui"]
 [ext_resource type="Script" uid="uid://b8dqrec4taeqg" path="res://classes/target_server.gd" id="3_qofpv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5v0ui"]
 size = Vector2(768, 256)
-
-[sub_resource type="Animation" id="Animation_yr1me"]
-resource_name = "stage"
-length = 120.0
-tracks/0/type = "animation"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("StageMob/AnimationPlayer")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"clips": PackedStringArray("follow_path"),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "animation"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StageMob2/AnimationPlayer")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"clips": PackedStringArray("follow_path"),
-"times": PackedFloat32Array(0.833333)
-}
-tracks/2/type = "animation"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("StageMob3/AnimationPlayer")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"clips": PackedStringArray("follow_path"),
-"times": PackedFloat32Array(1.66667)
-}
-tracks/3/type = "animation"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("StageMob4/AnimationPlayer")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"clips": PackedStringArray("follow_path"),
-"times": PackedFloat32Array(2.6)
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(10.6333),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"test_sequence"],
-"method": &"play_coroutine"
-}]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_5v0ui"]
-resource_local_to_scene = true
-_data = {
-&"stage": SubResource("Animation_yr1me")
-}
 
 [node name="GameServer" type="Node2D" groups=["GameServer"]]
 script = ExtResource("1_507v1")
@@ -93,13 +28,11 @@ script = ExtResource("3_qofpv")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="PlayerSpawn" type="Marker2D" parent="."]
+[node name="PlayerSpawnEnd" type="Marker2D" parent="."]
 position = Vector2(0, 360)
 
-[node name="StageTest" parent="." instance=ExtResource("3_5v0ui")]
-libraries = {
-&"": SubResource("AnimationLibrary_5v0ui")
-}
+[node name="PlayerSpawnBegin" type="Marker2D" parent="."]
+position = Vector2(0, 480)
 
 [connection signal="pickup" from="." to="." method="_on_pickup"]
 [connection signal="area_entered" from="PickupServer" to="PickupServer" method="_on_area_entered"]
