@@ -18,3 +18,11 @@ func post_transition() -> void:
 		border_tween.tween_callback($GameplayArea/BorderLine.set.bind("modulate", Color.TRANSPARENT)).set_delay(0.08)
 		border_tween.tween_callback($GameplayArea/BorderLine.set.bind("modulate", Color.WHITE)).set_delay(0.02)
 	border_tween.tween_callback($GameplayArea/BorderLine.queue_free)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_pause"):
+		if !get_tree().paused:
+			$GameplayArea/PauseMenu.show_pause()
+		else:
+			$GameplayArea/PauseMenu.hide_pause()

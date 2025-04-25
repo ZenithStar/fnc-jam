@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://csf8dfafuvl8q"]
+[gd_scene load_steps=17 format=3 uid="uid://csf8dfafuvl8q"]
 
 [ext_resource type="FontFile" uid="uid://bcjgkxqjkxkq1" path="res://assets/fonts/Otsutome_font_ver3_16/OtsutomeFont_Ver3_16.ttf" id="1_52dtx"]
 [ext_resource type="Texture2D" uid="uid://c2m8wb586b67p" path="res://assets/background_textures/texture-2110023_1280.webp" id="1_sr2lt"]
 [ext_resource type="Script" uid="uid://ndipme0p650m" path="res://classes/gameplay_ui.gd" id="2_petu2"]
 [ext_resource type="PackedScene" uid="uid://dm3udx5tvgc4n" path="res://prefabs/game_server.tscn" id="2_sr2lt"]
+[ext_resource type="Theme" uid="uid://b4rgt63uancvx" path="res://prefabs/game_hud_theme.tres" id="5_5bhla"]
 [ext_resource type="FontFile" uid="uid://bbik6rwdjrrr6" path="res://assets/fonts/sangyo/Sangyo-Regular.ttf" id="5_wdv4u"]
 [ext_resource type="Texture2D" uid="uid://ch4mxccc2lm16" path="res://assets/title_card/tosd.png" id="6_52dtx"]
 
@@ -11,10 +12,143 @@
 default_font = ExtResource("1_52dtx")
 default_font_size = 32
 
+[sub_resource type="GDScript" id="GDScript_5bhla"]
+script/source = "extends MarginContainer
+
+@onready var fader = $FadeAnimator
+
+var options: Array[Label] = []
+var current_tween: Tween
+var current_option: int:
+	set(value):
+		if current_tween:
+			current_tween.kill()
+		options[current_option].label_settings.font_color = Color.WHITE
+		current_option = wrap(value, 0, len(options))
+		current_tween = create_tween().set_loops().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		current_tween.tween_property(options[current_option], \"label_settings:font_color\", Color.YELLOW, 0.4).from(Color.WHITE)
+		current_tween.tween_property(options[current_option], \"label_settings:font_color\", Color.WHITE, 0.4)
+
+var selected: bool = false
+
+func _ready() -> void:
+	for c in (%PauseOptions).get_children():
+		if c is Label:
+			options.push_back(c)
+			
+	for option in options:
+		option.label_settings.font_color = Color.WHITE
+
+func show_pause():
+	selected = true
+	get_tree().paused = true
+	fader.play(\"fade\")
+	await fader.animation_finished
+	current_option = 0
+	selected = false
+
+func hide_pause():
+	fader.pause()
+	fader.play_backwards('fade')
+	await fader.animation_finished
+	get_tree().paused = false
+
+func _unhandled_input(event: InputEvent) -> void:
+	if !selected:
+		if event.is_action_pressed(\"ui_down\"):
+			current_option += 1
+		elif event.is_action_pressed(\"ui_up\"):
+			current_option -= 1
+		elif event.is_action_pressed(\"ui_accept\"):
+			selected = true
+			if current_tween:
+				current_tween.kill()
+			
+			for _i in range(3):
+				options[current_option].label_settings.font_color = Color.WHITE
+				await get_tree().create_timer(0.1).timeout
+				options[current_option].label_settings.font_color = Color.YELLOW
+				await get_tree().create_timer(0.1).timeout
+			
+			hide_pause()
+"
+
+[sub_resource type="Animation" id="Animation_52dtx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-100, 625)]
+}
+
+[sub_resource type="Animation" id="Animation_5bhla"]
+resource_name = "fade"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-100, 625), Vector2(0, 625)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wdv4u"]
+_data = {
+&"RESET": SubResource("Animation_52dtx"),
+&"fade": SubResource("Animation_5bhla")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_5bhla"]
+font_size = 26
+
+[sub_resource type="LabelSettings" id="LabelSettings_52dtx"]
+font_size = 26
+
+[sub_resource type="LabelSettings" id="LabelSettings_wdv4u"]
+font_size = 26
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hrdk"]
 bg_color = Color(0.606868, 0.30975, 0.918971, 0.776471)
 
 [node name="GameplayUI" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,6 +176,7 @@ offset_right = 832.0
 offset_bottom = 928.0
 
 [node name="GameplayViewportContainer" type="SubViewportContainer" parent="GameplayArea"]
+process_mode = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,6 +191,55 @@ render_target_update_mode = 4
 
 [node name="GameServer" parent="GameplayArea/GameplayViewportContainer/SubViewport" instance=ExtResource("2_sr2lt")]
 unique_name_in_owner = true
+
+[node name="PauseMenu" type="MarginContainer" parent="GameplayArea"]
+process_mode = 2
+modulate = Color(1, 1, 1, 0)
+z_index = 4096
+layout_mode = 0
+offset_left = -100.0
+offset_top = 625.0
+offset_right = 337.0
+offset_bottom = 896.0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 0
+script = SubResource("GDScript_5bhla")
+
+[node name="FadeAnimator" type="AnimationPlayer" parent="GameplayArea/PauseMenu"]
+libraries = {
+&"": SubResource("AnimationLibrary_wdv4u")
+}
+
+[node name="Margin" type="VBoxContainer" parent="GameplayArea/PauseMenu"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="GameplayArea/PauseMenu/Margin"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Pause"
+
+[node name="MarginContainer" type="MarginContainer" parent="GameplayArea/PauseMenu/Margin"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="PauseOptions" type="VBoxContainer" parent="GameplayArea/PauseMenu/Margin/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Continue" type="Label" parent="GameplayArea/PauseMenu/Margin/MarginContainer/PauseOptions"]
+layout_mode = 2
+text = "Continue"
+label_settings = SubResource("LabelSettings_5bhla")
+
+[node name="Return" type="Label" parent="GameplayArea/PauseMenu/Margin/MarginContainer/PauseOptions"]
+layout_mode = 2
+text = "Return to main menu"
+label_settings = SubResource("LabelSettings_52dtx")
+
+[node name="Retry" type="Label" parent="GameplayArea/PauseMenu/Margin/MarginContainer/PauseOptions"]
+layout_mode = 2
+text = "Retry"
+label_settings = SubResource("LabelSettings_wdv4u")
 
 [node name="NowPlayingMusicToast" type="Control" parent="GameplayArea"]
 layout_mode = 1
@@ -107,26 +291,139 @@ grow_vertical = 2
 
 [node name="Difficulty" type="Label" parent="HUD/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.0392157, 0.356863, 0.713726, 1)
+theme_override_constants/outline_size = 15
 text = "NORMAL"
 horizontal_alignment = 1
 
-[node name="Hiscore" type="Control" parent="HUD/VBoxContainer"]
+[node name="Container" type="VBoxContainer" parent="HUD/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_5bhla")
+theme_override_constants/separation = 30
+
+[node name="ScoreContainer" type="VBoxContainer" parent="HUD/VBoxContainer/Container"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HUD/VBoxContainer/Hiscore"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="Hiscore" type="HBoxContainer" parent="HUD/VBoxContainer/Container/ScoreContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/Container/ScoreContainer/Hiscore"]
+layout_mode = 2
+theme_type_variation = &"StatLabel"
+theme_override_colors/font_color = Color(0.662745, 0.662745, 0.662745, 1)
 text = "Hiscore"
 
-[node name="Label2" type="Label" parent="HUD/VBoxContainer/Hiscore"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 23.0
-grow_horizontal = 0
+[node name="Label2" type="Label" parent="HUD/VBoxContainer/Container/ScoreContainer/Hiscore"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_type_variation = &"NumberLabel"
+theme_override_colors/font_color = Color(0.662745, 0.662745, 0.662745, 1)
+text = "1,234,567,890"
+horizontal_alignment = 2
+
+[node name="Score" type="HBoxContainer" parent="HUD/VBoxContainer/Container/ScoreContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/Container/ScoreContainer/Score"]
+layout_mode = 2
+theme_type_variation = &"StatLabel"
+text = "Score"
+
+[node name="Label2" type="Label" parent="HUD/VBoxContainer/Container/ScoreContainer/Score"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_type_variation = &"NumberLabel"
+text = "1,234,567,890"
+horizontal_alignment = 2
+
+[node name="PlayerContainer" type="VBoxContainer" parent="HUD/VBoxContainer/Container"]
+layout_mode = 2
+
+[node name="Life" type="HBoxContainer" parent="HUD/VBoxContainer/Container/PlayerContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/Container/PlayerContainer/Life"]
+layout_mode = 2
+theme_type_variation = &"StatLabel"
+theme_override_colors/font_color = Color(0.890196, 0.368627, 0.843137, 1)
+text = "Life"
+
+[node name="Label2" type="Label" parent="HUD/VBoxContainer/Container/PlayerContainer/Life"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_type_variation = &"NumberLabel"
+theme_override_colors/font_color = Color(0.890196, 0.368627, 0.843137, 1)
+text = "7 (Next: 999,999,999,999)"
+horizontal_alignment = 2
+
+[node name="SpellCard" type="HBoxContainer" parent="HUD/VBoxContainer/Container/PlayerContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/Container/PlayerContainer/SpellCard"]
+layout_mode = 2
+theme_type_variation = &"StatLabel"
+theme_override_colors/font_color = Color(0.513726, 0.776471, 0.533333, 1)
+text = "Spell Card"
+
+[node name="Label2" type="Label" parent="HUD/VBoxContainer/Container/PlayerContainer/SpellCard"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_type_variation = &"NumberLabel"
+theme_override_colors/font_color = Color(0.513726, 0.776471, 0.533333, 1)
+text = "6"
+horizontal_alignment = 2
+
+[node name="OtherContainer" type="VBoxContainer" parent="HUD/VBoxContainer/Container"]
+layout_mode = 2
+
+[node name="Power" type="HBoxContainer" parent="HUD/VBoxContainer/Container/OtherContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/Container/OtherContainer/Power"]
+layout_mode = 2
+theme_type_variation = &"StatLabel"
+theme_override_colors/font_color = Color(1, 0.505882, 0.054902, 1)
+text = "Power"
+
+[node name="Label2" type="Label" parent="HUD/VBoxContainer/Container/OtherContainer/Power"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_type_variation = &"NumberLabel"
+theme_override_colors/font_color = Color(1, 0.505882, 0.054902, 1)
+text = "3.00 / 4.00"
+horizontal_alignment = 2
+
+[node name="Value" type="HBoxContainer" parent="HUD/VBoxContainer/Container/OtherContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/Container/OtherContainer/Value"]
+layout_mode = 2
+theme_type_variation = &"StatLabel"
+theme_override_colors/font_color = Color(0.262745, 0.74902, 0.988235, 1)
+text = "Value"
+
+[node name="Label2" type="Label" parent="HUD/VBoxContainer/Container/OtherContainer/Value"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_type_variation = &"NumberLabel"
+theme_override_colors/font_color = Color(0.262745, 0.74902, 0.988235, 1)
+text = "1,234,567,890"
+horizontal_alignment = 2
+
+[node name="Graze" type="HBoxContainer" parent="HUD/VBoxContainer/Container/OtherContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/Container/OtherContainer/Graze"]
+layout_mode = 2
+theme_type_variation = &"StatLabel"
+theme_override_colors/font_color = Color(0.662452, 0.662452, 0.662452, 1)
+text = "Graze"
+
+[node name="Label2" type="Label" parent="HUD/VBoxContainer/Container/OtherContainer/Graze"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_type_variation = &"NumberLabel"
+theme_override_colors/font_color = Color(0.662745, 0.662745, 0.662745, 1)
 text = "1,234,567,890"
 horizontal_alignment = 2
 
