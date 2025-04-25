@@ -3,5 +3,5 @@
 [ext_resource type="PackedScene" uid="uid://b626giwyca43g" path="res://prefabs/bullets/bullet_32x_16.tscn" id="1_1v15a"]
 
 [node name="Bullet32x16" instance=ExtResource("1_1v15a")]
-sprite_color = 3
+sprite_color = 10
 lin_vel = 270.0

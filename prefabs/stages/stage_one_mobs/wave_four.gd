@@ -10,6 +10,16 @@ const MOB_CENTER_DROPS: Dictionary[PackedScene, int] = {
 	preload("uid://djw0ru5od7hbm"): 10,
 	preload("uid://ct21j5j554co8"): 10,
 }
+const MOB_LEFT_DROPS: Dictionary[PackedScene, int] = {
+	preload("uid://d2na3s8hp6lby"): 1,
+	preload("uid://djw0ru5od7hbm"): 10,
+	preload("uid://ct21j5j554co8"): 10,
+}
+const MOB_RIGHT_DROPS: Dictionary[PackedScene, int] = {
+	preload("uid://bhstkjthfyhwc"): 1,
+	preload("uid://djw0ru5od7hbm"): 10,
+	preload("uid://ct21j5j554co8"): 10,
+}
 
 func run():
 	var bounds: = Global.GAMEPLAY_AREA
@@ -35,7 +45,7 @@ func run():
 	
 	var mob_left: Node2D = mob_1.instantiate()
 	mob_left.position = Vector2(-240.0, start_height)
-	mob_left.drops = MOB_CENTER_DROPS
+	mob_left.drops = MOB_LEFT_DROPS
 	mob_left.active = true
 	add_child(mob_left)
 	
@@ -51,7 +61,7 @@ func run():
 	
 	var mob_right: Node2D = mob_1.instantiate()
 	mob_right.position = Vector2(240.0, start_height)
-	mob_right.drops = MOB_CENTER_DROPS
+	mob_right.drops = MOB_RIGHT_DROPS
 	mob_right.active = true
 	add_child(mob_right)
 	
@@ -74,7 +84,7 @@ func fire_ring(mob: Node2D):
 				if not is_instance_valid(mob):
 					return # this is required in case the mob dies mid coroutine
 				for j in RING_DENSITY/2:
-					var direction: = mob.global_position.angle_to_point(get_tree().get_first_node_in_group("GameServer").get_player_position()) + (PI/RING_DENSITY) + j * (TAU/RING_DENSITY)
+					var direction: = mob.global_position.angle_to_point(get_tree().get_first_node_in_group("GameServer").get_player_position()) + (PI/RING_DENSITY*2.0) + j * (TAU/RING_DENSITY*2.0)
 					var new_bullet := bullet_1.instantiate()
 					new_bullet.rotation = direction
 					new_bullet.position = mob.global_position

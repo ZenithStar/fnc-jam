@@ -5,10 +5,21 @@ extends Control
 @export var character: Global.Character
 @export var stage: Global.Stage
 
+const DIFFICULTY_COLORS: Dictionary[Global.Difficulty, Color]={
+	Global.Difficulty.EASY: Color.AQUA,
+	Global.Difficulty.NORMAL: Color.REBECCA_PURPLE,
+	Global.Difficulty.HARD: Color.SALMON,
+	Global.Difficulty.LUNATIC: Color.CRIMSON,
+}
+
 func _enter_tree() -> void:
 	%GameServer.difficulty = difficulty
 	%GameServer.player_scene = Global.CHARACTER_SCENES[character]
 	%GameServer.stage_scene = Global.STAGE_SCENES[stage]
+
+func _ready() -> void:
+	$HUD/Stats/Difficulty.text = Global.Difficulty.keys()[difficulty]
+	$HUD/Stats/Difficulty.add_theme_color_override(&"font_outline_color", DIFFICULTY_COLORS[difficulty])
 
 func post_transition() -> void:
 	if %GameServer.stage and %GameServer.stage.has_method(&"post_transition"):

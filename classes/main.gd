@@ -66,7 +66,7 @@ func transition_to_scene(new_scene: Node) -> Node:
 		current_scene.post_transition()
 	return current_scene
 
-func start_game(difficulty: Global.Difficulty = Global.Difficulty.LUNATIC, 
+func start_game(difficulty: Global.Difficulty = Global.Difficulty.NORMAL, 
 			character: Global.Character = Global.Character.FLANDRE_A,
 			stage: Global.Stage = Global.Stage.STAGE_ONE):
 	var scene: = GAMEPLAY_SCENE.instantiate()

@@ -17,6 +17,8 @@ script/source = "extends Control
 
 const SPRITE_SLIDE_IN_DURATION: = 2.5
 
+const DIFFICULTY_SELECT: = preload(\"uid://bhdrmreblh7tb\")
+
 @onready var fader = $FadeAnimator
 
 var options: Array[Label] = []
@@ -65,30 +67,46 @@ func _input(event: InputEvent) -> void:
 			current_option -= 1
 		elif event.is_action_pressed(\"ui_accept\"):
 			selected = true
-			if current_tween:
-				current_tween.kill()
 			
-			for _i in range(3):
-				options[current_option].label_settings.font_color = Color.DIM_GRAY
-				await get_tree().create_timer(0.1).timeout
-				options[current_option].label_settings.font_color = Color.WHITE
-				await get_tree().create_timer(0.1).timeout
 			
 			#current_option = current_option # this caused the web built to freeze
 			
-			fader.pause()
-			fader.play_backwards('fade')
+			# sorry but this is useless and impossible to work with
+			#fader.pause()
+			#fader.play_backwards('fade')
+			#await fader.animation_finished
 			
-			await fader.animation_finished
 			match current_option:
 				0: # Game Start
-					get_tree().get_first_node_in_group(\"Main\").start_game() # TODO: add difficulty + character selector
+					if current_tween:
+						current_tween.kill()
+					
+					for _i in range(3):
+						options[current_option].label_settings.font_color = Color.DIM_GRAY
+						await get_tree().create_timer(0.1).timeout
+						options[current_option].label_settings.font_color = Color.WHITE
+						await get_tree().create_timer(0.1).timeout
+					var select : = DIFFICULTY_SELECT.instantiate()
+					add_child(select)
+					await select.tree_exiting
+					if select.cancel:
+						selected = false
+					else:
+						get_tree().get_first_node_in_group(\"Main\").start_game(select.difficulty) # TODO: character selector
 				9: # Quit
+					if current_tween:
+						current_tween.kill()
+					
+					for _i in range(3):
+						options[current_option].label_settings.font_color = Color.DIM_GRAY
+						await get_tree().create_timer(0.1).timeout
+						options[current_option].label_settings.font_color = Color.WHITE
+						await get_tree().create_timer(0.1).timeout
 					get_tree().quit()
 				_:
 					selected = false
 					$NotImplemented.show()
-					fader.play('fade') # most of the menu options won't be implemented in time
+					#fader.play('fade') # most of the menu options won't be implemented in time
 "
 
 [sub_resource type="Animation" id="Animation_phw8v"]
