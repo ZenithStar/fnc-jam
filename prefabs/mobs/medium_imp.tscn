@@ -1,31 +1,57 @@
-[gd_scene load_steps=13 format=3 uid="uid://7qgmahd1xi7e"]
+[gd_scene load_steps=15 format=3 uid="uid://7qgmahd1xi7e"]
 
 [ext_resource type="PackedScene" uid="uid://dkooc6f0myqnn" path="res://prefabs/mobs/mob_base.tscn" id="1_axh7p"]
-[ext_resource type="Texture2D" uid="uid://dgmsdy0ae1f8s" path="res://assets/combat_sprites/blueimp/blueimpstep1.png" id="2_rcm5m"]
 [ext_resource type="PackedScene" uid="uid://djw0ru5od7hbm" path="res://prefabs/pickups/small_power_pickup.tscn" id="2_t3ddy"]
 [ext_resource type="PackedScene" uid="uid://ct21j5j554co8" path="res://prefabs/pickups/small_point_pickup.tscn" id="3_pbuyw"]
-[ext_resource type="Texture2D" uid="uid://q3o3htnipdcb" path="res://assets/combat_sprites/blueimp/blueimp1.png" id="3_t3ddy"]
-[ext_resource type="Texture2D" uid="uid://4rbsh67sws7v" path="res://assets/combat_sprites/blueimp/blueimpstep2.png" id="4_pbuyw"]
-[ext_resource type="Texture2D" uid="uid://bj6fyi1fau7df" path="res://assets/combat_sprites/blueimp/blueimpmoveleft1.png" id="7_kj5h2"]
-[ext_resource type="Texture2D" uid="uid://s3uxjab3l685" path="res://assets/combat_sprites/blueimp/blueimpmoveleft2.png" id="8_7cnfs"]
-[ext_resource type="Texture2D" uid="uid://wkpe3lmcne54" path="res://assets/combat_sprites/blueimp/blueimpmoveright1.png" id="9_f77hn"]
-[ext_resource type="Texture2D" uid="uid://begpb45yxix6u" path="res://assets/combat_sprites/blueimp/blueimpmoveright2.png" id="10_3kjs3"]
+[ext_resource type="Texture2D" uid="uid://ct2atuckvf866" path="res://assets/combat_sprites/spritesheet1.png" id="4_rcm5m"]
 [ext_resource type="Script" uid="uid://bh4hxryubhnlb" path="res://classes/directional_sprite.gd" id="11_s3gek"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3ddy"]
+atlas = ExtResource("4_rcm5m")
+region = Rect2(34, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbuyw"]
+atlas = ExtResource("4_rcm5m")
+region = Rect2(0, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7r5qk"]
+atlas = ExtResource("4_rcm5m")
+region = Rect2(68, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dv6oe"]
+atlas = ExtResource("4_rcm5m")
+region = Rect2(102, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ku8l4"]
+atlas = ExtResource("4_rcm5m")
+region = Rect2(136, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kj5h2"]
+atlas = ExtResource("4_rcm5m")
+region = Rect2(170, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cnfs"]
+atlas = ExtResource("4_rcm5m")
+region = Rect2(204, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f77hn"]
+atlas = ExtResource("4_rcm5m")
+region = Rect2(238, 34, 34, 34)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7r5qk"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_rcm5m")
+"texture": SubResource("AtlasTexture_t3ddy")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_t3ddy")
+"texture": SubResource("AtlasTexture_pbuyw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_pbuyw")
+"texture": SubResource("AtlasTexture_7r5qk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_t3ddy")
+"texture": SubResource("AtlasTexture_dv6oe")
 }],
 "loop": true,
 "name": &"center",
@@ -33,10 +59,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("7_kj5h2")
+"texture": SubResource("AtlasTexture_ku8l4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_7cnfs")
+"texture": SubResource("AtlasTexture_kj5h2")
 }],
 "loop": true,
 "name": &"left",
@@ -44,10 +70,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("9_f77hn")
+"texture": SubResource("AtlasTexture_7cnfs")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_3kjs3")
+"texture": SubResource("AtlasTexture_f77hn")
 }],
 "loop": true,
 "name": &"right",
@@ -66,4 +92,5 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_7r5qk")
 animation = &"right"
 autoplay = "center"
+frame_progress = 0.749399
 script = ExtResource("11_s3gek")

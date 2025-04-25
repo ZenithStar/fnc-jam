@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://kxaobnaiadhe"]
+[gd_scene load_steps=16 format=3 uid="uid://kxaobnaiadhe"]
 
 [ext_resource type="Script" uid="uid://dk241w2f3vx6k" path="res://classes/main.gd" id="1_1jyap"]
 [ext_resource type="PackedScene" uid="uid://d2fuokgdafrxx" path="res://prefabs/bullets/small_splatter.tscn" id="2_b26oi"]
 [ext_resource type="PackedScene" uid="uid://barygd4m2txpa" path="res://prefabs/bullets/flan_primary_shot.tscn" id="2_jflnv"]
+[ext_resource type="PackedScene" uid="uid://dt8yui6a44f6k" path="res://prefabs/misc_vfx/bullet_delete.tscn" id="2_nhjm5"]
 [ext_resource type="PackedScene" uid="uid://bjnn4cmoxm3d0" path="res://prefabs/bullets/flan_crush.tscn" id="4_c70ge"]
 [ext_resource type="PackedScene" uid="uid://bcikm3dsg4ehg" path="res://prefabs/misc_vfx/spellcard_vfx.tscn" id="4_f2ya0"]
 [ext_resource type="Shader" uid="uid://bxmhiedjt40d4" path="res://assets/shaders/glitch_transition.gdshader" id="5_c70ge"]
@@ -35,6 +36,8 @@ bg_color = Color(0, 0, 0, 0.752941)
 script = ExtResource("1_1jyap")
 
 [node name="PreloadShaders" type="Node" parent="."]
+
+[node name="BulletDelete" parent="PreloadShaders" instance=ExtResource("2_nhjm5")]
 
 [node name="SmallSplatter" parent="PreloadShaders" instance=ExtResource("2_b26oi")]
 

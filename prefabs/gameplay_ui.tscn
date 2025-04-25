@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://csf8dfafuvl8q"]
+[gd_scene load_steps=19 format=3 uid="uid://csf8dfafuvl8q"]
 
 [ext_resource type="FontFile" uid="uid://bcjgkxqjkxkq1" path="res://assets/fonts/Otsutome_font_ver3_16/OtsutomeFont_Ver3_16.ttf" id="1_52dtx"]
 [ext_resource type="Texture2D" uid="uid://c2m8wb586b67p" path="res://assets/background_textures/texture-2110023_1280.webp" id="1_sr2lt"]
@@ -11,6 +11,21 @@
 [sub_resource type="Theme" id="Theme_petu2"]
 default_font = ExtResource("1_52dtx")
 default_font_size = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wdv4u"]
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.607843, 0.309804, 0.917647, 0.776471)
+corner_radius_top_left = 2
+corner_radius_top_right = 3
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
 
 [sub_resource type="GDScript" id="GDScript_5bhla"]
 script/source = "extends MarginContainer
@@ -211,12 +226,13 @@ grow_vertical = 2
 texture = ExtResource("1_sr2lt")
 stretch_mode = 6
 
-[node name="GameplayArea" type="Control" parent="."]
-anchors_preset = 0
+[node name="GameplayArea" type="Panel" parent="."]
+layout_mode = 0
 offset_left = 64.0
 offset_top = 32.0
 offset_right = 832.0
 offset_bottom = 928.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wdv4u")
 
 [node name="GameplayViewportContainer" type="SubViewportContainer" parent="GameplayArea"]
 process_mode = 1

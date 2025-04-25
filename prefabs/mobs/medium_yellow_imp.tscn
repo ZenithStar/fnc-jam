@@ -1,0 +1,88 @@
+[gd_scene load_steps=12 format=3 uid="uid://d3vgnksortk3a"]
+
+[ext_resource type="PackedScene" uid="uid://dkooc6f0myqnn" path="res://prefabs/mobs/mob_base.tscn" id="1_txemy"]
+[ext_resource type="Texture2D" uid="uid://ct2atuckvf866" path="res://assets/combat_sprites/spritesheet1.png" id="2_ef7h6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0m2o0"]
+atlas = ExtResource("2_ef7h6")
+region = Rect2(34, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0gjw"]
+atlas = ExtResource("2_ef7h6")
+region = Rect2(0, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nby0u"]
+atlas = ExtResource("2_ef7h6")
+region = Rect2(68, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sivfs"]
+atlas = ExtResource("2_ef7h6")
+region = Rect2(102, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxmrn"]
+atlas = ExtResource("2_ef7h6")
+region = Rect2(136, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i78l6"]
+atlas = ExtResource("2_ef7h6")
+region = Rect2(170, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmmjl"]
+atlas = ExtResource("2_ef7h6")
+region = Rect2(204, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3f2s"]
+atlas = ExtResource("2_ef7h6")
+region = Rect2(238, 0, 34, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ypl2m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0m2o0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0gjw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nby0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sivfs")
+}],
+"loop": true,
+"name": &"center",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lxmrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i78l6")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmmjl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3f2s")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]
+
+[node name="MediumYellowImp" instance=ExtResource("1_txemy")]
+max_health = 2000.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ypl2m")
+animation = &"right"
+autoplay = "center"
+frame_progress = 0.0119996

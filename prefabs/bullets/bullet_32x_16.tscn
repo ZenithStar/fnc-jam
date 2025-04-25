@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b626giwyca43g"]
+
+[ext_resource type="Texture2D" uid="uid://b3xkich8qcp4k" path="res://assets/seija_real/ShotSheet.png" id="1_qbyev"]
+[ext_resource type="Script" uid="uid://b5xxt603k6eqp" path="res://classes/bullet32.gd" id="1_snqat"]
+[ext_resource type="Shape2D" uid="uid://byc2edehcg6re" path="res://prefabs/bullets/capsule_shape_24_6.tres" id="2_fqjmh"]
+
+[node name="Bullet32x16" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_snqat")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = ExtResource("2_fqjmh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_qbyev")
+region_enabled = true
+region_rect = Rect2(0, 272, 16, 32)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="hit" from="." to="." method="_on_hit"]

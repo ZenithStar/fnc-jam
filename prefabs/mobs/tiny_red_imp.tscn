@@ -1,37 +1,62 @@
-[gd_scene load_steps=13 format=3 uid="uid://dapoq6k3cajsb"]
+[gd_scene load_steps=14 format=3 uid="uid://dapoq6k3cajsb"]
 
 [ext_resource type="PackedScene" uid="uid://dkooc6f0myqnn" path="res://prefabs/mobs/mob_base.tscn" id="1_wp8n6"]
 [ext_resource type="PackedScene" uid="uid://djw0ru5od7hbm" path="res://prefabs/pickups/small_power_pickup.tscn" id="2_5swpg"]
-[ext_resource type="Texture2D" uid="uid://dbbocc7yustgv" path="res://assets/combat_sprites/imp/Imp1.png" id="3_bvn62"]
-[ext_resource type="Texture2D" uid="uid://cyfv2yyhsjxpm" path="res://assets/combat_sprites/imp/Imp2A.png" id="4_2e2y3"]
-[ext_resource type="Texture2D" uid="uid://gi3qdklp4cqd" path="res://assets/combat_sprites/imp/Imp2B.png" id="5_s241m"]
-[ext_resource type="Texture2D" uid="uid://ndby6f8i1rro" path="res://assets/combat_sprites/imp/Imp3.png" id="6_oblvy"]
-[ext_resource type="Texture2D" uid="uid://bvdaeqbu2k0s6" path="res://assets/combat_sprites/imp/Impmovescreenleft_1.png" id="7_s241m"]
-[ext_resource type="Texture2D" uid="uid://ddw6ctgueprsc" path="res://assets/combat_sprites/imp/Impmovescreenleft_2.png" id="8_oblvy"]
-[ext_resource type="Texture2D" uid="uid://dg5ybily4icyx" path="res://assets/combat_sprites/imp/impmovescreenright_1.png" id="9_qvwno"]
-[ext_resource type="Texture2D" uid="uid://romej0lia022" path="res://assets/combat_sprites/imp/impmovescreenright_2.png" id="10_li6kn"]
+[ext_resource type="Texture2D" uid="uid://ct2atuckvf866" path="res://assets/combat_sprites/spritesheet1.png" id="3_1tcb0"]
 [ext_resource type="Script" uid="uid://bh4hxryubhnlb" path="res://classes/directional_sprite.gd" id="11_oblvy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20ygt"]
+atlas = ExtResource("3_1tcb0")
+region = Rect2(0, 68, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wp8n6"]
+atlas = ExtResource("3_1tcb0")
+region = Rect2(34, 68, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5swpg"]
+atlas = ExtResource("3_1tcb0")
+region = Rect2(68, 68, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bvn62"]
+atlas = ExtResource("3_1tcb0")
+region = Rect2(102, 68, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2e2y3"]
+atlas = ExtResource("3_1tcb0")
+region = Rect2(136, 68, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s241m"]
+atlas = ExtResource("3_1tcb0")
+region = Rect2(170, 68, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oblvy"]
+atlas = ExtResource("3_1tcb0")
+region = Rect2(204, 68, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvwno"]
+atlas = ExtResource("3_1tcb0")
+region = Rect2(238, 68, 34, 34)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n0tgk"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_bvn62")
+"texture": SubResource("AtlasTexture_20ygt")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_2e2y3")
+"texture": SubResource("AtlasTexture_wp8n6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_s241m")
+"texture": SubResource("AtlasTexture_5swpg")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_oblvy")
+"texture": SubResource("AtlasTexture_bvn62")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_s241m")
+"texture": SubResource("AtlasTexture_5swpg")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_2e2y3")
+"texture": SubResource("AtlasTexture_wp8n6")
 }],
 "loop": true,
 "name": &"center",
@@ -39,10 +64,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("7_s241m")
+"texture": SubResource("AtlasTexture_2e2y3")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_oblvy")
+"texture": SubResource("AtlasTexture_s241m")
 }],
 "loop": true,
 "name": &"left",
@@ -50,10 +75,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("9_qvwno")
+"texture": SubResource("AtlasTexture_oblvy")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_li6kn")
+"texture": SubResource("AtlasTexture_qvwno")
 }],
 "loop": true,
 "name": &"right",
@@ -68,7 +93,6 @@ ExtResource("2_5swpg"): 1
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_n0tgk")
-animation = &"center"
+animation = &"right"
 autoplay = "center"
-frame_progress = 0.40086
 script = ExtResource("11_oblvy")

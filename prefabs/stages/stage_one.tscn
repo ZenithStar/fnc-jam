@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://01bkdsupqkvr"]
+[gd_scene load_steps=29 format=3 uid="uid://01bkdsupqkvr"]
 
 [ext_resource type="PackedScene" uid="uid://dsuled2355muo" path="res://prefabs/stages/stage_base.tscn" id="1_vpsf2"]
 [ext_resource type="Script" uid="uid://dy1qgprxs1gyg" path="res://prefabs/stages/stage_one.gd" id="2_p5j6p"]
@@ -7,11 +7,16 @@
 [ext_resource type="PackedScene" uid="uid://c6dby5xfvha8a" path="res://prefabs/stages/stage_one_mobs/wave_one_right.tscn" id="5_ym0u4"]
 [ext_resource type="PackedScene" uid="uid://cu2ywgwktxkaf" path="res://prefabs/stages/stage_one_mobs/wave_one_left.tscn" id="6_gf744"]
 [ext_resource type="PackedScene" uid="uid://q36486ho1dkp" path="res://prefabs/stages/stage_one_mobs/wave_two.tscn" id="7_ym0u4"]
-[ext_resource type="Script" uid="uid://i7i6jf5isryw" path="res://prefabs/stages/stage_one_mobs/wave_3.gd" id="8_q8n0g"]
+[ext_resource type="PackedScene" uid="uid://ci2073l8upja8" path="res://prefabs/misc_vfx/stage_title.tscn" id="8_2jq7n"]
+[ext_resource type="Script" uid="uid://i7i6jf5isryw" path="res://prefabs/stages/stage_one_mobs/wave_three.gd" id="8_q8n0g"]
 [ext_resource type="PackedScene" uid="uid://cw6a2wkhukork" path="res://prefabs/misc_vfx/camera_with_spellcard.tscn" id="8_smmuk"]
 [ext_resource type="PackedScene" uid="uid://dapoq6k3cajsb" path="res://prefabs/mobs/tiny_red_imp.tscn" id="9_xertf"]
 [ext_resource type="PackedScene" uid="uid://c67qj8thhj6w2" path="res://prefabs/mobs/tiny_blue_imp.tscn" id="10_2jq7n"]
 [ext_resource type="PackedScene" uid="uid://b7sr685sxpxv6" path="res://prefabs/stages/stage_one_mobs/wave_three_bullet.tscn" id="11_e11ff"]
+[ext_resource type="Script" uid="uid://cbefjb3iy7gwa" path="res://prefabs/stages/stage_one_mobs/wave_four.gd" id="13_e11ff"]
+[ext_resource type="PackedScene" uid="uid://d3vgnksortk3a" path="res://prefabs/mobs/medium_yellow_imp.tscn" id="14_yeowl"]
+[ext_resource type="PackedScene" uid="uid://deu2im54sgpu7" path="res://prefabs/stages/stage_one_mobs/wave_four_bullet_one.tscn" id="15_arfhc"]
+[ext_resource type="PackedScene" uid="uid://dp6gfb6xhntrh" path="res://prefabs/stages/stage_one_mobs/wave_four_bullet_two.tscn" id="16_sqhku"]
 
 [sub_resource type="Animation" id="Animation_gf744"]
 length = 0.001
@@ -42,7 +47,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Waves/StageTitle:self_modulate")
+tracks/2/path = NodePath("Waves/Title/StageTitle:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -113,7 +118,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Waves/StageTitle:self_modulate")
+tracks/5/path = NodePath("Waves/Title/StageTitle:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -130,6 +135,20 @@ tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(16.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"run"
+}]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Waves/WaveFour")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(32),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -203,29 +222,25 @@ autoplay = true
 
 [node name="WaveTwo" parent="Waves" index="2" instance=ExtResource("7_ym0u4")]
 
-[node name="StageTitle" type="Label" parent="Waves" index="3"]
-self_modulate = Color(1, 1, 1, 0)
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -139.0
-offset_top = -240.0
-offset_right = 139.0
-offset_bottom = -217.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "hey yo flan be flying over the lake
-someone write a title"
-horizontal_alignment = 1
-vertical_alignment = 2
+[node name="Title" type="Node2D" parent="Waves" index="3"]
+position = Vector2(0, -240)
+
+[node name="StageTitle" parent="Waves/Title" index="0" instance=ExtResource("8_2jq7n")]
+modulate = Color(1, 1, 1, 0)
+title = "Nain Rouge on Parade"
+subtitle = "Misty Lake"
 
 [node name="WaveThree" type="Node2D" parent="Waves" index="4"]
 script = ExtResource("8_q8n0g")
 mob_1 = ExtResource("9_xertf")
 mob_2 = ExtResource("10_2jq7n")
 bullet = ExtResource("11_e11ff")
+
+[node name="WaveFour" type="Node2D" parent="Waves" index="5"]
+script = ExtResource("13_e11ff")
+mob_1 = ExtResource("14_yeowl")
+bullet_1 = ExtResource("15_arfhc")
+bullet_2 = ExtResource("16_sqhku")
 
 [node name="Node3D" type="Node3D" parent="." index="4"]
 

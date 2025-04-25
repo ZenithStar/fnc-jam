@@ -103,13 +103,20 @@ script/source = "extends Node2D
 
 const SHOT_SCENE := preload(\"uid://hqdjm525w4nl\")
 
+const COOLDOWN: = 5.0
+
+var bomb_cooldown: bool = false
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_instance_valid(Dialogic.current_timeline) and event.is_action_pressed(\"bomb\"):
-		if get_tree().get_first_node_in_group(\"GameServer\").bombs > 0 and not get_parent().is_immune():
+		if get_tree().get_first_node_in_group(\"GameServer\").bombs > 0 and not bomb_cooldown:
 			var new_shot: = SHOT_SCENE.instantiate()
 			add_child.call_deferred(new_shot)
 			get_tree().get_first_node_in_group(\"GameServer\").bombs -= 1
 			get_parent().bomb.emit()
+			bomb_cooldown = true
+			var tween: = create_tween()
+			tween.tween_callback(set.bind(&\"bomb_cooldown\", false)).set_delay(COOLDOWN)
 "
 
 [node name="Flandre" instance=ExtResource("1_ytfe8")]

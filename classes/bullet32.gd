@@ -1,4 +1,4 @@
-class_name Bullet extends Area2D
+class_name Bullet32 extends Area2D
 
 const DELETE_ANIMATION: = preload("uid://dt8yui6a44f6k")
 
@@ -45,31 +45,15 @@ const DELETE_COLORS: Dictionary[SpriteColor, Color] ={
 }
 
 enum SpriteType{
-	BAR,
-	ROUND,
-	ROUND2,
-	RICE,
-	OFUDA,
-	KUNAI,
-	SPEEDY_RICE,
-	BULLET,
-	FADED_BULLET,
-	RICE2,
-	STAR,
-	TEARDROP,
-	DISK,
-	ROUND_STAR,
-	ROUND_STAR2,
-	ROUND_STAR3,
-	ROUND_STAR4,
+	POD,
+	DAGGER,
+	ARROW,
 }
 enum Hitbox{
-	V16H16,
-	V16H8,
+	V32H16,
 }
 const HITBOXES: Dictionary[Hitbox, Shape2D] = {
-	Hitbox.V16H16: preload("uid://c6xpgmedx6tfw"),
-	Hitbox.V16H8: preload("uid://cp3bel0wro1co"),
+	Hitbox.V32H16: preload("uid://byc2edehcg6re"),
 }
 
 @export var sprite_color: SpriteColor = SpriteColor.WHITE
@@ -79,12 +63,12 @@ const HITBOXES: Dictionary[Hitbox, Shape2D] = {
 var bounds: Rect2
 
 func _enter_tree():
-	$Sprite2D.region_rect = Rect2(Vector2(16,16)*Vector2(sprite_color, sprite_type), Vector2(16,16))
+	$Sprite2D.region_rect = Rect2(Vector2(16,32)*Vector2(sprite_color, sprite_type)+Vector2(0.0, 272.0), Vector2(16,32))
 	$CollisionShape2D.shape = HITBOXES[hitbox]
 	position = origin + Vector2.from_angle(rotation) * lin_offset
 	bounds = Global.GAMEPLAY_AREA
-	bounds.end += Vector2(16.0, 16.0)
-	bounds.position -= Vector2(16.0, 16.0)
+	bounds.end += Vector2(32.0, 32.0)
+	bounds.position -= Vector2(32.0, 32.0)
 
 @export var origin: Vector2 = Vector2.ZERO
 @export var lin_vel: float = 100.0

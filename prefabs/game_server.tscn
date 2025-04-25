@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dm3udx5tvgc4n"]
+[gd_scene load_steps=6 format=3 uid="uid://dm3udx5tvgc4n"]
 
 [ext_resource type="Script" uid="uid://b2wm5jbybwxqr" path="res://classes/game_server.gd" id="1_507v1"]
 [ext_resource type="Script" uid="uid://bjjrhdih67ywi" path="res://classes/pickup_server.gd" id="2_flofk"]
+[ext_resource type="Script" uid="uid://n54rd5re0vaj" path="res://classes/bullet_server.gd" id="3_5v0ui"]
 [ext_resource type="Script" uid="uid://b8dqrec4taeqg" path="res://classes/target_server.gd" id="3_qofpv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5v0ui"]
@@ -20,6 +21,7 @@ position = Vector2(0, -320)
 shape = SubResource("RectangleShape2D_5v0ui")
 
 [node name="BulletServer" type="Node2D" parent="." groups=["BulletServer"]]
+script = ExtResource("3_5v0ui")
 
 [node name="PlayerBulletServer" type="Node2D" parent="." groups=["PlayerBulletServer"]]
 

@@ -69,10 +69,13 @@ func _on_pickup( type: Pickup.Type ):
 			power = 5.0
 		Pickup.Type.SMALL_POINT:
 			var gains: = 1000 # TODO: point acceleration system
+			gains += randi_range(0,100)*10 # lol just make shit up
+			point += 1
 			score += gains
 			score_gained.emit(gains)
 		Pickup.Type.LARGE_POINT:
 			var gains: = 1000 # TODO: point acceleration system
+			point += 10
 			score += gains
 			score_gained.emit(gains)
 		Pickup.Type.LIFE_SHARD:
@@ -105,3 +108,6 @@ func _on_player_tree_exited():
 		spawn_player()
 	else:
 		pass # TODO: game over screen
+
+func get_player_position() -> Vector2:
+	return player.position if is_instance_valid(player) else $PlayerSpawnEnd.position

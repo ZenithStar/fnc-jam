@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://ci2073l8upja8"]
+
+[ext_resource type="Shader" uid="uid://dxkc33chcfhum" path="res://assets/shaders/glitch_sprite.gdshader" id="1_tbhaa"]
+[ext_resource type="FontFile" uid="uid://bbik6rwdjrrr6" path="res://assets/fonts/sangyo/Sangyo-Regular.ttf" id="2_tbhaa"]
+[ext_resource type="FontFile" uid="uid://dn3ji4oy2qekw" path="res://assets/fonts/audex/Audex-Regular.ttf" id="3_tbhaa"]
+[ext_resource type="FontFile" uid="uid://buy8a78m8j1vs" path="res://assets/fonts/Quantico/Quantico-Bold.ttf" id="4_ps8hr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8qsuo"]
+shader = ExtResource("1_tbhaa")
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_rate = 0.2
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.01
+
+[sub_resource type="GDScript" id="GDScript_wfwxt"]
+script/source = "@tool
+extends VBoxContainer
+
+@export var stage: String = \"Stage One\":
+	set(value):
+		stage = value
+		reproc()
+@export var title: String = \"Title\":
+	set(value):
+		title = value
+		reproc()
+@export var subtitle: String = \"Subtitle\":
+	set(value):
+		subtitle = value
+		reproc()
+
+
+func _ready() -> void:
+	$Number.text = stage
+	$Title.text = title
+	$Subtitle.text = subtitle
+
+
+func reproc():
+	$Number.text = stage
+	$Title.text = title
+	$Subtitle.text = subtitle
+"
+
+[node name="StageTitle" type="VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+z_index = -1
+material = SubResource("ShaderMaterial_8qsuo")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -188.0
+offset_top = -58.5
+offset_right = 188.0
+offset_bottom = 58.5
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_wfwxt")
+
+[node name="Number" type="Label" parent="."]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_tbhaa")
+theme_override_font_sizes/font_size = 24
+text = "Stage One"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.560784, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.178104, 0.0830481, 0.401166, 1)
+theme_override_colors/font_outline_color = Color(0.312391, 0.167078, 0.570809, 1)
+theme_override_constants/shadow_offset_x = 24
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("3_tbhaa")
+theme_override_font_sizes/font_size = 36
+text = "Title"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.563389, 0.6875, 0.957977, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("4_ps8hr")
+theme_override_font_sizes/font_size = 24
+text = "Subtitle"
+horizontal_alignment = 1

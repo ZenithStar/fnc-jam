@@ -18,8 +18,7 @@ const VACUUM_VELOCITY: = 600.0
 const VACUUM_THRESHOLD: = 8.0
 
 @export var type: Type
-@export var offscreen_position: float = -404 ## -404 for 16x16 and -392 for 32x32
-@export var offscreen_threshold: float = -428 ## -428 for 16x16 and -440 for 32x32
+var offscreen_threshold: float = -428 ## -428 for 16x16 and -440 for 32x32
 @export var sprite: Texture2D
 @export var offscreen_sprite: Texture2D
 
@@ -44,7 +43,8 @@ enum State{
 var _throw_tween: Tween
 var _spin_tween: Tween # the spin tween needs to be independent because it will continue to spin if you immediately jump to vacuuming
 func _ready() -> void:
-	$OffscreenSprite.position = Vector2(global_position.x, offscreen_position)
+	$OffscreenSprite.position = Vector2(global_position.x, Global.GAMEPLAY_AREA.position.y+(offscreen_sprite.get_size().y))
+	offscreen_threshold = Global.GAMEPLAY_AREA.position.y-(sprite.get_size().y)
 	if sprite:
 		$Sprite.texture = sprite
 	if offscreen_sprite:
