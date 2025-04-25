@@ -6,7 +6,7 @@
 [resource]
 NumberLabel/base_type = &"Label"
 NumberLabel/constants/outline_size = 10
-NumberLabel/font_sizes/font_size = 24
+NumberLabel/font_sizes/font_size = 26
 NumberLabel/fonts/font = ExtResource("2_px1l5")
 StatLabel/base_type = &"Label"
 StatLabel/constants/outline_size = 10

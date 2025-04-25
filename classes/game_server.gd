@@ -4,6 +4,7 @@ extends Node2D
 @export var player_scene: PackedScene = Global.CHARACTER_SCENES[Global.Character.FLANDRE_A]
 @export var stage_scene: PackedScene = preload("uid://ji0yg461mfxp")
 
+var score_tween: Tween
 
 @export var score: int = 0
 @export var lives: int = 2

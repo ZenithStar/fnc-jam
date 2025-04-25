@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://csf8dfafuvl8q"]
+[gd_scene load_steps=18 format=3 uid="uid://csf8dfafuvl8q"]
 
 [ext_resource type="FontFile" uid="uid://bcjgkxqjkxkq1" path="res://assets/fonts/Otsutome_font_ver3_16/OtsutomeFont_Ver3_16.ttf" id="1_52dtx"]
 [ext_resource type="Texture2D" uid="uid://c2m8wb586b67p" path="res://assets/background_textures/texture-2110023_1280.webp" id="1_sr2lt"]
@@ -147,6 +147,49 @@ font_size = 26
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hrdk"]
 bg_color = Color(0.606868, 0.30975, 0.918971, 0.776471)
 
+[sub_resource type="GDScript" id="GDScript_wdv4u"]
+script/source = "extends VBoxContainer
+
+@onready var server = %GameServer
+
+var current_score: int = 0
+var current_highscore: int = 1000000
+
+func format_decimals(num: int):
+	var s = str(num)
+	var n = s.length() - 3
+	var end = 0 if num >= 0 else 1
+	while n > end:
+		s.insert(n, \",\")
+		n -= 3
+	return s
+
+func _process(_delta: float) -> void:
+	var highscore: int = max(server.score, 1000000)
+	if highscore != current_highscore:
+		var diff: int = highscore - current_highscore
+		if diff < 1000:
+			current_highscore += diff
+		else:
+			current_highscore += diff / 5
+	
+	if server.score != current_score:
+		var diff: int = server.score - current_score
+		if diff < 1000:
+			current_score += diff
+		else:
+			current_score += diff / 5
+	
+	$ScoreContainer/Hiscore/Number.text = format_decimals(current_highscore)
+	$ScoreContainer/Score/Number.text = format_decimals(current_score)
+	$PlayerContainer/Life/Number.text = \"%s (Next: %s / 3)\" % [format_decimals(server.lives), format_decimals(server.life_shards)]
+	$PlayerContainer/SpellCard/Number.text = \"%s (Next: %s / 3)\" % [format_decimals(server.bombs), format_decimals(server.bomb_shards)]
+	$OtherContainer/Power/Number.text = \"%.2f / 4.00\" % server.power
+	$OtherContainer/Value/Number.text = format_decimals(server.point)
+	$OtherContainer/Graze/Number.text = format_decimals(server.graze)
+	
+"
+
 [node name="GameplayUI" type="Control"]
 process_mode = 3
 layout_mode = 3
@@ -281,7 +324,7 @@ offset_top = 32.0
 offset_right = 1248.0
 offset_bottom = 928.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
+[node name="Stats" type="VBoxContainer" parent="HUD"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -289,31 +332,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Difficulty" type="Label" parent="HUD/VBoxContainer"]
+[node name="Difficulty" type="Label" parent="HUD/Stats"]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0.0392157, 0.356863, 0.713726, 1)
+theme_override_colors/font_outline_color = Color(0.741176, 0, 0, 1)
 theme_override_constants/outline_size = 15
-text = "NORMAL"
+text = "JAMMING"
 horizontal_alignment = 1
 
-[node name="Container" type="VBoxContainer" parent="HUD/VBoxContainer"]
+[node name="Container" type="VBoxContainer" parent="HUD/Stats"]
 layout_mode = 2
 theme = ExtResource("5_5bhla")
 theme_override_constants/separation = 30
+script = SubResource("GDScript_wdv4u")
 
-[node name="ScoreContainer" type="VBoxContainer" parent="HUD/VBoxContainer/Container"]
+[node name="ScoreContainer" type="VBoxContainer" parent="HUD/Stats/Container"]
 layout_mode = 2
 
-[node name="Hiscore" type="HBoxContainer" parent="HUD/VBoxContainer/Container/ScoreContainer"]
+[node name="Hiscore" type="HBoxContainer" parent="HUD/Stats/Container/ScoreContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HUD/VBoxContainer/Container/ScoreContainer/Hiscore"]
+[node name="Stat" type="Label" parent="HUD/Stats/Container/ScoreContainer/Hiscore"]
 layout_mode = 2
 theme_type_variation = &"StatLabel"
 theme_override_colors/font_color = Color(0.662745, 0.662745, 0.662745, 1)
 text = "Hiscore"
 
-[node name="Label2" type="Label" parent="HUD/VBoxContainer/Container/ScoreContainer/Hiscore"]
+[node name="Number" type="Label" parent="HUD/Stats/Container/ScoreContainer/Hiscore"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_type_variation = &"NumberLabel"
@@ -321,71 +365,71 @@ theme_override_colors/font_color = Color(0.662745, 0.662745, 0.662745, 1)
 text = "1,234,567,890"
 horizontal_alignment = 2
 
-[node name="Score" type="HBoxContainer" parent="HUD/VBoxContainer/Container/ScoreContainer"]
+[node name="Score" type="HBoxContainer" parent="HUD/Stats/Container/ScoreContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HUD/VBoxContainer/Container/ScoreContainer/Score"]
+[node name="Stat" type="Label" parent="HUD/Stats/Container/ScoreContainer/Score"]
 layout_mode = 2
 theme_type_variation = &"StatLabel"
 text = "Score"
 
-[node name="Label2" type="Label" parent="HUD/VBoxContainer/Container/ScoreContainer/Score"]
+[node name="Number" type="Label" parent="HUD/Stats/Container/ScoreContainer/Score"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_type_variation = &"NumberLabel"
 text = "1,234,567,890"
 horizontal_alignment = 2
 
-[node name="PlayerContainer" type="VBoxContainer" parent="HUD/VBoxContainer/Container"]
+[node name="PlayerContainer" type="VBoxContainer" parent="HUD/Stats/Container"]
 layout_mode = 2
 
-[node name="Life" type="HBoxContainer" parent="HUD/VBoxContainer/Container/PlayerContainer"]
+[node name="Life" type="HBoxContainer" parent="HUD/Stats/Container/PlayerContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HUD/VBoxContainer/Container/PlayerContainer/Life"]
+[node name="Stat" type="Label" parent="HUD/Stats/Container/PlayerContainer/Life"]
 layout_mode = 2
 theme_type_variation = &"StatLabel"
 theme_override_colors/font_color = Color(0.890196, 0.368627, 0.843137, 1)
 text = "Life"
 
-[node name="Label2" type="Label" parent="HUD/VBoxContainer/Container/PlayerContainer/Life"]
+[node name="Number" type="Label" parent="HUD/Stats/Container/PlayerContainer/Life"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_type_variation = &"NumberLabel"
 theme_override_colors/font_color = Color(0.890196, 0.368627, 0.843137, 1)
-text = "7 (Next: 999,999,999,999)"
+text = "7 (Next: 3/5)"
 horizontal_alignment = 2
 
-[node name="SpellCard" type="HBoxContainer" parent="HUD/VBoxContainer/Container/PlayerContainer"]
+[node name="SpellCard" type="HBoxContainer" parent="HUD/Stats/Container/PlayerContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HUD/VBoxContainer/Container/PlayerContainer/SpellCard"]
+[node name="Stat" type="Label" parent="HUD/Stats/Container/PlayerContainer/SpellCard"]
 layout_mode = 2
 theme_type_variation = &"StatLabel"
 theme_override_colors/font_color = Color(0.513726, 0.776471, 0.533333, 1)
 text = "Spell Card"
 
-[node name="Label2" type="Label" parent="HUD/VBoxContainer/Container/PlayerContainer/SpellCard"]
+[node name="Number" type="Label" parent="HUD/Stats/Container/PlayerContainer/SpellCard"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_type_variation = &"NumberLabel"
 theme_override_colors/font_color = Color(0.513726, 0.776471, 0.533333, 1)
-text = "6"
+text = "6 (Next: 3/5)"
 horizontal_alignment = 2
 
-[node name="OtherContainer" type="VBoxContainer" parent="HUD/VBoxContainer/Container"]
+[node name="OtherContainer" type="VBoxContainer" parent="HUD/Stats/Container"]
 layout_mode = 2
 
-[node name="Power" type="HBoxContainer" parent="HUD/VBoxContainer/Container/OtherContainer"]
+[node name="Power" type="HBoxContainer" parent="HUD/Stats/Container/OtherContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HUD/VBoxContainer/Container/OtherContainer/Power"]
+[node name="Stat" type="Label" parent="HUD/Stats/Container/OtherContainer/Power"]
 layout_mode = 2
 theme_type_variation = &"StatLabel"
 theme_override_colors/font_color = Color(1, 0.505882, 0.054902, 1)
 text = "Power"
 
-[node name="Label2" type="Label" parent="HUD/VBoxContainer/Container/OtherContainer/Power"]
+[node name="Number" type="Label" parent="HUD/Stats/Container/OtherContainer/Power"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_type_variation = &"NumberLabel"
@@ -393,16 +437,16 @@ theme_override_colors/font_color = Color(1, 0.505882, 0.054902, 1)
 text = "3.00 / 4.00"
 horizontal_alignment = 2
 
-[node name="Value" type="HBoxContainer" parent="HUD/VBoxContainer/Container/OtherContainer"]
+[node name="Value" type="HBoxContainer" parent="HUD/Stats/Container/OtherContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HUD/VBoxContainer/Container/OtherContainer/Value"]
+[node name="Stat" type="Label" parent="HUD/Stats/Container/OtherContainer/Value"]
 layout_mode = 2
 theme_type_variation = &"StatLabel"
 theme_override_colors/font_color = Color(0.262745, 0.74902, 0.988235, 1)
 text = "Value"
 
-[node name="Label2" type="Label" parent="HUD/VBoxContainer/Container/OtherContainer/Value"]
+[node name="Number" type="Label" parent="HUD/Stats/Container/OtherContainer/Value"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_type_variation = &"NumberLabel"
@@ -410,16 +454,16 @@ theme_override_colors/font_color = Color(0.262745, 0.74902, 0.988235, 1)
 text = "1,234,567,890"
 horizontal_alignment = 2
 
-[node name="Graze" type="HBoxContainer" parent="HUD/VBoxContainer/Container/OtherContainer"]
+[node name="Graze" type="HBoxContainer" parent="HUD/Stats/Container/OtherContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HUD/VBoxContainer/Container/OtherContainer/Graze"]
+[node name="Stat" type="Label" parent="HUD/Stats/Container/OtherContainer/Graze"]
 layout_mode = 2
 theme_type_variation = &"StatLabel"
 theme_override_colors/font_color = Color(0.662452, 0.662452, 0.662452, 1)
 text = "Graze"
 
-[node name="Label2" type="Label" parent="HUD/VBoxContainer/Container/OtherContainer/Graze"]
+[node name="Number" type="Label" parent="HUD/Stats/Container/OtherContainer/Graze"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_type_variation = &"NumberLabel"
