@@ -1,7 +1,9 @@
 extends StageBase
 
 func post_transition():
-	BGMServer.fade_to_new(preload("uid://b2jfobimj67x4"))
+	$PreloadAudio.queue_free()
+	$PreloadAudio2.queue_free()
+	BGMServer.fade_to_new(Global.SONGS[Global.Song.STAGE_ONE])
 	play("stage")
 
 func test_sequence() -> void:

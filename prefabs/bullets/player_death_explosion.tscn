@@ -20,6 +20,9 @@ func _ready() -> void:
 	_tween.tween_property($Sprite2D, \"position\", Vector2.from_angle(0.0) * TRAVEL_DISTANCE , 1.0)
 	_tween.tween_property($Sprite2D2, \"position\", Vector2.from_angle(-TAU / 3.0) * TRAVEL_DISTANCE , 1.0)
 	_tween.tween_property($Sprite2D3, \"position\", Vector2.from_angle( TAU / 3.0) * TRAVEL_DISTANCE , 1.0)
+	_tween.tween_property($Sprite2D4, \"position\", Vector2.from_angle(PI) * TRAVEL_DISTANCE , 1.0)
+	_tween.tween_property($Sprite2D5, \"position\", Vector2.from_angle(-TAU / 6.0) * TRAVEL_DISTANCE , 1.0)
+	_tween.tween_property($Sprite2D6, \"position\", Vector2.from_angle( TAU / 6.0) * TRAVEL_DISTANCE , 1.0)
 	_tween.set_parallel(false)
 	_tween.tween_callback(queue_free)
 	set.call_deferred(\"mointoring\", false)
@@ -58,14 +61,32 @@ script = SubResource("GDScript_03bfm")
 shape = SubResource("CircleShape2D_1f16c")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 5
 material = SubResource("ShaderMaterial_3aqgf")
 texture = SubResource("GradientTexture2D_8fkyj")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
+z_index = 5
 material = SubResource("ShaderMaterial_3aqgf")
 texture = SubResource("GradientTexture2D_8fkyj")
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]
+z_index = 5
+material = SubResource("ShaderMaterial_3aqgf")
+texture = SubResource("GradientTexture2D_8fkyj")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+z_index = 5
+material = SubResource("ShaderMaterial_3aqgf")
+texture = SubResource("GradientTexture2D_8fkyj")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+z_index = 5
+material = SubResource("ShaderMaterial_3aqgf")
+texture = SubResource("GradientTexture2D_8fkyj")
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+z_index = 5
 material = SubResource("ShaderMaterial_3aqgf")
 texture = SubResource("GradientTexture2D_8fkyj")
 

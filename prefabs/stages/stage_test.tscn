@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ji0yg461mfxp"]
+[gd_scene load_steps=23 format=3 uid="uid://ji0yg461mfxp"]
 
 [ext_resource type="PackedScene" uid="uid://dsuled2355muo" path="res://prefabs/stages/stage_base.tscn" id="1_ctf3g"]
 [ext_resource type="Script" uid="uid://bgob1tfuc5pcw" path="res://prefabs/stages/stage_test.gd" id="2_lq56u"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://drkr6aa4clf2q" path="res://prefabs/mobs/tiny_red_fairy.tscn" id="4_ol3aj"]
 [ext_resource type="Texture2D" uid="uid://nxivm6cwkio4" path="res://assets/texture_07.png" id="6_v4sor"]
 [ext_resource type="PackedScene" uid="uid://cw6a2wkhukork" path="res://prefabs/misc_vfx/camera_with_spellcard.tscn" id="7_5mylj"]
+[ext_resource type="AudioStream" uid="uid://dq4hlin7lekwp" path="res://assets/music/stage 1 theme.ogg" id="8_btutw"]
+[ext_resource type="AudioStream" uid="uid://c410pku77ffnw" path="res://assets/music/stage 1 boss.ogg" id="9_2rbm0"]
 
 [sub_resource type="Animation" id="Animation_yr1me"]
 resource_name = "stage"
@@ -178,7 +180,7 @@ position = Vector2(439, -80)
 mob = ExtResource("4_ol3aj")
 
 [node name="PathFollow2D" parent="StageMob" index="0"]
-position = Vector2(-908.998, 137.001)
+position = Vector2(-909, 137)
 progress = 1726.49
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StageMob" index="1"]
@@ -229,6 +231,16 @@ mesh = SubResource("TorusMesh_btutw")
 
 [node name="CameraWithSpellcard" parent="Background" index="3" instance=ExtResource("7_5mylj")]
 transform = Transform3D(0.80874, -0.292526, 0.510263, 0, 0.867549, 0.497353, -0.588166, -0.402229, 0.701621, 1.89607, 1.4814, 2.8612)
+
+[node name="PreloadAudio" type="AudioStreamPlayer" parent="." index="6"]
+stream = ExtResource("8_btutw")
+volume_db = -80.0
+autoplay = true
+
+[node name="PreloadAudio2" type="AudioStreamPlayer" parent="." index="7"]
+stream = ExtResource("9_2rbm0")
+volume_db = -80.0
+autoplay = true
 
 [editable path="StageMob"]
 [editable path="StageMob2"]

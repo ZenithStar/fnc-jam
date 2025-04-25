@@ -1,16 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://bb2a3hsmytlvg"]
+[gd_scene load_steps=4 format=3 uid="uid://bb2a3hsmytlvg"]
 
+[ext_resource type="Script" uid="uid://bke8vum4rbu6m" path="res://classes/bullet.gd" id="1_1hj85"]
 [ext_resource type="Texture2D" uid="uid://b3xkich8qcp4k" path="res://assets/seija_real/ShotSheet.png" id="1_fn1mt"]
+[ext_resource type="Shape2D" uid="uid://cp3bel0wro1co" path="res://prefabs/bullets/capsule_shape_16_4.tres" id="2_tati1"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1hj85"]
-radius = 8.0
-
-[node name="Bullet16x16" type="Area2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_fn1mt")
-region_enabled = true
-region_rect = Rect2(0, 0, 16, 16)
+[node name="Bullet" type="Area2D"]
+scale = Vector2(2, 2)
+collision_layer = 8
+script = ExtResource("1_1hj85")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_1hj85")
+rotation = 1.5708
+shape = ExtResource("2_tati1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_fn1mt")
+region_enabled = true
+region_rect = Rect2(16, 64, 16, 16)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="hit" from="." to="." method="_on_hit"]

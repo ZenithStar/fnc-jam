@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bsxf72i1psbly"
+path="res://.godot/imported/stage 2 theme.ogg-a94f48d6f8ce8f1e0d7355fa636973aa.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/music/stage 2 theme.ogg"
+dest_files=["res://.godot/imported/stage 2 theme.ogg-a94f48d6f8ce8f1e0d7355fa636973aa.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=19.2
+bpm=0.0
+beat_count=0
+bar_beats=4

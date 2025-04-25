@@ -1,0 +1,128 @@
+[gd_scene load_steps=10 format=3 uid="uid://hqdjm525w4nl"]
+
+[ext_resource type="Texture2D" uid="uid://bj8pmuse8eet0" path="res://assets/seija_real/ShotSheet2.png" id="1_j2el6"]
+[ext_resource type="Texture2D" uid="uid://druax6nhk11n5" path="res://assets/star_09.png" id="2_nhwly"]
+
+[sub_resource type="GDScript" id="GDScript_meu0a"]
+script/source = "extends Area2D
+
+const SWING_DURATION: float = 0.8
+const DAMAGE: = 1000.0
+
+
+var _tween: Tween
+func _ready():
+	rotation = randf_range(PI/2.0, TAU/3.0)
+	
+	_tween = create_tween()
+	_tween.set_parallel()
+	_tween.tween_property($CanvasLayer/ColorRect, \"color:a\", 0.2, 0.3)
+	_tween.set_ease(Tween.EASE_IN_OUT)
+	_tween.set_trans(Tween.TRANS_CIRC)
+	_tween.tween_property(self, \"rotation\", randf_range(-PI/2.0, -TAU/3.0), SWING_DURATION)
+	_tween.tween_property(self, \"scale\", Vector2.ONE*0.5, SWING_DURATION)
+	_tween.tween_property($GPUParticles2D, \"amount_ratio\", .5, SWING_DURATION)
+	_tween.chain().tween_property(self, \"rotation\", randf_range(PI/2.0, TAU/3.0), SWING_DURATION)
+	_tween.tween_property(self, \"scale\", Vector2.ONE, SWING_DURATION)
+	_tween.tween_property($GPUParticles2D, \"amount_ratio\", .75, SWING_DURATION)
+	_tween.tween_callback($CollisionShape2DLeft.set.bind(\"disabled\",true))
+	_tween.tween_callback($CollisionShape2DRight.set.bind(\"disabled\",false))
+	_tween.chain().tween_property(self, \"rotation\", randf_range(-PI/2.0, -TAU/3.0), SWING_DURATION)
+	_tween.tween_property(self, \"scale\", Vector2(1.0,2.0), SWING_DURATION)
+	_tween.tween_property($GPUParticles2D, \"amount_ratio\", 1.0, SWING_DURATION)
+	_tween.tween_callback($CollisionShape2DLeft.set.bind(\"disabled\",false))
+	_tween.tween_callback($CollisionShape2DRight.set.bind(\"disabled\",true))
+	_tween.chain().tween_property(self, \"modulate:a\", 0.0, SWING_DURATION)
+	_tween.tween_property($CanvasLayer/ColorRect, \"color:a\", 0.0, SWING_DURATION)
+	_tween.tween_callback(set_deferred.bind(\"monitoring\", false))
+	_tween.chain().tween_callback(queue_free)
+
+
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.has_signal(\"hit\"):
+		area.hit.emit(DAMAGE)
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nhwly"]
+radius = 64.0
+height = 256.0
+
+[sub_resource type="Curve" id="Curve_56ob8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ucbb6"]
+curve = SubResource("Curve_56ob8")
+
+[sub_resource type="Curve" id="Curve_j4qn1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jb6cb"]
+curve = SubResource("Curve_j4qn1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kwjvr"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(0, 100, 0)
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+angular_velocity_min = 100.0
+angular_velocity_max = 300.0
+gravity = Vector3(0, 0, 0)
+damping_min = 300.0
+damping_max = 300.0
+scale_min = 0.01
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_jb6cb")
+color = Color(1, 0, 0, 1)
+alpha_curve = SubResource("CurveTexture_ucbb6")
+
+[node name="Leviathan" type="Area2D"]
+show_behind_parent = true
+collision_layer = 0
+collision_mask = 10
+monitorable = false
+script = SubResource("GDScript_meu0a")
+
+[node name="CollisionShape2DLeft" type="CollisionShape2D" parent="."]
+position = Vector2(32, -130)
+shape = SubResource("CapsuleShape2D_nhwly")
+
+[node name="CollisionShape2DRight" type="CollisionShape2D" parent="."]
+position = Vector2(-32, -130)
+shape = SubResource("CapsuleShape2D_nhwly")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -128)
+texture = ExtResource("1_j2el6")
+region_enabled = true
+region_rect = Rect2(32, 480, 16, 256)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(0, -128)
+amount = 1024
+amount_ratio = 0.3
+texture = ExtResource("2_nhwly")
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_kwjvr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+top_level = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.701961, 0.054902, 0.0666667, 0)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

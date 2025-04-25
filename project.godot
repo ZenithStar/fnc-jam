@@ -26,11 +26,15 @@ BGMServer="*res://classes/bgm_server.tscn"
 
 directories/dch_directory={
 "flandre": "res://prefabs/dialogic/characters/flandre.dch",
-"jane": "res://prefabs/dialogic/characters/jane.dch",
-"kadri": "res://prefabs/dialogic/characters/kadri.dch"
+"jemma": "res://prefabs/dialogic/characters/jemma.dch",
+"kadri": "res://prefabs/dialogic/characters/kadri.dch",
+"sakuya": "res://prefabs/dialogic/characters/sakuya.dch"
 }
 directories/dtl_directory={
 "empty": "res://prefabs/dialogic/timelines/empty.dtl",
+"stage_one_boss": "res://prefabs/dialogic/timelines/stage_one_boss.dtl",
+"stage_one_end": "res://prefabs/dialogic/timelines/stage_one_end.dtl",
+"stage_one_mid": "res://prefabs/dialogic/timelines/stage_one_mid.dtl",
 "test_ipsum": "res://prefabs/dialogic/timelines/test_ipsum.dtl"
 }
 layout/style_list=["res://prefabs/dialogic/style.tres"]
@@ -167,6 +171,10 @@ bomb={
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Pickup"
 2d_physics/layer_4="Bullet"
+
+[physics]
+
+2d/run_on_separate_thread=true
 
 [rendering]
 

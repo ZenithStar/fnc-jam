@@ -6,7 +6,7 @@
 script/source = "extends Area2D
 
 const VELOCITY: = 1500.0
-const DAMAGE: = 10.0
+const DAMAGE: = 25.0
 
 var _escape_tween: Tween
 

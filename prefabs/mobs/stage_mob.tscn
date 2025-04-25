@@ -1,19 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddqb0e1knrejo"]
+[gd_scene load_steps=2 format=3 uid="uid://ddqb0e1knrejo"]
 
 [ext_resource type="Script" uid="uid://cd5hm8p6xk7e6" path="res://classes/stage_mob.gd" id="1_3r222"]
 
-[sub_resource type="Curve2D" id="Curve2D_imvck"]
-_data = {
-"points": PackedVector2Array(-283.503, 86.515, 283.503, -86.515, -378, -556, 0, 0, 0, 0, -269, -355, -298.144, 126.445, 298.144, -126.445, -147, -264, 227.601, 190.333, -227.601, -190.333, -909, 137)
-}
-point_count = 4
-
 [node name="StageMob" type="Path2D"]
-curve = SubResource("Curve2D_imvck")
 script = ExtResource("1_3r222")
 metadata/_custom_type_script = "uid://cd5hm8p6xk7e6"
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-position = Vector2(-378, -556)
 rotates = false
 loop = false

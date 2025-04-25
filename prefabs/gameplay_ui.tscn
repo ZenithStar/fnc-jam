@@ -1,13 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://csf8dfafuvl8q"]
+[gd_scene load_steps=9 format=3 uid="uid://csf8dfafuvl8q"]
 
-[ext_resource type="FontFile" uid="uid://du4nncm53kwmh" path="res://assets/fonts/zero_cool/ZeroCool.ttf" id="1_doy8b"]
+[ext_resource type="FontFile" uid="uid://bcjgkxqjkxkq1" path="res://assets/fonts/Otsutome_font_ver3_16/OtsutomeFont_Ver3_16.ttf" id="1_52dtx"]
 [ext_resource type="Texture2D" uid="uid://c2m8wb586b67p" path="res://assets/background_textures/texture-2110023_1280.webp" id="1_sr2lt"]
 [ext_resource type="Script" uid="uid://ndipme0p650m" path="res://classes/gameplay_ui.gd" id="2_petu2"]
 [ext_resource type="PackedScene" uid="uid://dm3udx5tvgc4n" path="res://prefabs/game_server.tscn" id="2_sr2lt"]
+[ext_resource type="FontFile" uid="uid://bbik6rwdjrrr6" path="res://assets/fonts/sangyo/Sangyo-Regular.ttf" id="5_wdv4u"]
+[ext_resource type="Texture2D" uid="uid://ch4mxccc2lm16" path="res://assets/title_card/tosd.png" id="6_52dtx"]
 
 [sub_resource type="Theme" id="Theme_petu2"]
-default_font = ExtResource("1_doy8b")
+default_font = ExtResource("1_52dtx")
 default_font_size = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hrdk"]
+bg_color = Color(0.606868, 0.30975, 0.918971, 0.776471)
 
 [node name="GameplayUI" type="Control"]
 layout_mode = 3
@@ -64,6 +69,27 @@ offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 
+[node name="BorderLine" type="Panel" parent="GameplayArea"]
+layout_mode = 0
+offset_top = 254.0
+offset_right = 768.0
+offset_bottom = 258.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1hrdk")
+
+[node name="Label" type="Label" parent="GameplayArea/BorderLine"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.607843, 0.309804, 0.917647, 0.776471)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("5_wdv4u")
+theme_override_font_sizes/font_size = 36
+text = "Item Get Border Line!"
+
 [node name="HUD" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 864.0
@@ -103,3 +129,14 @@ offset_bottom = 23.0
 grow_horizontal = 0
 text = "1,234,567,890"
 horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("6_52dtx")
+expand_mode = 3

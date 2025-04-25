@@ -3,8 +3,7 @@
 [ext_resource type="Script" uid="uid://daqogdamvwe83" path="res://classes/mob_base.gd" id="1_piull"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8gsgy"]
-resource_local_to_scene = true
-radius = 32.0
+radius = 24.0
 
 [node name="MobBase" type="Area2D"]
 collision_layer = 2

@@ -50,12 +50,13 @@ func _ready() -> void:
 	if offscreen_sprite:
 		$OffscreenSprite.texture = offscreen_sprite
 	
-	_throw_tween = create_tween()
-	_throw_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-	_throw_tween.set_ease(Tween.EASE_OUT)
-	_throw_tween.set_trans(Tween.TRANS_CUBIC)
-	_throw_tween.tween_property(self, "position:y", position.y - THROW_DISTANCE, THROW_DURATION)
-	_throw_tween.tween_callback(set.bind("state", State.FALLING))
+	if state == State.THROWING:
+		_throw_tween = create_tween()
+		_throw_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+		_throw_tween.set_ease(Tween.EASE_OUT)
+		_throw_tween.set_trans(Tween.TRANS_CUBIC)
+		_throw_tween.tween_property(self, "position:y", position.y - THROW_DISTANCE, THROW_DURATION)
+		_throw_tween.tween_callback(set.bind("state", State.FALLING))
 	
 	_spin_tween = create_tween()
 	_spin_tween.set_ease(Tween.EASE_OUT)

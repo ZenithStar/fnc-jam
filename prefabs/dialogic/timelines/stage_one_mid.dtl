@@ -1,0 +1,14 @@
+join flandre (neutral) left [animation="Bounce In" mirrored="true"]
+sakuya: Mistress, can you hear me?
+flandre: Sakuya?
+flandre: Where are you, hiding from me is rude.
+sakuya: I do not have much time...
+flandre: What?
+sakuya: The mansion is not as it seems.
+sakuya: It has been longer than you think.
+sakuya: Please, help.
+flandre: Help? Help how?
+flandre: ...
+flandre: She's not there anymore.
+flandre: Something else is though. How annoying.
+leave flandre [animation="Slide Out Left"]

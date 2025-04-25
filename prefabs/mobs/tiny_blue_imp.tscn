@@ -1,0 +1,74 @@
+[gd_scene load_steps=13 format=3 uid="uid://c67qj8thhj6w2"]
+
+[ext_resource type="PackedScene" uid="uid://dkooc6f0myqnn" path="res://prefabs/mobs/mob_base.tscn" id="1_stvsw"]
+[ext_resource type="PackedScene" uid="uid://ct21j5j554co8" path="res://prefabs/pickups/small_point_pickup.tscn" id="2_2on7x"]
+[ext_resource type="Texture2D" uid="uid://dbbocc7yustgv" path="res://assets/combat_sprites/imp/Imp1.png" id="3_c2yhd"]
+[ext_resource type="Texture2D" uid="uid://cyfv2yyhsjxpm" path="res://assets/combat_sprites/imp/Imp2A.png" id="4_kce1x"]
+[ext_resource type="Texture2D" uid="uid://gi3qdklp4cqd" path="res://assets/combat_sprites/imp/Imp2B.png" id="5_sj1rm"]
+[ext_resource type="Texture2D" uid="uid://ndby6f8i1rro" path="res://assets/combat_sprites/imp/Imp3.png" id="6_v35ab"]
+[ext_resource type="Texture2D" uid="uid://bvdaeqbu2k0s6" path="res://assets/combat_sprites/imp/Impmovescreenleft_1.png" id="7_jyoa8"]
+[ext_resource type="Texture2D" uid="uid://ddw6ctgueprsc" path="res://assets/combat_sprites/imp/Impmovescreenleft_2.png" id="8_4lr8d"]
+[ext_resource type="Texture2D" uid="uid://dg5ybily4icyx" path="res://assets/combat_sprites/imp/impmovescreenright_1.png" id="9_pci1n"]
+[ext_resource type="Texture2D" uid="uid://romej0lia022" path="res://assets/combat_sprites/imp/impmovescreenright_2.png" id="10_2ywj6"]
+[ext_resource type="Script" uid="uid://bh4hxryubhnlb" path="res://classes/directional_sprite.gd" id="11_6yawv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8v2sm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_c2yhd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_kce1x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_sj1rm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_v35ab")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_sj1rm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_kce1x")
+}],
+"loop": true,
+"name": &"center",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_jyoa8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_4lr8d")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_pci1n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_2ywj6")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]
+
+[node name="TinyBlueImp" instance=ExtResource("1_stvsw")]
+drops = Dictionary[PackedScene, int]({
+ExtResource("2_2on7x"): 1
+})
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+self_modulate = Color(0, 1, 1, 1)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_8v2sm")
+animation = &"center"
+autoplay = "center"
+script = ExtResource("11_6yawv")

@@ -4,7 +4,8 @@ var targets: Dictionary[Area2D, bool]
 
 func register(area: Area2D):
 	targets[area] = true
-	area.tree_exited.connect(unregister.bind(area))
+	if not area.tree_entered.is_connected(unregister.bind(area)):
+		area.tree_exited.connect(unregister.bind(area))
 
 func unregister(area: Area2D):
 	area.tree_exited.disconnect(unregister.bind(area))

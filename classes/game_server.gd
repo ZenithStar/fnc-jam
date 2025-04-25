@@ -14,22 +14,29 @@ extends Node2D
 			life_shards -= 3
 			lives += 1
 			life_up.emit()
-@export var bombs: int = 3
+@export var base_bombs: int = 3
+@export var bombs: int = 3:
+	set(value):
+		if bombs != value:
+			bombs = value
+			bombs_changed.emit()
 @export var bomb_shards: int = 0:
 	set(value):
 		bomb_shards = value
 		while bomb_shards >= 3:
 			bomb_shards -= 3
 			bombs += 1
-			bomb_up.emit()
 @export var power: float = 1.0:
 	set(value):
 		var prev: = power
-		power = clampf(value, 1.0, 5.0)
+		power = clampf(value, 1.0, 4.0)
 		if floorf(power) != floorf(prev):
 			power_up.emit()
-			if power == 5.0:
+			if power == 4.0:
 				full_power.emit()
+
+@export var point: int = 0
+@export var graze: int = 0
 
 var player: Player
 var stage: StageBase
@@ -47,7 +54,7 @@ signal score_gained( gains: int )
 
 # Connect these to some sound effects
 signal life_up
-signal bomb_up
+signal bombs_changed
 signal power_up
 signal full_power
 
@@ -72,10 +79,15 @@ func _on_pickup( type: Pickup.Type ):
 		Pickup.Type.BOMB_SHARD:
 			bomb_shards += 1
 
+var _load_spawn_hack: = true
+
 var _player_spawn_tween: Tween
 func spawn_player():
 	player = player_scene.instantiate()
 	player.position = $PlayerSpawnBegin.position
+	if _load_spawn_hack: # don't grant immune time on the very first spawn
+		player._immune_time = INF
+		_load_spawn_hack = false
 	add_child(player)
 	player.tree_exited.connect(_on_player_tree_exited)
 	_player_spawn_tween = create_tween()
@@ -88,6 +100,7 @@ func spawn_player():
 func _on_player_tree_exited():
 	if lives > 0:
 		lives -= 1
+		bombs = base_bombs
 		spawn_player()
 	else:
 		pass # TODO: game over screen

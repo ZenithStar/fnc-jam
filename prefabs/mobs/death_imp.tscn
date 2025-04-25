@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxbd2avkjk1b3"]
+
+[ext_resource type="PackedScene" uid="uid://dkooc6f0myqnn" path="res://prefabs/mobs/mob_base.tscn" id="1_ngkag"]
+[ext_resource type="PackedScene" uid="uid://ct21j5j554co8" path="res://prefabs/pickups/small_point_pickup.tscn" id="2_0m3f5"]
+[ext_resource type="Texture2D" uid="uid://cj10x61yilwcc" path="res://icon.svg" id="2_qgi7u"]
+[ext_resource type="PackedScene" uid="uid://djw0ru5od7hbm" path="res://prefabs/pickups/small_power_pickup.tscn" id="3_wdpc1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0m3f5"]
+radius = 64.0
+
+[node name="DeathImp" instance=ExtResource("1_ngkag")]
+max_health = 1000.0
+drops = Dictionary[PackedScene, int]({
+ExtResource("2_0m3f5"): 10,
+ExtResource("3_wdpc1"): 10
+})
+immune = true
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_0m3f5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_qgi7u")

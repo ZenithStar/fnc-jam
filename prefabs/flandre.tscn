@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bj2crsljts8at"]
+[gd_scene load_steps=10 format=3 uid="uid://bj2crsljts8at"]
 
 [ext_resource type="PackedScene" uid="uid://cyfthxwndcuvj" path="res://prefabs/player.tscn" id="1_ytfe8"]
 [ext_resource type="Texture2D" uid="uid://cqpcil38kr1gf" path="res://assets/combat_sprites/sprite_flandre-scarlet_combat-body-Sheet.png" id="2_paxfa"]
@@ -54,16 +54,37 @@ const SHOT_TIMEOUT := 0.2
 var _timeout: float
 var shoot_tween: Tween
 
+@onready var game_server: = get_tree().get_first_node_in_group(\"GameServer\")
+
 func _ready() -> void:
 	shoot_tween = create_tween().set_loops()
 	shoot_tween.tween_callback(shoot).set_delay(SHOT_PERIOD)
 
 func shoot():
-	var target: Area2D = get_tree().get_first_node_in_group(\"TargetServer\").pick_random()
-	if is_instance_valid(target) and not is_instance_valid(Dialogic.current_timeline):
-		var new_shot:= SHOT_SCENE.instantiate()
-		new_shot.position = target.global_position
-		get_tree().get_first_node_in_group(\"PlayerBulletServer\").add_child(new_shot)
+	if not is_instance_valid(Dialogic.current_timeline):
+		if get_parent().focused:
+			var target: Area2D = get_tree().get_first_node_in_group(\"TargetServer\").pick_random()
+			if is_instance_valid(target) :
+				var new_shot:= SHOT_SCENE.instantiate()
+				match floori(game_server.power):
+					1:
+						new_shot.scale = Vector2.ONE*0.25
+					2:
+						new_shot.scale = Vector2.ONE*0.5
+					3:
+						new_shot.scale = Vector2.ONE*0.75
+					4:
+						new_shot.scale = Vector2.ONE
+				new_shot.position = target.global_position
+				get_tree().get_first_node_in_group(\"PlayerBulletServer\").add_child(new_shot)
+		else:
+			for i in floori(game_server.power): 
+				var target: Area2D = get_tree().get_first_node_in_group(\"TargetServer\").pick_random()
+				if is_instance_valid(target):
+					var new_shot:= SHOT_SCENE.instantiate()
+					new_shot.scale = Vector2.ONE*0.25
+					new_shot.position = target.global_position + Vector2(randfn(0.0, 8.0), randfn(0.0, 8.0))
+					get_tree().get_first_node_in_group(\"PlayerBulletServer\").add_child(new_shot)
 
 
 func _physics_process(delta: float) -> void:
@@ -77,29 +98,49 @@ func _physics_process(delta: float) -> void:
 		shoot_tween.pause()
 "
 
+[sub_resource type="GDScript" id="GDScript_rxmrp"]
+script/source = "extends Node2D
+
+const SHOT_SCENE := preload(\"uid://hqdjm525w4nl\")
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not is_instance_valid(Dialogic.current_timeline) and event.is_action_pressed(\"bomb\"):
+		if get_tree().get_first_node_in_group(\"GameServer\").bombs > 0 and not get_parent().is_immune():
+			var new_shot: = SHOT_SCENE.instantiate()
+			add_child.call_deferred(new_shot)
+			get_tree().get_first_node_in_group(\"GameServer\").bombs -= 1
+			get_parent().bomb.emit()
+"
+
 [node name="Flandre" instance=ExtResource("1_ytfe8")]
 scale = Vector2(2, 2)
 
-[node name="Body" type="Sprite2D" parent="." index="0"]
+[node name="Sprites" type="Node2D" parent="." index="0"]
+texture_filter = 3
+
+[node name="Body" type="Sprite2D" parent="Sprites" index="0"]
 texture = ExtResource("2_paxfa")
 hframes = 3
 vframes = 3
 
-[node name="FocusIndicator" type="Sprite2D" parent="." index="1"]
+[node name="FocusIndicator" type="Sprite2D" parent="Sprites" index="1"]
 self_modulate = Color(1.5, 1.5, 1.5, 1)
 scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_q0qn8")
 
-[node name="Wings" type="Sprite2D" parent="." index="2"]
+[node name="Wings" type="Sprite2D" parent="Sprites" index="2"]
 texture = ExtResource("4_hryse")
 hframes = 3
 vframes = 3
 
-[node name="Hitbox" parent="." index="3"]
+[node name="Hitbox" parent="." index="1"]
 shape = SubResource("CircleShape2D_paxfa")
 
-[node name="PrimaryShot" type="Node2D" parent="." index="4"]
+[node name="PrimaryShot" type="Node2D" parent="." index="2"]
 script = SubResource("GDScript_paxfa")
 
-[node name="SecondaryShot" type="Node2D" parent="." index="5"]
+[node name="SecondaryShot" type="Node2D" parent="." index="3"]
 script = SubResource("GDScript_ytfe8")
+
+[node name="Bomb" type="Node2D" parent="." index="4"]
+script = SubResource("GDScript_rxmrp")

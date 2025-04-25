@@ -13,3 +13,8 @@ func _enter_tree() -> void:
 func post_transition() -> void:
 	if %GameServer.stage and %GameServer.stage.has_method(&"post_transition"):
 		%GameServer.stage.post_transition()
+	var border_tween: = create_tween()
+	for i in 32:
+		border_tween.tween_callback($GameplayArea/BorderLine.set.bind("modulate", Color.TRANSPARENT)).set_delay(0.08)
+		border_tween.tween_callback($GameplayArea/BorderLine.set.bind("modulate", Color.WHITE)).set_delay(0.02)
+	border_tween.tween_callback($GameplayArea/BorderLine.queue_free)

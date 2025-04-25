@@ -1,0 +1,38 @@
+join flandre (neutral) left [animation="Bounce In" mirrored="true"]
+flandre (happy): Oh, Meiling, you're awake for once! Thank goodness.
+join jemma (neutral) right [animation="Bounce In"]
+jemma: ...
+flandre: Now hurry up and let me in, could ya?
+flandre: It's been weird outside today and I wanna relax.
+jemma: No can do.
+flandre (angry): Meiling! That's not very nice of you.
+jemma: I dunno who this Meiling is, but they ain't me.
+jemma: Ya'd best get ta steppin' if'n ya know what's good fer ya.
+flandre (neutral): ... You're right, you aren't Meiling.
+flandre: Because she'd actually do what I tell her to do.
+jemma: You talk a lot fer such a small lil' thing.
+jemma: You able to back up that mouth'a yers?
+flandre (angry): ... Who do you think you are?
+jemma (happy): Name's Jemma Baker. Round these parts, I'm the gal yer likely last to ever see.
+jemma: Makes me a mighty convenient gatekeeper, don't ya think lil' one?
+flandre: If you were the last gal I ever saw, I'd have lived a very sad life.
+jemma (angry): Enough'a this tired charade.
+jemma: What are ya here fer so I kin be justified in killin' ya right here on the spot?
+flandre (defeated): This is where I live, why wouldn't I be here?
+jemma (happy): What'a lark, this is the house of my lady.
+jemma: Ya got no rightful claim to this 'ere land.
+flandre: Your lady?
+jemma (neutral): Lady Iele. Don't force me ta bag ya up n' make introductions.
+jemma: I'd enjoy very much not havin' ta do more work 'ere than necessary...
+jemma: Least 'til the last'a the preparations are made.
+jemma: The work we're doin' 'ere is too important for a pathetic thing like yerself to get in the way of.
+jemma: No outsiders allowed, got it?
+jemma: Last warnin', since you're new here and all.
+flandre: ... You talk twice as much as Meiling...
+flandre: I hope you're at least had as entertaining to play with.
+jemma: Them's sound like fightin' words.
+flandre (angry): Glad that got across.
+jemma (angry): Well, if that's what ya want...
+jemma (angry): Time for you to die. Now.
+leave flandre [animation="Slide Out Right"]
+leave jemma [animation="Slide Out Left"]

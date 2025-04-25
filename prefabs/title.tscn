@@ -1,17 +1,21 @@
-[gd_scene load_steps=21 format=3 uid="uid://l6fmd7keqx2k"]
+[gd_scene load_steps=27 format=3 uid="uid://l6fmd7keqx2k"]
 
-[ext_resource type="FontFile" uid="uid://bcjgkxqjkxkq1" path="res://assets/fonts/Otsutome_font_ver3_16/OtsutomeFont_Ver3_16.ttf" id="1_p25lt"]
-[ext_resource type="Texture2D" uid="uid://bxixdlc423b6i" path="res://assets/background_textures/background-2044500_1280.webp" id="2_p25lt"]
-[ext_resource type="Texture2D" uid="uid://c8f3ni4ikqtu8" path="res://assets/character_portraits/flandre/sprite_flandre-scarlet_neutral.png" id="3_phw8v"]
+[ext_resource type="Texture2D" uid="uid://bqgaoxctn0r82" path="res://assets/title_card/title-card_background.png" id="2_t2mxr"]
+[ext_resource type="Shader" uid="uid://dxkc33chcfhum" path="res://assets/shaders/glitch_sprite.gdshader" id="4_ec8bq"]
 [ext_resource type="Script" uid="uid://bsd36bvihkaa3" path="res://classes/DiagonalizedVBoxContainer.gd" id="4_hjf0n"]
+[ext_resource type="Texture2D" uid="uid://4ravr663jjoj" path="res://assets/title_card/title-card_characters.png" id="5_0buh5"]
 [ext_resource type="FontFile" uid="uid://uioy4i21lqpl" path="res://assets/fonts/glitch_goblin/GlitchGoblin.ttf" id="5_hjf0n"]
+[ext_resource type="Texture2D" uid="uid://bo7h40rtd64gc" path="res://assets/title_card/title-card_title.png" id="6_5g7ko"]
+[ext_resource type="AudioStream" uid="uid://boab0nsa4uero" path="res://assets/music/title screen.ogg" id="7_ec8bq"]
 
 [sub_resource type="Theme" id="Theme_p25lt"]
-default_font = ExtResource("1_p25lt")
+default_font = ExtResource("5_hjf0n")
 default_font_size = 36
 
 [sub_resource type="GDScript" id="GDScript_phw8v"]
 script/source = "extends Control
+
+const SPRITE_SLIDE_IN_DURATION: = 2.5
 
 @onready var fader = $FadeAnimator
 
@@ -30,7 +34,17 @@ var current_option: int:
 var selected: bool = false
 
 func post_transition() -> void:
-	get_tree().get_first_node_in_group(\"Main\").change_bgm(\"uid://boab0nsa4uero\")
+	$PreloadAudio.queue_free()
+	BGMServer.fade_to_new(Global.SONGS[Global.Song.TITLE])
+	var tween : = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.tween_property($Path2D/PathFollow2D, \"progress_ratio\", 1.0, SPRITE_SLIDE_IN_DURATION)
+	tween.parallel().tween_property($Path2D2/PathFollow2D, \"progress_ratio\", 1.0, SPRITE_SLIDE_IN_DURATION)
+	tween.tween_callback($Menu.show)
+	tween.tween_callback(set_process_input.bind(true))
+
+func _ready() -> void: # I moved all your stuff into _ready
 	fader.play(\"fade\")
 	for c in ($Menu).get_children():
 		if c is Label:
@@ -40,6 +54,8 @@ func post_transition() -> void:
 		option.label_settings.font_color = Color.DIM_GRAY
 	
 	current_option = 0
+	
+	set_process_input( false ) # reactivate after transitions finish
 
 func _input(event: InputEvent) -> void:
 	if !selected:
@@ -58,7 +74,7 @@ func _input(event: InputEvent) -> void:
 				options[current_option].label_settings.font_color = Color.WHITE
 				await get_tree().create_timer(0.1).timeout
 			
-			current_option = current_option
+			#current_option = current_option # this caused the web built to freeze
 			
 			fader.pause()
 			fader.play_backwards('fade')
@@ -69,6 +85,10 @@ func _input(event: InputEvent) -> void:
 					get_tree().get_first_node_in_group(\"Main\").start_game() # TODO: add difficulty + character selector
 				9: # Quit
 					get_tree().quit()
+				_:
+					selected = false
+					$NotImplemented.show()
+					fader.play('fade') # most of the menu options won't be implemented in time
 "
 
 [sub_resource type="Animation" id="Animation_phw8v"]
@@ -179,6 +199,34 @@ shadow_size = 2
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(2, 2)
 
+[sub_resource type="Curve2D" id="Curve2D_pwmmx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -549, 252, -293.093, -228.249, 293.093, 228.249, 126, 586, -351.384, 149.338, 351.384, -149.338, 848, 567)
+}
+point_count = 3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5b7qm"]
+shader = ExtResource("4_ec8bq")
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_rate = 0.05
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.01
+
+[sub_resource type="Curve2D" id="Curve2D_2hlrk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 607, 1059, -120.82, 181.231, 120.82, -181.231, 1120, 675, 189.026, 56.5128, -189.026, -56.5128, 1005, 219, 44.8205, -202.667, -44.8205, 202.667, 118, 141)
+}
+point_count = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xpqj1"]
+shader = ExtResource("4_ec8bq")
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_rate = 0.1
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.01
+
 [node name="Title" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -201,23 +249,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_p25lt")
+texture = ExtResource("2_t2mxr")
 stretch_mode = 6
 
-[node name="TextureRect2" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -750.0
-offset_top = -960.0
-grow_horizontal = 0
-grow_vertical = 0
-texture = ExtResource("3_phw8v")
-
 [node name="Menu" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.05
@@ -281,21 +317,57 @@ layout_mode = 2
 text = "Quit"
 label_settings = SubResource("LabelSettings_pwmmx")
 
-[node name="Label" type="Label" parent="."]
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-118, -35)
+curve = SubResource("Curve2D_pwmmx")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-549, 252)
+rotates = false
+loop = false
+
+[node name="Characters" type="TextureRect" parent="Path2D/PathFollow2D"]
+material = SubResource("ShaderMaterial_5b7qm")
+offset_left = -126.736
+offset_top = -229.126
+offset_right = 515.264
+offset_bottom = 399.874
+texture = ExtResource("5_0buh5")
+
+[node name="Path2D2" type="Path2D" parent="."]
+curve = SubResource("Curve2D_2hlrk")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D2"]
+position = Vector2(607, 1059)
+rotates = false
+loop = false
+
+[node name="Title" type="TextureRect" parent="Path2D2/PathFollow2D"]
+material = SubResource("ShaderMaterial_xpqj1")
+offset_right = 602.0
+offset_bottom = 206.0
+texture = ExtResource("6_5g7ko")
+
+[node name="NotImplemented" type="Label" parent="."]
+visible = false
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -562.0
-offset_top = 90.0
-offset_right = 280.0
-offset_bottom = 395.0
+anchor_bottom = 0.5
+offset_left = -139.5
+offset_top = -58.5
+offset_right = 139.5
+offset_bottom = 58.5
 grow_horizontal = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_hjf0n")
-theme_override_font_sizes/font_size = 64
-text = "Transplantation of 
-    Scarlet 
-       Dream
-"
+grow_vertical = 2
+text = "Sorry, but most of 
+the menus won't be
+implemented for the game jam"
+horizontal_alignment = 1
+
+[node name="PreloadAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ec8bq")
+volume_db = -80.0
+autoplay = true

@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu2ywgwktxkaf"]
+
+[ext_resource type="PackedScene" uid="uid://c6dby5xfvha8a" path="res://prefabs/stages/stage_one_mobs/wave_one_right.tscn" id="1_k26su"]
+
+[sub_resource type="Curve2D" id="Curve2D_et1ws"]
+_data = {
+"points": PackedVector2Array(306.48, 187.785, 306.48, -187.785, -419, -386, -290.536, 162.984, -290.536, -162.984, 430, -92)
+}
+point_count = 2
+
+[node name="WaveOneLeft" instance=ExtResource("1_k26su")]
+
+[node name="WaveOneRight" parent="." index="0"]
+curve = SubResource("Curve2D_et1ws")
+
+[node name="PathFollow2D" parent="WaveOneRight" index="0"]
+position = Vector2(-419, -386)
+
+[node name="PathFollow2D2" parent="WaveOneRight" index="1"]
+position = Vector2(-419, -386)
+
+[node name="PathFollow2D3" parent="WaveOneRight" index="2"]
+position = Vector2(-419, -386)
+
+[node name="PathFollow2D4" parent="WaveOneRight" index="3"]
+position = Vector2(-419, -386)
+
+[node name="PathFollow2D5" parent="WaveOneRight" index="4"]
+position = Vector2(-419, -386)
+
+[node name="PathFollow2D6" parent="WaveOneRight" index="5"]
+position = Vector2(-419, -386)
+
+[node name="PathFollow2D7" parent="WaveOneRight" index="6"]
+position = Vector2(-419, -386)
+
+[node name="PathFollow2D8" parent="WaveOneRight" index="7"]
+position = Vector2(-419, -386)
+
+[node name="PathFollow2D9" parent="WaveOneRight" index="8"]
+position = Vector2(-419, -386)
+
+[node name="PathFollow2D10" parent="WaveOneRight" index="9"]
+position = Vector2(-419, -386)
