@@ -13,3 +13,10 @@ func _enter_tree() -> void:
 func post_transition() -> void:
 	if %GameServer.stage and %GameServer.stage.has_method(&"post_transition"):
 		%GameServer.stage.post_transition()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_pause"):
+		if !get_tree().paused:
+			$GameplayArea/PauseMenu.show_pause()
+		else:
+			$GameplayArea/PauseMenu.hide_pause()
