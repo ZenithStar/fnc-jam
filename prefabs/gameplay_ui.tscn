@@ -1,9 +1,9 @@
 [gd_scene load_steps=19 format=3 uid="uid://csf8dfafuvl8q"]
 
 [ext_resource type="FontFile" uid="uid://bcjgkxqjkxkq1" path="res://assets/fonts/Otsutome_font_ver3_16/OtsutomeFont_Ver3_16.ttf" id="1_52dtx"]
-[ext_resource type="Texture2D" uid="uid://c2m8wb586b67p" path="res://assets/background_textures/texture-2110023_1280.webp" id="1_sr2lt"]
 [ext_resource type="Script" uid="uid://ndipme0p650m" path="res://classes/gameplay_ui.gd" id="2_petu2"]
 [ext_resource type="PackedScene" uid="uid://dm3udx5tvgc4n" path="res://prefabs/game_server.tscn" id="2_sr2lt"]
+[ext_resource type="Texture2D" uid="uid://bpv5fguujkyvc" path="res://assets/background_textures/samekome2.png" id="3_wdv4u"]
 [ext_resource type="Theme" uid="uid://b4rgt63uancvx" path="res://prefabs/game_hud_theme.tres" id="5_5bhla"]
 [ext_resource type="FontFile" uid="uid://bbik6rwdjrrr6" path="res://assets/fonts/sangyo/Sangyo-Regular.ttf" id="5_wdv4u"]
 [ext_resource type="Texture2D" uid="uid://ch4mxccc2lm16" path="res://assets/title_card/tosd.png" id="6_52dtx"]
@@ -223,7 +223,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_sr2lt")
+texture = ExtResource("3_wdv4u")
 stretch_mode = 6
 
 [node name="GameplayArea" type="Panel" parent="."]

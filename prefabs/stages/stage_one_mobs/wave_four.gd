@@ -92,7 +92,7 @@ func fire_ring(mob: Node2D):
 					get_tree().get_first_node_in_group("BulletServer").add_child.call_deferred(new_bullet)
 				await get_tree().create_timer(3.2).timeout
 		Global.Difficulty.NORMAL:
-			for i in 8:
+			for i in 7:
 				if not is_instance_valid(mob):
 					return # this is required in case the mob dies mid coroutine
 				for j in RING_DENSITY:
@@ -104,7 +104,7 @@ func fire_ring(mob: Node2D):
 					get_tree().get_first_node_in_group("BulletServer").add_child.call_deferred(new_bullet)
 				await get_tree().create_timer(1.6).timeout
 		Global.Difficulty.HARD:
-			for i in 16:
+			for i in 14:
 				if not is_instance_valid(mob):
 					return # this is required in case the mob dies mid coroutine
 				for j in RING_DENSITY:
@@ -116,7 +116,7 @@ func fire_ring(mob: Node2D):
 					get_tree().get_first_node_in_group("BulletServer").add_child.call_deferred(new_bullet)
 				await get_tree().create_timer(.8).timeout
 		Global.Difficulty.LUNATIC:
-			for i in 32:
+			for i in 28:
 				if not is_instance_valid(mob):
 					return # this is required in case the mob dies mid coroutine
 				for j in RING_DENSITY:
@@ -145,7 +145,7 @@ func fire_blast(mob: Node2D):
 						new_bullet.origin = mob.global_position
 						new_bullet.lin_vel -= 5.0*j
 						get_tree().get_first_node_in_group("BulletServer").add_child.call_deferred(new_bullet)
-				await get_tree().create_timer(4.0).timeout
+				await get_tree().create_timer(3.8).timeout
 		Global.Difficulty.NORMAL:
 			for i in 6:
 				if not is_instance_valid(mob):
@@ -159,7 +159,7 @@ func fire_blast(mob: Node2D):
 						new_bullet.origin = mob.global_position
 						new_bullet.lin_vel -= 5.0*j
 						get_tree().get_first_node_in_group("BulletServer").add_child.call_deferred(new_bullet)
-				await get_tree().create_timer(2.0).timeout
+				await get_tree().create_timer(1.8).timeout
 		Global.Difficulty.HARD:
 			for i in 8:
 				if not is_instance_valid(mob):
@@ -173,7 +173,7 @@ func fire_blast(mob: Node2D):
 						new_bullet.origin = mob.global_position
 						new_bullet.lin_vel -= 5.0*j
 						get_tree().get_first_node_in_group("BulletServer").add_child.call_deferred(new_bullet)
-				await get_tree().create_timer(1.5).timeout
+				await get_tree().create_timer(1.25).timeout
 		Global.Difficulty.LUNATIC:
 			for i in 12:
 				if not is_instance_valid(mob):
@@ -187,4 +187,4 @@ func fire_blast(mob: Node2D):
 						new_bullet.origin = mob.global_position
 						new_bullet.lin_vel -= 5.0*j
 						get_tree().get_first_node_in_group("BulletServer").add_child.call_deferred(new_bullet)
-				await get_tree().create_timer(1.0).timeout
+				await get_tree().create_timer(0.9).timeout

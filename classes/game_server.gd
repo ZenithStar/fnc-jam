@@ -107,7 +107,10 @@ func _on_player_tree_exited():
 		bombs = base_bombs
 		spawn_player()
 	else:
-		pass # TODO: game over screen
+		# TODO: game over screen - just keep respawning for now
+		lives -= 1
+		bombs = base_bombs
+		spawn_player()
 
 func get_player_position() -> Vector2:
 	return player.position if is_instance_valid(player) else $PlayerSpawnEnd.position

@@ -23,6 +23,10 @@ func spawn( spawn_position: Vector2, pickups: Dictionary[PackedScene, int] ):
 				pickup.state = Pickup.State.VACUUMING
 			add_child.call_deferred(pickup)
 
+func vacuum():
+	for child in get_children():
+		if child is Pickup:
+			child.state = Pickup.State.VACUUMING
 
 func _on_area_entered(area: Area2D) -> void:
 	vacuuming = true

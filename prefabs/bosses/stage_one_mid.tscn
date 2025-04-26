@@ -1,0 +1,111 @@
+[gd_scene load_steps=14 format=3 uid="uid://cfce3uel3k543"]
+
+[ext_resource type="PackedScene" uid="uid://q677bu5cg2qo" path="res://prefabs/bosses/boss_base.tscn" id="1_jyged"]
+[ext_resource type="Texture2D" uid="uid://drrb8obocrlnf" path="res://assets/combat_sprites/sprite_imp-large_combat-Sheet.png" id="2_cnan6"]
+[ext_resource type="Script" uid="uid://bh4hxryubhnlb" path="res://classes/directional_sprite.gd" id="3_cnan6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rhay"]
+atlas = ExtResource("2_cnan6")
+region = Rect2(0, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxwxl"]
+atlas = ExtResource("2_cnan6")
+region = Rect2(48, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hynuj"]
+atlas = ExtResource("2_cnan6")
+region = Rect2(96, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdjpq"]
+atlas = ExtResource("2_cnan6")
+region = Rect2(0, 64, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxpfy"]
+atlas = ExtResource("2_cnan6")
+region = Rect2(48, 64, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4b6nf"]
+atlas = ExtResource("2_cnan6")
+region = Rect2(96, 64, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilwdb"]
+atlas = ExtResource("2_cnan6")
+region = Rect2(0, 128, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7nwu"]
+atlas = ExtResource("2_cnan6")
+region = Rect2(48, 128, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1b4l"]
+atlas = ExtResource("2_cnan6")
+region = Rect2(96, 128, 48, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dfx7t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rhay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rxwxl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hynuj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rxwxl")
+}],
+"loop": true,
+"name": &"center",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdjpq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxpfy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4b6nf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxpfy")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ilwdb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7nwu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r1b4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7nwu")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]
+
+[node name="StageOneMid" instance=ExtResource("1_jyged")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_dfx7t")
+animation = &"center"
+autoplay = "center"
+frame_progress = 0.93518
+script = ExtResource("3_cnan6")
+
+[node name="ProgressBar" parent="." index="2"]
+offset_left = -32.0
+offset_top = -79.0
+offset_right = 32.0
+offset_bottom = -71.0

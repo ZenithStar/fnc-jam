@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://01bkdsupqkvr"]
+[gd_scene load_steps=33 format=3 uid="uid://01bkdsupqkvr"]
 
 [ext_resource type="PackedScene" uid="uid://dsuled2355muo" path="res://prefabs/stages/stage_base.tscn" id="1_vpsf2"]
 [ext_resource type="Script" uid="uid://dy1qgprxs1gyg" path="res://prefabs/stages/stage_one.gd" id="2_p5j6p"]
@@ -23,34 +23,10 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("./Node3D/CameraWithSpellcard:position")
+tracks/0/path = NodePath("Waves/Title/StageTitle:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 5, -1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("./Node3D/DirectionalLight3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-1.0472, 2.61799, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Waves/Title/StageTitle:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -59,7 +35,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_yr1me"]
 resource_name = "stage"
-length = 120.0
+length = 240.0
 step = 0.1
 tracks/0/type = "animation"
 tracks/0/imported = false
@@ -81,59 +57,35 @@ tracks/1/keys = {
 "clips": PackedStringArray("wave"),
 "times": PackedFloat32Array(4)
 }
-tracks/2/type = "value"
+tracks/2/type = "animation"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Node3D/CameraWithSpellcard:position")
+tracks/2/path = NodePath("Waves/WaveTwo")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 120),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 5, -1), Vector3(0, 5, -301)]
+"clips": PackedStringArray("wave"),
+"times": PackedFloat32Array(6.1)
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Node3D/DirectionalLight3D:rotation")
+tracks/3/path = NodePath("Waves/Title/StageTitle:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 120),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-1.0472, 2.61799, 0), Vector3(0.320141, 2.87507, -0.549362)]
-}
-tracks/4/type = "animation"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Waves/WaveTwo")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"clips": PackedStringArray("wave"),
-"times": PackedFloat32Array(6.1)
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Waves/Title/StageTitle:modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(11, 12, 16, 18),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
-tracks/6/type = "method"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Waves/WaveThree")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Waves/WaveThree")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(16.5),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -141,18 +93,32 @@ tracks/6/keys = {
 "method": &"run"
 }]
 }
-tracks/7/type = "method"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Waves/WaveFour")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Waves/WaveFour")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(32),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"run"
+}]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(59),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"midboss"],
+"method": &"play_coroutine"
 }]
 }
 
@@ -161,6 +127,73 @@ resource_local_to_scene = true
 _data = {
 &"RESET": SubResource("Animation_gf744"),
 &"stage": SubResource("Animation_yr1me")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_yeowl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 476, -46, 211.57, -4.13223, -211.57, 4.13223, -4, -368, 0.826446, -89.2562, -0.826446, 89.2562, -321, -205, -95.8678, 39.6694, 95.8678, -39.6694, 95, -82, 6.61157, 95.0413, -6.61157, -95.0413, 221, -337, 52.8926, -53.719, -52.8926, 53.719, -227, -382, -67.7686, -63.6364, 67.7686, 63.6364, -228, -81, -54.5455, 56.1983, 54.5455, -56.1983, 246, -144, 4.95868, 47.9339, -4.95868, -47.9339, 300, -233, 80.1653, 0.826446, -80.1653, -0.826446, -17, -299, 21.4876, -27.2727, -21.4876, 27.2727, -143, -278, -14.876, -38.0165, 14.876, 38.0165, -158, -210, -102.479, 18.1818, 102.479, -18.1818, 240, -85, 115.702, 152.893, -115.702, -152.893, 331, -338, 3.10461, -98.1056, -3.10461, 98.1056, -290, -330, -144.675, -6.83013, 144.675, 6.83013, -88, -99, 36.0134, 89.4127, -36.0134, -89.4127, 376, -341, 69.5432, -98.7265, -69.5432, 98.7265, -94, -395, -121.701, 42.2226, 121.701, -42.2226, 279, -70, 96.8637, 27.3205, -96.8637, -27.3205, 248, -383, 29.1833, -57.1248, -29.1833, 57.1248, -206, -296, -75.1315, -47.19, 75.1315, 47.19, -284, -75, -2.48369, 93.1382, 2.48369, -93.1382, 407, -310, 0, 0, 0, 0, -152, -382)
+}
+point_count = 24
+
+[sub_resource type="Animation" id="Animation_yeowl"]
+resource_name = "stage"
+length = 1000.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraWithSpellcard:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1000),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 5, -1), Vector3(0, 5, -1001)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DirectionalLight3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 200),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.0472, 2.61799, 0), Vector3(0, 2.61799, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_arfhc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraWithSpellcard:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 5, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DirectionalLight3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.0472, 2.61799, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sqhku"]
+_data = {
+&"RESET": SubResource("Animation_arfhc"),
+&"stage": SubResource("Animation_yeowl")
 }
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_q8n0g"]
@@ -227,7 +260,7 @@ position = Vector2(0, -240)
 
 [node name="StageTitle" parent="Waves/Title" index="0" instance=ExtResource("8_2jq7n")]
 modulate = Color(1, 1, 1, 0)
-title = "Nain Rouge on Parade"
+title = "Waters Which Presage Uncertain Fates"
 subtitle = "Misty Lake"
 
 [node name="WaveThree" type="Node2D" parent="Waves" index="4"]
@@ -242,22 +275,37 @@ mob_1 = ExtResource("14_yeowl")
 bullet_1 = ExtResource("15_arfhc")
 bullet_2 = ExtResource("16_sqhku")
 
+[node name="MidbossPath" type="Path2D" parent="Waves" index="6"]
+position = Vector2(-36, 19)
+curve = SubResource("Curve2D_yeowl")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Waves/MidbossPath" index="0"]
+position = Vector2(439.663, -87.2645)
+progress = 55.0
+rotates = false
+loop = false
+
 [node name="Node3D" type="Node3D" parent="." index="4"]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Node3D" index="0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D" index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_sqhku")
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Node3D" index="1"]
 environment = SubResource("Environment_xertf")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D" index="1"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D" index="2"]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 light_energy = 0.1
 shadow_enabled = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D" index="2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -500)
 mesh = SubResource("PlaneMesh_e11ff")
 skeleton = NodePath("../..")
 
-[node name="CameraWithSpellcard" parent="Node3D" index="3" instance=ExtResource("8_smmuk")]
+[node name="CameraWithSpellcard" parent="Node3D" index="4" instance=ExtResource("8_smmuk")]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 5, -1)
 keep_aspect = 0
 fov = 55.0

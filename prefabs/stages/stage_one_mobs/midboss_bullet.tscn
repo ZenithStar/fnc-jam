@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://deaotqcr643ci"]
+
+[ext_resource type="PackedScene" uid="uid://bb2a3hsmytlvg" path="res://prefabs/bullets/bullet_16x_16.tscn" id="1_6w2hk"]
+
+[node name="Bullet" instance=ExtResource("1_6w2hk")]
+sprite_type = 6
+lin_vel = -100.0
+lin_accel = 100.0

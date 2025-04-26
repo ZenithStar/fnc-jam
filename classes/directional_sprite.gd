@@ -1,6 +1,6 @@
 extends AnimatedSprite2D
 
-const LATERAL_ANIMATION_THRESHOLD = 20.0 ## at what px/s velocity to 
+const LATERAL_ANIMATION_THRESHOLD = 10.0 ## at what px/s velocity to 
 const VELOCITY_X_FILTER_LENGTH: int = 10
 var _velocity_x_buffer: Array[float]
 var _last_position_x: float = 0.0

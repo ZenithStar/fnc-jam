@@ -1,11 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://q677bu5cg2qo"]
+[gd_scene load_steps=5 format=3 uid="uid://q677bu5cg2qo"]
 
 [ext_resource type="Script" uid="uid://2m6rsdnshpud" path="res://classes/boss_base.gd" id="1_77flw"]
-[ext_resource type="Script" uid="uid://dhcj4ox8cgdvs" path="res://classes/spellcard_vfx_remote.gd" id="2_3ugre"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3ugre"]
 resource_local_to_scene = true
 radius = 48.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77flw"]
+bg_color = Color(0.935642, 0.746467, 0.700697, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ugre"]
+bg_color = Color(1, 0, 0, 1)
 
 [node name="BossBase" type="Area2D"]
 collision_layer = 2
@@ -17,5 +22,15 @@ script = ExtResource("1_77flw")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3ugre")
 
-[node name="SpellcardVFXRemote" type="Node2D" parent="."]
-script = ExtResource("2_3ugre")
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -20.0
+offset_top = -39.0
+offset_right = 19.0
+offset_bottom = -34.0
+theme_override_styles/background = SubResource("StyleBoxFlat_77flw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3ugre")
+max_value = 1000.0
+value = 500.0
+show_percentage = false
+
+[connection signal="hit" from="." to="." method="_on_hit"]

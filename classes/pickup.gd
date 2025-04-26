@@ -70,11 +70,12 @@ func _physics_process(delta: float) -> void:
 			if position.y > SELF_REMOVAL_HEIGHT:
 				queue_free()
 		State.VACUUMING:
-			var player_position: Vector2 = get_tree().get_first_node_in_group("Player").global_position
-			global_position = global_position.move_toward( player_position ,  VACUUM_VELOCITY * delta)
-			if global_position.distance_to(player_position) <= VACUUM_THRESHOLD:
-				get_tree().get_first_node_in_group("GameServer").pickup.emit(type)
-				queue_free()
+			if is_instance_valid(get_tree().get_first_node_in_group("GameServer").player):
+				var player_position: Vector2 = get_tree().get_first_node_in_group("GameServer").get_player_position()
+				global_position = global_position.move_toward( player_position ,  VACUUM_VELOCITY * delta)
+				if global_position.distance_to(player_position) <= VACUUM_THRESHOLD:
+					get_tree().get_first_node_in_group("GameServer").pickup.emit(type)
+					queue_free()
 	if global_position.y < offscreen_threshold:
 		$Sprite.visible = false
 		$OffscreenSprite.visible = true

@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var seed: = 420
+@export var rand_seed: = 420
 @export var number: int = 36
 @export var ratio: float = 0.75
 @export var flight_duration: = 12.0
@@ -12,7 +12,7 @@ extends Node2D
 
 func run():
 	var rand: = RandomNumberGenerator.new()
-	rand.seed = seed
+	rand.seed = rand_seed
 	rand.state = 0
 	var bounds: = Global.GAMEPLAY_AREA
 	var start_height: = bounds.position.y - 32.0

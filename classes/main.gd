@@ -18,8 +18,8 @@ func _ready() -> void:
 	$PreloadShaders/SmallSplatter.emitting = true
 	$PreloadShaders/FlanPrimaryShot/HitParticles2D.emitting = true
 	$PreloadShaders/FlanCrush/CenterBlood.emitting = true
-	#Dialogic.Styles.create_layout(preload("uid://mafst78xqouv"))
-	#Dialogic.start("empty")
+	Dialogic.Styles.create_layout(preload("uid://mafst78xqouv"))
+	Dialogic.start("empty")
 	var tween: = create_tween()
 	tween.tween_interval(1.0)
 	tween.tween_callback($PreloadShaders.queue_free)

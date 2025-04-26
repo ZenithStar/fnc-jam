@@ -42,6 +42,18 @@ const DELETE_COLORS: Dictionary[SpriteColor, Color] ={
 	SpriteColor.PURPLE: Color.WEB_PURPLE,
 	SpriteColor.MAGENTA: Color.MAGENTA,
 	SpriteColor.BLACK: Color.NAVY_BLUE,
+	SpriteColor.INVERSE_WHITE: Color.WHITE,
+	SpriteColor.INVERSE_GRAY: Color.GRAY,
+	SpriteColor.INVERSE_RED: Color.RED,
+	SpriteColor.INVERSE_ORANGE: Color.ORANGE,
+	SpriteColor.INVERSE_YELLOW: Color.YELLOW,
+	SpriteColor.INVERSE_LIGHT_GREEN: Color.LIGHT_GREEN,
+	SpriteColor.INVERSE_GREEN: Color.WEB_GREEN,
+	SpriteColor.INVERSE_CYAN: Color.CYAN,
+	SpriteColor.INVERSE_BLUE: Color.BLUE,
+	SpriteColor.INVERSE_PURPLE: Color.WEB_PURPLE,
+	SpriteColor.INVERSE_MAGENTA: Color.MAGENTA,
+	SpriteColor.INVERSE_BLACK: Color.NAVY_BLUE,
 }
 
 enum SpriteType{
