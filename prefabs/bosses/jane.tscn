@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://cmbywlty6l8lg"]
+[gd_scene load_steps=15 format=3 uid="uid://cmbywlty6l8lg"]
 
 [ext_resource type="PackedScene" uid="uid://q677bu5cg2qo" path="res://prefabs/bosses/boss_base.tscn" id="1_ny0e0"]
 [ext_resource type="Texture2D" uid="uid://chge6disyny5y" path="res://assets/combat_sprites/sprite_jane-baker_combat-Sheet.png" id="2_xiqwy"]
+[ext_resource type="Script" uid="uid://bh4hxryubhnlb" path="res://classes/directional_sprite.gd" id="3_xiqwy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fp255"]
 resource_local_to_scene = true
@@ -99,3 +100,9 @@ sprite_frames = SubResource("SpriteFrames_oucbn")
 animation = &"center"
 autoplay = "center"
 frame_progress = 0.864373
+script = ExtResource("3_xiqwy")
+
+[node name="ProgressBar" parent="." index="2"]
+visible = false
+offset_top = -68.0
+offset_bottom = -63.0

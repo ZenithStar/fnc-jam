@@ -8,11 +8,18 @@ script/source = "extends Area2D
 const VELOCITY: = 1500.0
 const DAMAGE: = 25.0
 
+var _area: Rect2
+
+func _ready() -> void:
+	_area = Global.GAMEPLAY_AREA
+	_area.position.y -= 48.0
+	_area.end.y += 50.0
+
 var _escape_tween: Tween
 
 func _physics_process(delta: float) -> void:
 	position += Vector2.UP.rotated(rotation) * VELOCITY * delta
-	if not Global.GAMEPLAY_AREA.has_point(position):
+	if not _area.has_point(position):
 		pre_queue_free()
 
 func _on_area_entered(area: Area2D) -> void:

@@ -1,8 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://cfce3uel3k543"]
+[gd_scene load_steps=15 format=3 uid="uid://cfce3uel3k543"]
 
 [ext_resource type="PackedScene" uid="uid://q677bu5cg2qo" path="res://prefabs/bosses/boss_base.tscn" id="1_jyged"]
 [ext_resource type="Texture2D" uid="uid://drrb8obocrlnf" path="res://assets/combat_sprites/sprite_imp-large_combat-Sheet.png" id="2_cnan6"]
 [ext_resource type="Script" uid="uid://bh4hxryubhnlb" path="res://classes/directional_sprite.gd" id="3_cnan6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cnan6"]
+resource_local_to_scene = true
+radius = 48.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5rhay"]
 atlas = ExtResource("2_cnan6")
@@ -96,7 +100,11 @@ animations = [{
 
 [node name="StageOneMid" instance=ExtResource("1_jyged")]
 
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_cnan6")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+texture_filter = 3
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_dfx7t")
 animation = &"center"

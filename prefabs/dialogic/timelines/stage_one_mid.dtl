@@ -1,4 +1,6 @@
-join flandre (neutral) left [animation="Bounce In" mirrored="true"]
+join flandre (neutral) left [animation="Bounce In" wait="true" mirrored="true"]
+flandre: What was that? A new helper for-?
+do GlitchEffect.start()
 sakuya: Mistress, can you hear me?
 flandre: Sakuya?
 flandre: Where are you, hiding from me is rude.
@@ -7,6 +9,7 @@ flandre: What?
 sakuya: The mansion is not as it seems.\
 It has been longer than you think.
 sakuya: Please, help.
+do GlitchEffect.start()
 flandre: Help? Help how?
 flandre: ...\
 She's not there anymore.

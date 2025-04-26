@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://dt2v3uw0u1eeu"]
+
+[ext_resource type="PackedScene" uid="uid://dkooc6f0myqnn" path="res://prefabs/mobs/mob_base.tscn" id="1_1eyga"]
+[ext_resource type="PackedScene" uid="uid://djw0ru5od7hbm" path="res://prefabs/pickups/small_power_pickup.tscn" id="2_fwl7b"]
+[ext_resource type="Texture2D" uid="uid://ct2atuckvf866" path="res://assets/combat_sprites/spritesheet1.png" id="2_pfmhs"]
+[ext_resource type="Script" uid="uid://bh4hxryubhnlb" path="res://classes/directional_sprite.gd" id="4_fwl7b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwl7b"]
+atlas = ExtResource("2_pfmhs")
+region = Rect2(0, 136, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_huw12"]
+atlas = ExtResource("2_pfmhs")
+region = Rect2(34, 136, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vewpr"]
+atlas = ExtResource("2_pfmhs")
+region = Rect2(68, 136, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rcyid"]
+atlas = ExtResource("2_pfmhs")
+region = Rect2(102, 136, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14u26"]
+atlas = ExtResource("2_pfmhs")
+region = Rect2(136, 136, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjepq"]
+atlas = ExtResource("2_pfmhs")
+region = Rect2(170, 136, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wsflg"]
+atlas = ExtResource("2_pfmhs")
+region = Rect2(204, 136, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bl1t4"]
+atlas = ExtResource("2_pfmhs")
+region = Rect2(238, 136, 34, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j4l0h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwl7b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_huw12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vewpr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rcyid")
+}],
+"loop": true,
+"name": &"center",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14u26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sjepq")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wsflg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bl1t4")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]
+
+[node name="TinyYellowImp" instance=ExtResource("1_1eyga")]
+drops = Dictionary[PackedScene, int]({
+ExtResource("2_fwl7b"): 1
+})
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_j4l0h")
+animation = &"right"
+autoplay = "center"
+script = ExtResource("4_fwl7b")

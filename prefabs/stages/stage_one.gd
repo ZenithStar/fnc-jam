@@ -6,8 +6,9 @@ func post_transition():
 	$PreloadSong.queue_free()
 	$PreloadSong2.queue_free()
 	await BGMServer.fade_to_new(Global.SONGS[Global.Song.STAGE_ONE])
-	play("stage")
-	$Node3D/AnimationPlayer.play("stage")
+	#play_section(&"stage", 60.0)
+	play(&"stage")
+	$Node3D/AnimationPlayer.play(&"stage")
 
 const MIDBOSS_SCENE: = preload("uid://cfce3uel3k543")
 const MIDBOSS_DROPS: Dictionary[PackedScene, int] = {
@@ -51,13 +52,13 @@ func midboss():
 	for i in 15:
 		progress += randf_range(200.0, 300.0)
 		tween.chain().tween_property($Waves/MidbossPath/PathFollow2D, "progress", progress, 2.0 )
-		tween.tween_callback(midboss_ring.bind(mid, Bullet.SpriteColor.RED, PI/32.0))
+		tween.tween_callback(midboss_ring.bind(mid, Bullet.SpriteColor.RED))
 		if difficulty != Global.Difficulty.EASY:
-			tween.tween_callback(midboss_ring.bind(mid, Bullet.SpriteColor.PURPLE, -PI/32.0)).set_delay(1.0)
+			tween.tween_callback(midboss_ring.bind(mid, Bullet.SpriteColor.PURPLE)).set_delay(1.0)
 			if difficulty != Global.Difficulty.NORMAL:
-				tween.tween_callback(midboss_ring.bind(mid, Bullet.SpriteColor.YELLOW, PI/16.0)).set_delay(0.5)
+				tween.tween_callback(midboss_ring.bind(mid, Bullet.SpriteColor.YELLOW)).set_delay(0.5)
 				if difficulty != Global.Difficulty.HARD:
-					tween.tween_callback(midboss_ring.bind(mid, Bullet.SpriteColor.ORANGE, -PI/16.0)).set_delay(0.75)
+					tween.tween_callback(midboss_ring.bind(mid, Bullet.SpriteColor.ORANGE)).set_delay(0.75)
 	
 	tween.finished.connect(phase)
 	await proceed
@@ -74,6 +75,7 @@ func midboss():
 	get_tree().get_first_node_in_group("PickupServer").vacuum()
 	get_tree().get_first_node_in_group("BulletServer").clear()
 	await get_tree().create_timer(0.5).timeout 
+	get_tree().get_first_node_in_group("BulletServer").clear()
 	tween = mid.create_tween()
 	tween.set_ease(Tween.EASE_IN)
 	tween.set_trans(Tween.TRANS_QUINT)
@@ -84,13 +86,12 @@ func midboss():
 
 const MIDBOSS_RING_BULLET: = preload("uid://deaotqcr643ci")
 const MIDBOSS_RING_DENSITY: = 36
-func midboss_ring(mob: Node2D, color: Bullet.SpriteColor, orbit_vel: float):
+func midboss_ring(mob: Node2D, color: Bullet.SpriteColor):
 	var center: = randf_range(-PI,PI)
 	for i in MIDBOSS_RING_DENSITY:
 		var direction: = center + i * (TAU/MIDBOSS_RING_DENSITY)
 		var new_bullet := MIDBOSS_RING_BULLET.instantiate()
 		new_bullet.sprite_color = color
-		new_bullet.orbit_vel = orbit_vel
 		new_bullet.rotation = direction
 		new_bullet.position = mob.global_position
 		new_bullet.origin = mob.global_position
@@ -105,3 +106,27 @@ func midboss_secondary(mob: Node2D):
 	new_bullet.position = mob.global_position
 	new_bullet.origin = mob.global_position
 	get_tree().get_first_node_in_group("BulletServer").add_child.call_deferred(new_bullet)
+
+
+
+
+func boss():
+	get_tree().get_first_node_in_group("PickupServer").vacuum()
+	get_tree().get_first_node_in_group("BulletServer").clear()
+	
+	_bosses["jemma"].position = Vector2(500.0, 0.0)
+	var tween: Tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CIRC)
+	tween.tween_property(_bosses["jemma"], "position", Vector2(0.0, -300.0), 1.5)
+	await tween.finished
+	Dialogic.start( "stage_one_boss" )
+	await Dialogic.timeline_ended
+	_bosses["jemma"].active = true
+	while true:
+		tween = create_tween()
+		tween.set_ease(Tween.EASE_IN_OUT)
+		tween.set_trans(Tween.TRANS_QUAD)
+		tween.tween_property(_bosses["jemma"], "position", Vector2(randf_range(-350, 350), randf_range(-100,-380)), randf_range(2.0, 2.5))
+		await tween.finished
+	

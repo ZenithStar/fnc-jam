@@ -1,7 +1,8 @@
-[gd_scene load_steps=33 format=3 uid="uid://01bkdsupqkvr"]
+[gd_scene load_steps=39 format=3 uid="uid://01bkdsupqkvr"]
 
 [ext_resource type="PackedScene" uid="uid://dsuled2355muo" path="res://prefabs/stages/stage_base.tscn" id="1_vpsf2"]
 [ext_resource type="Script" uid="uid://dy1qgprxs1gyg" path="res://prefabs/stages/stage_one.gd" id="2_p5j6p"]
+[ext_resource type="PackedScene" uid="uid://cmbywlty6l8lg" path="res://prefabs/bosses/jane.tscn" id="3_panv7"]
 [ext_resource type="AudioStream" uid="uid://dq4hlin7lekwp" path="res://assets/music/stage 1 theme.ogg" id="3_xx1r5"]
 [ext_resource type="AudioStream" uid="uid://c410pku77ffnw" path="res://assets/music/stage 1 boss.ogg" id="4_gf744"]
 [ext_resource type="PackedScene" uid="uid://c6dby5xfvha8a" path="res://prefabs/stages/stage_one_mobs/wave_one_right.tscn" id="5_ym0u4"]
@@ -17,6 +18,11 @@
 [ext_resource type="PackedScene" uid="uid://d3vgnksortk3a" path="res://prefabs/mobs/medium_yellow_imp.tscn" id="14_yeowl"]
 [ext_resource type="PackedScene" uid="uid://deu2im54sgpu7" path="res://prefabs/stages/stage_one_mobs/wave_four_bullet_one.tscn" id="15_arfhc"]
 [ext_resource type="PackedScene" uid="uid://dp6gfb6xhntrh" path="res://prefabs/stages/stage_one_mobs/wave_four_bullet_two.tscn" id="16_sqhku"]
+[ext_resource type="Script" uid="uid://bipisgr74xulv" path="res://prefabs/stages/stage_one_mobs/wave_five.gd" id="17_arfhc"]
+[ext_resource type="PackedScene" uid="uid://7qgmahd1xi7e" path="res://prefabs/mobs/medium_imp.tscn" id="18_rdgh3"]
+[ext_resource type="PackedScene" uid="uid://dt2v3uw0u1eeu" path="res://prefabs/mobs/tiny_yellow_imp.tscn" id="19_panv7"]
+[ext_resource type="PackedScene" uid="uid://o1fgkxwaeimi" path="res://prefabs/stages/stage_one_mobs/wave_one_bullet.tscn" id="20_j3kik"]
+[ext_resource type="PackedScene" uid="uid://iaidm7p82bwc" path="res://prefabs/stages/stage_one_mobs/wave_two_bullet.tscn" id="21_8k6rm"]
 
 [sub_resource type="Animation" id="Animation_gf744"]
 length = 0.001
@@ -114,11 +120,28 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(59),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(58.5, 84),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [&"midboss"],
 "method": &"play_coroutine"
+}, {
+"args": [&"boss"],
+"method": &"play_coroutine"
+}]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Waves/WaveFive")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(60.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"run"
 }]
 }
 
@@ -236,6 +259,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_p5j6p")
 }
 script = ExtResource("2_p5j6p")
+prespawn_bosses = Dictionary[String, PackedScene]({
+"jemma": ExtResource("3_panv7")
+})
 
 [node name="PreloadSong" type="AudioStreamPlayer" parent="." index="0"]
 stream = ExtResource("3_xx1r5")
@@ -284,6 +310,13 @@ position = Vector2(439.663, -87.2645)
 progress = 55.0
 rotates = false
 loop = false
+
+[node name="WaveFive" type="Node2D" parent="Waves" index="7"]
+script = ExtResource("17_arfhc")
+big_mob = ExtResource("18_rdgh3")
+mobs = Array[PackedScene]([ExtResource("9_xertf"), ExtResource("10_2jq7n"), ExtResource("19_panv7")])
+bullet = ExtResource("20_j3kik")
+spread_bullet = ExtResource("21_8k6rm")
 
 [node name="Node3D" type="Node3D" parent="." index="4"]
 

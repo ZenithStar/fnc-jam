@@ -1,7 +1,7 @@
 extends AnimatedSprite2D
 
-const LATERAL_ANIMATION_THRESHOLD = 10.0 ## at what px/s velocity to 
-const VELOCITY_X_FILTER_LENGTH: int = 10
+@export var lateral_animation_threshold = 50.0
+const VELOCITY_X_FILTER_LENGTH: int = 5
 var _velocity_x_buffer: Array[float]
 var _last_position_x: float = 0.0
 
@@ -40,9 +40,9 @@ func _physics_process(delta: float) -> void:
 	while(_velocity_x_buffer.size()) > VELOCITY_X_FILTER_LENGTH:
 		_velocity_x_buffer.pop_front()
 	var filtered_velocity: float = _velocity_x_buffer.reduce(func(accum, number): return accum + number, 0.0) / _velocity_x_buffer.size()
-	if filtered_velocity <= LATERAL_ANIMATION_THRESHOLD: # left
+	if filtered_velocity <= -lateral_animation_threshold: # left
 		direction_facing = Directions.LEFT
-	elif filtered_velocity >= -LATERAL_ANIMATION_THRESHOLD: # right
+	elif filtered_velocity >= lateral_animation_threshold: # right
 		direction_facing = Directions.RIGHT
 	else: # center
 		direction_facing = Directions.CENTER

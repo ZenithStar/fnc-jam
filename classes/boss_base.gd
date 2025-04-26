@@ -16,6 +16,7 @@ signal phase
 			phase.emit()
 		if damage_till_phase > 0.0:
 			$ProgressBar.value = damage_till_phase
+			$ProgressBar.visible = true
 		else:
 			$ProgressBar.visible = false
 @export var damage_reduction: = 1.0
