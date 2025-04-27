@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogicStyle" load_steps=19 format=3 uid="uid://mafst78xqouv"]
+[gd_resource type="Resource" script_class="DialogicStyle" load_steps=21 format=3 uid="uid://mafst78xqouv"]
 
 [ext_resource type="PackedScene" uid="uid://byr5wjjhsv5cc" path="res://prefabs/dialogic/layout/CustomStyle/custom_style.tscn" id="1_6mwij"]
 [ext_resource type="Script" uid="uid://bsvsv0y06roll" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="1_ekrlj"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cvgf4c6gg0tsy" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_TextInput/text_input_layer.tscn" id="8_ys6mk"]
 [ext_resource type="PackedScene" uid="uid://lx24i8fl6uo" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_History/history_layer.tscn" id="9_gmtc3"]
 [ext_resource type="Script" uid="uid://ck54ymtynq11r" path="res://addons/dialogic/Resources/dialogic_style.gd" id="10_1qvej"]
+[ext_resource type="PackedScene" uid="uid://c1k5m0w3r40xf" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_FullBackground/full_background_layer.tscn" id="10_6mwij"]
 
 [sub_resource type="Resource" id="Resource_irp0j"]
 script = ExtResource("1_ekrlj")
@@ -54,12 +55,18 @@ script = ExtResource("1_ekrlj")
 scene = ExtResource("9_gmtc3")
 overrides = {}
 
+[sub_resource type="Resource" id="Resource_7kbew"]
+script = ExtResource("1_ekrlj")
+scene = ExtResource("10_6mwij")
+overrides = {}
+
 [resource]
 script = ExtResource("10_1qvej")
 name = "style"
-layer_list = Array[String](["11", "12", "13", "14", "15", "16", "17"])
+layer_list = Array[String](["10", "11", "12", "13", "14", "15", "16", "17"])
 layer_info = {
 "": SubResource("Resource_irp0j"),
+"10": SubResource("Resource_7kbew"),
 "11": SubResource("Resource_o36oh"),
 "12": SubResource("Resource_nvg3t"),
 "13": SubResource("Resource_7kjkg"),
@@ -70,4 +77,4 @@ layer_info = {
 }
 base_overrides = {}
 layers = Array[ExtResource("1_ekrlj")]([])
-metadata/_latest_layer = "11"
+metadata/_latest_layer = "10"

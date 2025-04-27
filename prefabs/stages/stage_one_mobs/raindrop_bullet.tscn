@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://83weowwthtxm"]
+
+[ext_resource type="PackedScene" uid="uid://bb2a3hsmytlvg" path="res://prefabs/bullets/bullet_16x_16.tscn" id="1_8x5sg"]
+
+[node name="Bullet" instance=ExtResource("1_8x5sg")]
+texture_filter = 1
+texture_repeat = 1
+rotation = 1.5708
+sprite_color = 7
+sprite_type = 3
+hitbox = 1
+lin_vel = 300.0
+lin_accel = 0.25

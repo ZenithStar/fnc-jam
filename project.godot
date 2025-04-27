@@ -30,18 +30,28 @@ BGMServer="*res://classes/bgm_server.tscn"
 
 directories/dch_directory={
 "flandre": "res://prefabs/dialogic/characters/flandre.dch",
+"ieie": "res://prefabs/dialogic/characters/ieie.dch",
 "jemma": "res://prefabs/dialogic/characters/jemma.dch",
 "kadri": "res://prefabs/dialogic/characters/kadri.dch",
+"koakuma": "res://prefabs/dialogic/characters/koakuma.dch",
+"lunarian_guards": "res://prefabs/dialogic/characters/lunarian_guards.dch",
+"patchouli": "res://prefabs/dialogic/characters/patchouli.dch",
+"remilia": "res://prefabs/dialogic/characters/remilia.dch",
 "sakuya": "res://prefabs/dialogic/characters/sakuya.dch"
 }
 directories/dtl_directory={
 "empty": "res://prefabs/dialogic/timelines/empty.dtl",
+"epilogue": "res://prefabs/dialogic/timelines/epilogue.dtl",
 "stage_one_boss": "res://prefabs/dialogic/timelines/stage_one_boss.dtl",
 "stage_one_end": "res://prefabs/dialogic/timelines/stage_one_end.dtl",
 "stage_one_mid": "res://prefabs/dialogic/timelines/stage_one_mid.dtl",
+"stage_three": "res://prefabs/dialogic/timelines/stage_three.dtl",
+"stage_three_mid": "res://prefabs/dialogic/timelines/stage_three_mid.dtl",
+"stage_two_boss": "res://prefabs/dialogic/timelines/stage_two_boss.dtl",
+"stage_two_mid": "res://prefabs/dialogic/timelines/stage_two_mid.dtl",
 "test_ipsum": "res://prefabs/dialogic/timelines/test_ipsum.dtl"
 }
-layout/style_list=["res://prefabs/dialogic/style.tres"]
+layout/style_list=["res://prefabs/dialogic/style.tres", "res://prefabs/dialogic/vn_style.tres"]
 layout/default_style="res://prefabs/dialogic/style.tres"
 variables={}
 glossary/default_case_sensitive=true
@@ -187,5 +197,6 @@ ui_pause={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

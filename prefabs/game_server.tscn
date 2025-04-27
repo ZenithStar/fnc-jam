@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dm3udx5tvgc4n"]
+[gd_scene load_steps=7 format=3 uid="uid://dm3udx5tvgc4n"]
 
 [ext_resource type="Script" uid="uid://b2wm5jbybwxqr" path="res://classes/game_server.gd" id="1_507v1"]
 [ext_resource type="Script" uid="uid://bjjrhdih67ywi" path="res://classes/pickup_server.gd" id="2_flofk"]
@@ -7,6 +7,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5v0ui"]
 size = Vector2(768, 256)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5v0ui"]
+radius = 256.0
 
 [node name="GameServer" type="Node2D" groups=["GameServer"]]
 script = ExtResource("1_507v1")
@@ -22,6 +25,17 @@ shape = SubResource("RectangleShape2D_5v0ui")
 
 [node name="BulletServer" type="Node2D" parent="." groups=["BulletServer"]]
 script = ExtResource("3_5v0ui")
+
+[node name="Clearer" type="Area2D" parent="BulletServer"]
+position = Vector2(0, -256)
+scale = Vector2(1e-05, 1e-05)
+collision_layer = 0
+collision_mask = 8
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletServer/Clearer"]
+shape = SubResource("CircleShape2D_5v0ui")
 
 [node name="PlayerBulletServer" type="Node2D" parent="." groups=["PlayerBulletServer"]]
 
@@ -39,3 +53,4 @@ position = Vector2(0, 480)
 [connection signal="pickup" from="." to="." method="_on_pickup"]
 [connection signal="area_entered" from="PickupServer" to="PickupServer" method="_on_area_entered"]
 [connection signal="area_exited" from="PickupServer" to="PickupServer" method="_on_area_exited"]
+[connection signal="area_entered" from="BulletServer/Clearer" to="BulletServer" method="_on_clearer_area_entered"]

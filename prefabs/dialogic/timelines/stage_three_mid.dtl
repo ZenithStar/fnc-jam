@@ -1,0 +1,64 @@
+Start of midboss dialogue
+do GlitchEffect.start()
+join flandre left [animation="Fade In Up" wait="true" mirrored="true"]
+
+remilia: I knew it. Humans are useless.
+
+flandre: Sis! About time I see you!\
+The whole day has been so--
+
+remilia: You. You're the murderer.
+
+flandre: I-- huh? What?
+
+remilia: Well?
+
+flandre: Murderer? I'm fairly sure I left those girls alive...
+
+remilia: How quick you are to accuse. And I don't even know why.
+
+flandre: Wha-- really, Sis, what are you on about?
+
+remilia: This is my castle, is it not?\
+You are the one who will leave.
+
+flandre: Not just your castle, Sis! I'm here too! I'm not leaving.\
+Please, just--
+
+remilia: So that's how it's going to be.\
+I am already full, but...
+
+flandre: ...
+
+remilia: Sakuya is an excellent cleaner.\
+Not a single head is on the floor, thanks to her.
+
+flandre: Remilia? ... Can you even hear me?
+
+remilia: Who knows? I don't get to go outside often.\
+Since I'm weak to sunlight.
+
+flandre: (Looks like the answer is no.)
+
+flandre: (What have they done to you?)
+
+remilia: The moon is so red tonight...
+I will end your life for real.
+
+flandre: You leave me no choice, Remi...
+
+flandre: I'll set you free.
+
+remilia: Looks like it's going to be a fun night.
+
+After Remilia's defeat
+do GlitchEffect.start()
+
+flandre: ... I'm sorry, Sis, please understand.
+
+flandre: ... If you're even my sister.
+
+flandre: There's still enemies ahead...\
+Maybe I'll finally meet this Lady ieie, crush her, and be done with it.
+leave flandre [animation="Fade Out Down" length="1.0" wait="true"]
+

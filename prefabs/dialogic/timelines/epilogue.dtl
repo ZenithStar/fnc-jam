@@ -1,0 +1,86 @@
+[style name="vn_style"]
+label Top
+[background arg="res://assets/background_textures/texture-2110023_1280.webp" fade="2.0"]
+ToSD Epilogue
+
+
+- View the True Ending (1cc)
+	A few days later...
+	[background arg="res://assets/endcards/good_end_1.png" fade="0.5"]
+	
+	remilia: ... And after you all clean up that mess you made in my dining room, you can wash the dishes for dinner.
+	
+	sakuya: There shall not be a single speck of grime on my mistress's tableware.
+	
+	ieie: This is all absurd! I will not stoop to-
+	
+	remilia: Stoop to what, maid?
+	
+	remilia: If you're not satisfied with your station, I can fetch Flan and you two can talk it out instead~
+	
+	kadri: H-how dare you address my lady as such! Your tone of voice is subsumed in ugliness...
+	
+	jemma: Youse think 'cause we got to sigogglin' 'gainst that youngin' in red, we're gonna warsh yer dishes for the rest'a our days?
+	[background arg="res://assets/endcards/good_end_2.png" fade="0.5"]
+	
+	patchouli: You'll keep "warshing" our dishes until you lot learn beating up someone doesn't give you rights to take their land and erase their culture.
+	
+	jemma: ... Well ain't ya a dear...
+	
+	After the dishes (begrudgingly) get washed...
+	[background arg="res://assets/endcards/good_end_3.png" fade="0.5"]
+	
+	ieie: This isn't over, you impudent runts! The night shall reign supreme, and you'll be the first to bow to it!
+	
+	sakuya: ... Are you sure it is a good idea to let them go, Mistress?
+	
+	remilia: Ha! Where is your sense of adventure, Sakyua?
+	
+	remilia: It is about time we Scarlets had a noble house worth quarreling with.\
+And besides, Flan requested it.
+	
+	sakuya: Oh? Is that so, Lady Flandre?
+	
+	flandre: Yep!
+	
+	flandre: I hope they come back soon... It's nice to cut loose every so often, ya know?
+	
+	sakuya: ... If it's what you desire, my lady.
+	
+	GOOD END
+	jump Top
+
+
+- View the Normal Ending (Continues used)
+	[background arg="res://assets/endcards/normal_end_1.png" fade="0.5"]
+	
+	Flandre Scarlet proceeded to gather up the three squatters and force them to change Gensokyo back to normal.
+	[background arg="res://assets/endcards/normal_end_2.png" fade="0.5"]
+	
+	Afterwards, Flandre got another rocket from Patchouli, and launched the trio kicking and screaming to the Moon without a word, leaving the colonizers to fend for themselves.
+	[background arg="res://assets/endcards/normal_end_3.png" fade="0.0"]
+	
+	jemma: Hey Lady Iele, I reckon this might could be the eternal night we've been fixin' ta find, don't ya think?
+	
+	ieie: ... Shut up, Jemma.
+	
+	kadri: ... Where are we? The air is so still here, and I feel so light I can't hardly touch the earth.
+	
+	jemma: Kadri, we're not ON Earth.
+	
+	kadri: What? Where are we then?
+	[background arg="res://assets/endcards/normal_end_4.png" fade="0.0"]
+	
+	The Moon. You're coming with us.
+	
+	jemma: Not if I've a thing ta say 'bout it!/
+	C'mon Kadri, let's get ta splittin'!
+	
+	kadri: Jemma, what--
+	
+	jemma: Take my hand, we're runnin'!
+	
+	The trio attempted to flee the Lunarian Guards, but with no hiding places outside of the Lunar Capital, they were eventually caught and imprisoned inside the gates-- where they would begin to learn a valuable lesson about the kind of person assuming makes you.
+	
+	NORMAL END
+	jump Top

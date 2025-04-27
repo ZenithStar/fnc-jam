@@ -1,0 +1,26 @@
+Start of midboss dialogue
+join flandre left [animation="Fade In Up" wait="true" mirrored="true"]
+do GlitchEffect.start()
+flandre: ... Koakuma!
+koakuma: ...
+flandre: Hey Koakuma! I'm glad to see you're here!
+koakuma: ...
+flandre: ...\
+(She's trying to say something, but I can't hear her.)
+koakuma: ...
+flandre: (... Why is she so stiff? ... Is she even looking at me?)
+flandre: ...\
+(No, she isn't even doing that much...)
+flandre: "Koa, I'm over here!"
+flandre: ... Just hold still, I'm trying to help you out here!
+leave --All--
+After Koakuma's defeat
+koakuma: ...
+do GlitchEffect.start()
+join flandre leftmost [animation="Fade In Up" wait="true" mirrored="true"]
+flandre: You're welcome!
+flandre: ... What the hell is going on around here?\
+Everything's so weird.
+flandre: ... And where are those useless maids? This place is a pigsty.
+flandre: It's much too quiet too... how interesting.
+leave flandre [animation="Fade Out Down" wait="true"]

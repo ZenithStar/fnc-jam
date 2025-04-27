@@ -1,0 +1,126 @@
+[gd_scene load_steps=18 format=3 uid="uid://dpyf3hvh5dhj7"]
+
+[ext_resource type="PackedScene" uid="uid://q677bu5cg2qo" path="res://prefabs/bosses/boss_base.tscn" id="1_sny67"]
+[ext_resource type="Texture2D" uid="uid://b1vdpiowirtbr" path="res://assets/combat_sprites/sprite_iele_combat-Sheet.png" id="2_h7qew"]
+[ext_resource type="Script" uid="uid://bh4hxryubhnlb" path="res://classes/directional_sprite.gd" id="3_8xvic"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sgvt8"]
+resource_local_to_scene = true
+radius = 48.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmu4r"]
+atlas = ExtResource("2_h7qew")
+region = Rect2(0, 0, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byee6"]
+atlas = ExtResource("2_h7qew")
+region = Rect2(90, 0, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52orh"]
+atlas = ExtResource("2_h7qew")
+region = Rect2(180, 0, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5k83y"]
+atlas = ExtResource("2_h7qew")
+region = Rect2(270, 0, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0puhy"]
+atlas = ExtResource("2_h7qew")
+region = Rect2(0, 115, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwv8c"]
+atlas = ExtResource("2_h7qew")
+region = Rect2(90, 115, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ka2u7"]
+atlas = ExtResource("2_h7qew")
+region = Rect2(180, 115, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwagg"]
+atlas = ExtResource("2_h7qew")
+region = Rect2(270, 115, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1x0sg"]
+atlas = ExtResource("2_h7qew")
+region = Rect2(0, 230, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3avx"]
+atlas = ExtResource("2_h7qew")
+region = Rect2(90, 230, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1oyvu"]
+atlas = ExtResource("2_h7qew")
+region = Rect2(180, 230, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eyqiy"]
+atlas = ExtResource("2_h7qew")
+region = Rect2(270, 230, 90, 115)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j6tow"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmu4r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byee6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52orh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5k83y")
+}],
+"loop": true,
+"name": &"center",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0puhy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwv8c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ka2u7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwagg")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1x0sg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l3avx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1oyvu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eyqiy")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]
+
+[node name="Iele" instance=ExtResource("1_sny67")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_sgvt8")
+
+[node name="ProgressBar" parent="." index="1"]
+visible = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_j6tow")
+animation = &"center"
+autoplay = "center"
+frame_progress = 0.410907
+script = ExtResource("3_8xvic")

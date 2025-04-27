@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cmbywlty6l8lg"]
+[gd_scene load_steps=16 format=3 uid="uid://cmbywlty6l8lg"]
 
 [ext_resource type="PackedScene" uid="uid://q677bu5cg2qo" path="res://prefabs/bosses/boss_base.tscn" id="1_ny0e0"]
 [ext_resource type="Texture2D" uid="uid://chge6disyny5y" path="res://assets/combat_sprites/sprite_jane-baker_combat-Sheet.png" id="2_xiqwy"]
@@ -89,6 +89,15 @@ animations = [{
 "speed": 4.0
 }]
 
+[sub_resource type="GDScript" id="GDScript_xiqwy"]
+script/source = "extends Area2D
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.has_signal(&\"hit\"):
+		area.hit.emit(100)
+"
+
 [node name="Jane" instance=ExtResource("1_ny0e0")]
 scale = Vector2(1.5, 1.5)
 
@@ -96,6 +105,7 @@ scale = Vector2(1.5, 1.5)
 shape = SubResource("CircleShape2D_fp255")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+z_index = 5
 sprite_frames = SubResource("SpriteFrames_oucbn")
 animation = &"center"
 autoplay = "center"
@@ -106,3 +116,15 @@ script = ExtResource("3_xiqwy")
 visible = false
 offset_top = -68.0
 offset_bottom = -63.0
+
+[node name="Umbrella" type="Area2D" parent="." index="3"]
+collision_layer = 0
+collision_mask = 8
+monitoring = false
+monitorable = false
+script = SubResource("GDScript_xiqwy")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Umbrella" index="0"]
+polygon = PackedVector2Array(-100, -36, 0, -94, 100, -36, 128, -36, 0, -110, -128, -36)
+
+[connection signal="area_entered" from="Umbrella" to="Umbrella" method="_on_area_entered"]

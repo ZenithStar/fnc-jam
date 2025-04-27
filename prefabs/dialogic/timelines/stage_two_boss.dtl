@@ -1,0 +1,54 @@
+Start of boss dialogue
+
+join kadri (neutral) right [animation="Bounce In"]
+kadri: Go away. While you still can. There is no rest or comfort for you here.
+join flandre (defeated) left [animation="Bounce In" wait="true" mirrored="true"]
+flandre: What are you doing here in the library?\
+What have you done with Patchouli and Koakuma?
+do BGMServer.fade_to_new("uid://brn0hf5es0lqo")
+kadri: I know not what Lady Iele has done with them.
+kadri: I know only my duty and that you are here to interfere with it.
+kadri (distraught): Please try not to make too much noise, I am sensitive to that sort of thing.
+flandre (angry): I'll talk as loud as I please!
+flandre: My name is Flandre Scarlet, the devil of the Scarlet Devil Mansion-- the house you happen to be squatting in.
+kadri: The Scarlet Devil Mansion...
+kadri (neutral): Funny, I've lived here for years and I've never known it by that name.
+kadri (distraught): But then, I can't read the signs here. I guess no one ever told me.
+kadri (neutral): Not that it matters, Lady Iele has her reasons for bringing us here.
+flandre (defeated): You can't have lived here, no way! I even know the rats in this place.\
+Unless you're that better at sneaking around than they are.
+kadri: I might be more capable of such a feat than you realize, Miss Scarlet.
+kadri (distraught): Do you not feel it in the air? The dread, the anticipation?\
+If you close your eyes and listen, you'll feel it on your skin soon enough.
+flandre (angry): What are you talking about? This is MY home.
+kadri: You still don't understand, do you?
+kadri (neutral): Lady Iele knows what is possible here in this strange land.\
+This house will be the center of it all. Whether I agree with her methods or not, I know what she wants is the same as I.
+flandre: ...
+kadri (distraught): To protect the land. It is sick, festering at its roots. Touch it with your hands and know it to be true.
+flandre: This is my house. Blabber about nature somewhere else.
+kadri (neutral): Was. Was your house.
+kadri: This house hasn't been yours for quite some time.
+flandre (defeated): You all keep saying that, but I've only been gone for the afternoon at best...
+kadri: It matters not. Lady Iele will be ready soon, and we will all be better for it when she is.
+flandre (angry): Ugh, I've had it with the cryptic crap, start making some sense already!
+kadri: I've told you everything you need to know for it all to make sense. It's you who refuses to listen.
+kadri (distraught): You're like all the others. So haughty, so unobservant. You take it all for granted, don't you?\
+I'm disappointed to have expected different.
+kadri: I told you no comfort would be found here if you stayed...
+leave --All--
+
+After Kadri is defeated
+join flandre (neutral) left [animation="Bounce In" mirrored="true"]
+join kadri (neutral) right [animation="Bounce In"]
+kadri (defeated): ... Lady Iele, I'm so sorry. I have failed you.\
+It's all I ever do...
+kadri: Please forgive me.
+leave kadri [animation="Bounce Out"]
+flandre (angry): Hey! You can't just disappear like that!\
+Get back here!
+flandre: ...
+flandre (defeated): Ugh, I guess I'll just have to keep searching myself.
+flandre (neutral): If this is identical in layout to my house, then...
+flandre (happy): Yeah, let's go that way!
+leave --All--

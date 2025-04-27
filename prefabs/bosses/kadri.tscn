@@ -1,0 +1,124 @@
+[gd_scene load_steps=18 format=3 uid="uid://cx547nhtqv8qw"]
+
+[ext_resource type="PackedScene" uid="uid://q677bu5cg2qo" path="res://prefabs/bosses/boss_base.tscn" id="1_njtoi"]
+[ext_resource type="Texture2D" uid="uid://5gn6o70lxfvk" path="res://assets/combat_sprites/sprite_kadri-rebane_combat-Sheet.png" id="2_b6v0g"]
+[ext_resource type="Script" uid="uid://bh4hxryubhnlb" path="res://classes/directional_sprite.gd" id="2_dsst6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b6v0g"]
+resource_local_to_scene = true
+radius = 48.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqiru"]
+atlas = ExtResource("2_b6v0g")
+region = Rect2(0, 0, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w57mp"]
+atlas = ExtResource("2_b6v0g")
+region = Rect2(90, 0, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2p1um"]
+atlas = ExtResource("2_b6v0g")
+region = Rect2(180, 0, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r022n"]
+atlas = ExtResource("2_b6v0g")
+region = Rect2(270, 0, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrho0"]
+atlas = ExtResource("2_b6v0g")
+region = Rect2(0, 115, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqrc5"]
+atlas = ExtResource("2_b6v0g")
+region = Rect2(90, 115, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgs3l"]
+atlas = ExtResource("2_b6v0g")
+region = Rect2(180, 115, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bdvb"]
+atlas = ExtResource("2_b6v0g")
+region = Rect2(270, 115, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8jntu"]
+atlas = ExtResource("2_b6v0g")
+region = Rect2(0, 230, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw07k"]
+atlas = ExtResource("2_b6v0g")
+region = Rect2(90, 230, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y72fu"]
+atlas = ExtResource("2_b6v0g")
+region = Rect2(180, 230, 90, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojn7t"]
+atlas = ExtResource("2_b6v0g")
+region = Rect2(270, 230, 90, 115)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mqiru"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqiru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w57mp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2p1um")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r022n")
+}],
+"loop": true,
+"name": &"center",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrho0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqrc5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgs3l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bdvb")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8jntu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yw07k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y72fu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojn7t")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]
+
+[node name="Kadri" instance=ExtResource("1_njtoi")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_b6v0g")
+
+[node name="ProgressBar" parent="." index="1"]
+visible = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_mqiru")
+animation = &"right"
+script = ExtResource("2_dsst6")

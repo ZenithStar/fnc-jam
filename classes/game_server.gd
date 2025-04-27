@@ -49,6 +49,7 @@ func _ready() -> void:
 	add_child(stage)
 	
 
+
 signal pickup( type: Pickup.Type )
 
 signal score_gained( gains: int )

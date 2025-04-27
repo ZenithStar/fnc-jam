@@ -38,7 +38,7 @@ func run():
 			tween.chain().tween_callback(new_mob.queue_free)
 			await get_tree().create_timer(0.3).timeout
 		
-		var start := start_side * (-1.0 if i==1 else 1.0)
+		var start := start_side * (-1.0 if (i%2)==1 else 1.0)
 		var end : = start * -1.0
 		var height: = randf_range(min_height, max_height)
 		var height_displacement:= randf_range(50.0, 100.0)

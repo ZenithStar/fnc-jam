@@ -27,7 +27,7 @@ signal phase
 			active = value
 			set_deferred("monitorable", active)
 			if not active:
-				position = Vector2(10000.0, 10000.0) #teleport far away
+				#position = Vector2(10000.0, 10000.0) #teleport far away
 				get_tree().get_first_node_in_group("TargetServer").unregister(self)
 			else:
 				get_tree().get_first_node_in_group("TargetServer").register(self)

@@ -38,6 +38,7 @@ shader_parameter/star_move_mode = 3
 
 [sub_resource type="SphereMesh" id="SphereMesh_8ilrm"]
 material = SubResource("ShaderMaterial_aqn5g")
+radius = 0.4
 height = 0.1
 
 [node name="SpellcardVFX" type="Node3D"]

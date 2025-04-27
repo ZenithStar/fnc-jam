@@ -1,0 +1,80 @@
+Start of boss dialogue
+join flandre (neutral) left [animation="Bounce In" mirrored="true"]
+
+join ieie (neutral) right [animation="Bounce In" wait="true"]
+
+ieie: Bună seara, compatriot.
+
+ieie: 'Tis nice to meet someone from home, despite the circumstances.\
+Wouldst thee not agree, Flandre Scarlet?
+
+flandre (defeated): H--how do you know my name?
+
+ieie: Rattled by such a simple salutation, thee art not as stout as thy sister.
+
+flandre (angry): Remi! What did you do to Remi!?
+
+ieie (angry): Dost thee not have other, more important questions to ask, cel mic?
+
+ieie (defeated): Păcat, and here I had thought thee wouldst be of interest.
+
+flandre (neutral): Fine, I'll play along. Who do I have the pleasure of killing next?
+
+ieie (angry): I am not one to be known, as much as to be feared and respected.
+
+ieie (neutral): Miss Scarlet, doth thee not feel the heartstrings of home connect the two of us?\
+No sense of familiarity at all for dear Moldaviae?
+
+ieie (defeated): To think thou couldst forget so quickly... I suppose that is the power of this place, is it not?
+
+flandre (angry): What are you getting at?
+
+ieie (neutral): I will be putting it simply for thee, since thou art of a simple mind... the Scarlets have been bad shepherds of this land you call Gensokyo.
+
+ieie (angry): Freci menta, Scarlet!
+
+ieie (neutral): There is such boundless opportunity here, and you squander it.\
+We have all been forgotten by the outside world, given a chance to live once again.
+
+ieie (angry): And what do you do? You take tea with everyone, eat of the cookies and the pudding.\
+You put your feet up, you are content.
+
+ieie: Is the old fire of home gone? Dost thee not understand our station in life as spirite macabre?
+
+ieie: Making friends with the very peoples who hunt us down... ca o haită de animale turbate ... it is disgusting.
+
+ieie (neutral): Our home-- the home of myself, Jemma, Kadri-- it sits atop this one. We saw a glimpse into this place through the library and knew we had to help you see sense.
+
+ieie: We tried to talk to thy sister, but she... she made it known she would not cooperate.\
+We decided to take... alternate steps to make her comply.
+
+ieie: Stealing away the maid thy sister seems overly attached to was easier than we thought.\
+Her compliance was immediate in service of her lady.
+
+ieie (happy): Anyone who didn't comply? Well...\
+They're simply not here right now.
+
+ieie (neutral): Worry not, Scarlet, the opportunity is still there to help us restore our rightful place as leaders.\
+We are shadow creatures, but we are not meant to be in the shadows.
+
+ieie (angry): Thou knowst this well as I. This land must be scorched and made anew.\
+It needs healing.
+
+flandre (neutral): No.
+
+flandre: You have me wrong. You have this whole thing... totally wrong.
+
+flandre (angry): You have no right to tell us how to live. No one does!
+
+flandre: You stole our land, sleep in our beds! You sent all my family to who knows where, doing who knows what.\
+And what I saw outside? Who do you think you are?
+
+ieie: Someone capable of doing what needs done.\
+It is nothing personal, Scarlet. In an alternate situation, we might have been good friends.
+
+ieie (angry): Alas, the time for friendship in this matter is over.\
+Let me show you the sort of mercy I can provide.
+
+flandre (happy): You brought your own mercy, how nice. I'm fresh out for you.
+
+leave --All--
