@@ -38,6 +38,7 @@ monitorable = false
 shape = SubResource("CircleShape2D_5v0ui")
 
 [node name="PlayerBulletServer" type="Node2D" parent="." groups=["PlayerBulletServer"]]
+z_index = -2
 
 [node name="TargetServer" type="Node" parent="." groups=["TargetServer"]]
 script = ExtResource("3_qofpv")
