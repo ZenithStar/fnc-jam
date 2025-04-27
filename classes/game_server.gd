@@ -93,7 +93,7 @@ func spawn_player():
 	if _load_spawn_hack: # don't grant immune time on the very first spawn
 		player._immune_time = INF
 		_load_spawn_hack = false
-	add_child(player)
+	add_child.call_deferred(player)
 	player.tree_exited.connect(_on_player_tree_exited)
 	_player_spawn_tween = create_tween()
 	_player_spawn_tween.set_ease(Tween.EASE_OUT)

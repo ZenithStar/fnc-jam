@@ -13,6 +13,11 @@ func fade_out():
 		_fade_tween.tween_method( func(x): volume_db = linear_to_db(x), 1.0, 0.0, fade_duration )
 		_fade_tween.tween_callback(stop)
 
+func stop_music():
+	stop()
+	if _fade_tween:
+		_fade_tween.kill()
+
 func fade_to_new( song: Variant ):
 	var new_stream: AudioStream
 	if song is String or song is StringName:
